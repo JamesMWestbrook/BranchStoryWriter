@@ -13,24 +13,24 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	#if LineUser.has_node:
-		#LineUser.current_node.set_point_position(1, event.position)
-		#print(event.position)
+	print("Unhandled")
 	if event is InputEventMouseButton:
 		if event.pressed && event.button_index == 1:
-			print("Click/unclick at: ", event.position)
-			var textedit = scene_header.instantiate()
-			add_child(textedit)
-			textedit.position = event.position
-			#textedit.size.x = 60
-			#textedit.size.y = 50
-			#textedit.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
-			#textedit.scroll_fit_content_height = true
+			if LineUser.has_line:
+				var textedit = _spawn_scene(event.position)
+				var line_finish_pos = textedit.get_node("Left").global_position
+				LineUser._finish_node(line_finish_pos)
+			else:
+				_spawn_scene(event.position)
+			
 		
 
 
-
+func _spawn_scene(pos:Vector2):
+	var textedit = scene_header.instantiate()
+	add_child(textedit)
+	textedit.position = pos
+	return textedit
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	print(event.position)
-	pass # Replace with function body.

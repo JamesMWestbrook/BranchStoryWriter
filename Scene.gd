@@ -42,7 +42,15 @@ func _on_menu_button_button_down():
 
 func _on_right_button_down():
 	var line = Line2D.new()
-	$Right.add_child(line)
-	line.add_point($Right/Node2D.position)
-#	line.add_point(get_viewport().get_mouse_position())
+	get_window().add_child(line)
+	line.add_point($Right.get_global_position())
 	LineUser._assign_node(line)
+
+
+func _on_left_button_down():
+	if LineUser.has_line:
+		LineUser._finish_node($Left.get_global_position())
+
+
+func _on_write_button_down():
+	pass # Replace with function body.

@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://Main.gd" id="1_klooe"]
 [ext_resource type="PackedScene" uid="uid://c58pxtpndltn6" path="res://scene_node.tscn" id="2_tgu2c"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1rm5w"]
-size = Vector2(1152, 647)
+[ext_resource type="PackedScene" uid="uid://cx8xlabkbv0f" path="res://main_2d.tscn" id="3_bn74b"]
 
 [node name="TextType" type="Control"]
 layout_mode = 3
@@ -53,11 +51,9 @@ offset_top = 0.0
 offset_right = 325.0
 offset_bottom = 158.0
 
-[node name="Area2D" type="Area2D" parent="."]
-monitorable = false
+[node name="Main2D" parent="." instance=ExtResource("3_bn74b")]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(575, 323.5)
-shape = SubResource("RectangleShape2D_1rm5w")
-
-[connection signal="input_event" from="Area2D" to="Main" method="_on_area_2d_input_event"]
+[node name="Window" type="Window" parent="."]
+position = Vector2i(200, 200)
+size = Vector2i(500, 500)

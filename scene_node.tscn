@@ -80,5 +80,18 @@ position = Vector2(3, -2)
 scale = Vector2(0.195313, 0.195313)
 texture = ExtResource("2_alaay")
 
+[node name="Write" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.105
+anchor_right = 0.105
+offset_left = 7.875
+offset_top = 3.0
+offset_right = 58.875
+offset_bottom = 34.0
+text = "Write"
+
 [connection signal="button_down" from="MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="button_down" from="Left" to="." method="_on_left_button_down"]
 [connection signal="button_down" from="Right" to="." method="_on_right_button_down"]
+[connection signal="button_down" from="Write" to="." method="_on_write_button_down"]

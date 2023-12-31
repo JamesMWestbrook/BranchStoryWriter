@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbod0wg6xf4wa"]
+
+[ext_resource type="Script" path="res://TextToBBC.gd" id="1_7b0r4"]
+[ext_resource type="Script" path="res://EnterMove.gd" id="1_xl6wp"]
+[ext_resource type="Script" path="res://DialogEdit.gd" id="3_23ka8"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer" node_paths=PackedStringArray("NextNode")]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_next = NodePath("../../HBoxContainer2/TextEdit")
+placeholder_text = "Wow Full name"
+script = ExtResource("1_xl6wp")
+NextNode = NodePath("../../HBoxContainer2/TextEdit")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer" node_paths=PackedStringArray("Edit")]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "SpeakerName"
+script = ExtResource("1_7b0r4")
+Edit = NodePath("../LineEdit")
+
+[node name="Copy" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Cp"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Taco Bell Menu"
+wrap_mode = 1
+scroll_fit_content_height = true
+script = ExtResource("3_23ka8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer2" node_paths=PackedStringArray("Edit")]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Test"
+script = ExtResource("1_7b0r4")
+Edit = NodePath("../TextEdit")
+
+[node name="Copy" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Cp"
+
+[connection signal="text_changed" from="HBoxContainer/LineEdit" to="HBoxContainer/RichTextLabel" method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="HBoxContainer/LineEdit" to="HBoxContainer/LineEdit" method="_on_text_submitted"]
+[connection signal="text_changed" from="HBoxContainer2/TextEdit" to="HBoxContainer2/TextEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="HBoxContainer2/TextEdit" to="HBoxContainer2/RichTextLabel" method="_on_text_edit_text_changed"]
+[connection signal="text_set" from="HBoxContainer2/TextEdit" to="HBoxContainer2/TextEdit" method="_on_text_set"]
