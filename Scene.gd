@@ -1,5 +1,8 @@
 extends Panel
 
+var scene:Dictionary
+var active_scene
+@export var WritingWindowScene:PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$MenuButton.get_popup().id_pressed.connect(_resize)
@@ -36,8 +39,6 @@ func _resize_self():
 
 func _on_menu_button_button_down():
 	pass
-	#var child: PopupMenu = $MenuButton.get_child(0)
-	#child.id_pressed.connect(_resize)
 
 
 func _on_right_button_down():
@@ -53,4 +54,12 @@ func _on_left_button_down():
 
 
 func _on_write_button_down():
-	pass # Replace with function body.
+	if is_instance_valid(active_scene):
+		active_scene.show()
+	else:
+		active_scene = WritingWindowScene.instantiate()
+		add_child(active_scene)
+		active_scene.updated_dialog.connect(_update_scene.bind(active_scene.all_dialog))
+		active_scene.position = get_viewport().get_mouse_position()
+func _update_scene(_scene):
+	scene = _scene

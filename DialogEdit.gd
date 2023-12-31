@@ -21,7 +21,3 @@ func _on_text_set():
 	print("Set")
 	pass # Replace with function body.
 
-
-func _on_text_changed():
-	pass
-	pass # Replace with function body.

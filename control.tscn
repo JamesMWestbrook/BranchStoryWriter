@@ -57,3 +57,4 @@ visible = false
 [node name="Window" type="Window" parent="."]
 position = Vector2i(200, 200)
 size = Vector2i(500, 500)
+visible = false

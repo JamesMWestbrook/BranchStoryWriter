@@ -4,15 +4,10 @@ extends Window
 var all_dialog: Dictionary = {
 	"dialog":[]
 }
+signal updated_dialog(all_dialog)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var dialog = Dialog.instantiate()
-	dialog.name = "Dialog"
-	var separator = HSeparator.new()
-	$ScrollContainer/VBoxContainer.add_child(dialog)
-	$ScrollContainer/VBoxContainer.add_child(separator)
-	dialog.get_node("HBoxContainer2/TextEdit").create_dialog.connect(_create_dialog.bind(dialog))
-	pass # Replace with function body.
+	_create_dialog(null,true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,15 +17,41 @@ func _process(delta):
 
 func _on_size_changed():
 	print(size)
-	
-func _create_dialog(node):
+
+
+func _create_dialog(node, first=false):
 	var dialog = Dialog.instantiate()
 	var separator = HSeparator.new()
-	node.add_sibling(dialog)
-	node.add_sibling(separator)
+	if first:
+		$ScrollContainer/VBoxContainer.add_child(dialog)
+		$ScrollContainer/VBoxContainer.add_child(separator)
+	else:
+		node.add_sibling(dialog)
+		node.add_sibling(separator)
 	dialog.get_node("HBoxContainer2/TextEdit").create_dialog.connect(_create_dialog.bind(dialog))
-#
+	dialog.changed_dialog.connect(_update_scene_data)
+	await get_tree().process_frame
+	$ScrollContainer.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
+	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
+
 
 
 func _on_button_button_down():
 	pass # Replace with function body.
+func _update_scene_data():
+	var new_data = {
+		dialog = []
+	}
+	for child in $ScrollContainer/VBoxContainer.get_children():
+		if child is SingleDialog:
+			var new_dialog = {
+				"speaker": child.speaker,
+				"dialog": child.dialog,
+				"comment": child.comment
+			}
+			new_data.dialog.append(new_dialog)
+	all_dialog = new_data
+	updated_dialog.emit(all_dialog)
+
+func _on_close_requested():
+	hide()
