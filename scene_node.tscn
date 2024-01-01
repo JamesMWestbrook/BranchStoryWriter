@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c58pxtpndltn6"]
+[gd_scene load_steps=3 format=3 uid="uid://c58pxtpndltn6"]
 
-[ext_resource type="Script" path="res://Scene.gd" id="1_fxdli"]
 [ext_resource type="Texture2D" uid="uid://cha8m7tatsl8n" path="res://icon.svg" id="2_alaay"]
-[ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingWindow.tscn" id="2_q8xrg"]
 [ext_resource type="Script" path="res://Lines.gd" id="3_lrr5v"]
 
 [node name="SceneNode" type="Panel"]
@@ -10,8 +8,6 @@ offset_left = 169.0
 offset_top = 70.0
 offset_right = 494.0
 offset_bottom = 228.0
-script = ExtResource("1_fxdli")
-WritingWindowScene = ExtResource("2_q8xrg")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 self_modulate = Color(1, 0, 1, 1)

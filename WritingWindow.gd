@@ -5,7 +5,8 @@ var all_dialog: Array[Dictionary]
 signal updated_dialog()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_create_dialog(null,true)
+	pass
+	#_create_dialog(null,true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,7 +18,7 @@ func _on_size_changed():
 	print(size)
 
 
-func _create_dialog(node, first=false):
+func _create_dialog(node, first=false, loading = false, data = {}):
 	var dialog = Dialog.instantiate()
 	var separator = HSeparator.new()
 	if first:
@@ -31,7 +32,9 @@ func _create_dialog(node, first=false):
 	await get_tree().process_frame
 	$ScrollContainer.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
 	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
-
+	if loading:
+		if data:
+			dialog._set_text(data.speaker,data.dialog)
 
 
 func _on_button_button_down():

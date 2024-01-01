@@ -77,3 +77,13 @@ func _on_speaker_copy_button_down():
 
 func _on_dialog_copy_button_down():
 	DisplayServer.clipboard_set(dialog)
+
+
+func _set_text(speaker:String,dialog:String):
+	$HBoxContainer/LineEdit.text = speaker
+	$HBoxContainer2/TextEdit.text = dialog
+	_on_speaker_edit_text_changed(speaker)
+	_on_dialog_edit_text_changed()
+	$HBoxContainer/RichTextLabel._change_text()
+	$HBoxContainer2/RichTextLabel._change_text()
+	
