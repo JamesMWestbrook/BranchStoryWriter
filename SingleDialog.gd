@@ -20,7 +20,7 @@ func _process(delta):
 
 func _on_speaker_edit_text_changed(new_text):
 	speaker = new_text
-	
+	changed_dialog.emit()
 
 
 func _on_dialog_edit_text_changed():

@@ -1,10 +1,8 @@
 extends Window
 @export var Dialog: PackedScene
 
-var all_dialog: Dictionary = {
-	"dialog":[]
-}
-signal updated_dialog(all_dialog)
+var all_dialog: Array[Dictionary]
+signal updated_dialog()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_create_dialog(null,true)
@@ -39,9 +37,7 @@ func _create_dialog(node, first=false):
 func _on_button_button_down():
 	pass # Replace with function body.
 func _update_scene_data():
-	var new_data = {
-		dialog = []
-	}
+	all_dialog.clear()
 	for child in $ScrollContainer/VBoxContainer.get_children():
 		if child is SingleDialog:
 			var new_dialog = {
@@ -49,9 +45,8 @@ func _update_scene_data():
 				"dialog": child.dialog,
 				"comment": child.comment
 			}
-			new_data.dialog.append(new_dialog)
-	all_dialog = new_data
-	updated_dialog.emit(all_dialog)
+			all_dialog.append(new_dialog)
+	updated_dialog.emit()
 
 func _on_close_requested():
 	hide()

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cjaf30ohu3nqq"]
+
+[node name="GraphEdit" type="GraphEdit"]
+offset_right = 1144.0
+offset_bottom = 650.0
+scroll_offset = Vector2(-341, -244)

@@ -1,8 +1,10 @@
 extends Panel
 
-var scene:Dictionary
-var active_scene
+var scene:Array
+var active_window
 @export var WritingWindowScene:PackedScene
+
+var connected_scenes:Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$MenuButton.get_popup().id_pressed.connect(_resize)
@@ -45,21 +47,22 @@ func _on_right_button_down():
 	var line = Line2D.new()
 	get_window().add_child(line)
 	line.add_point($Right.get_global_position())
-	LineUser._assign_node(line)
+	LineUser._assign_node(line,self)
 
 
 func _on_left_button_down():
-	if LineUser.has_line:
-		LineUser._finish_node($Left.get_global_position())
+	if LineUser.has_line and LineUser.current_parent != self:
+		#LineUser.current_parent.connected_scenes.append(self)
+		LineUser._finish_node($Left.get_global_position(),self)
 
 
 func _on_write_button_down():
-	if is_instance_valid(active_scene):
-		active_scene.show()
+	if is_instance_valid(active_window):
+		active_window.show()
 	else:
-		active_scene = WritingWindowScene.instantiate()
-		add_child(active_scene)
-		active_scene.updated_dialog.connect(_update_scene.bind(active_scene.all_dialog))
-		active_scene.position = get_viewport().get_mouse_position()
-func _update_scene(_scene):
-	scene = _scene
+		active_window = WritingWindowScene.instantiate()
+		add_child(active_window)
+		active_window.updated_dialog.connect(_update_scene)
+		active_window.position = get_viewport().get_mouse_position()
+func _update_scene():
+	scene = active_window.all_dialog
