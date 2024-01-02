@@ -10,7 +10,7 @@ func _ready():
 	pass
 
 
-func _on_write_button_down():
+func _on_write_button_down(loading: bool = false):
 	if is_instance_valid(active_window):
 		active_window.show()
 	else:
@@ -18,6 +18,7 @@ func _on_write_button_down():
 		add_child(active_window)
 		active_window.updated_dialog.connect(_update_scene)
 		active_window.position = get_viewport().get_mouse_position()
-		active_window._create_dialog(null,true)
+		if !loading:
+			active_window._create_dialog(null,true)
 func _update_scene():
 	scene = active_window.all_dialog

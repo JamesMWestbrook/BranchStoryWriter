@@ -61,7 +61,7 @@ grow_vertical = 2
 text = "X"
 
 [node name="OpenFile" type="FileDialog" parent="TitleBar"]
-title = "Open a File- be wary opening up other people's files"
+title = "Open a File"
 initial_position = 1
 size = Vector2i(500, 500)
 ok_button_text = "Open"

@@ -56,7 +56,7 @@ func _on_load_button_down():
 		node.name = child.name
 		node.title = child.title
 		node.get_node("TextEdit").text = child.title
-		node._on_write_button_down()
+		node._on_write_button_down(true)
 		node.get_node("Window").hide()
 		for dialog in child.dialogs:
 			node.get_node("Window")._create_dialog(null,true,true,dialog)
