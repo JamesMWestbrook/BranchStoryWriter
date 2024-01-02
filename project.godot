@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="RPG_Writer"
+run/main_scene="res://graph_edit.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Settings="*res://settings_window.tscn"
+
+[editor]
+
+export/convert_text_resources_to_binary=false
 
 [rendering]
 
