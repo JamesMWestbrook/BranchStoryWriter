@@ -17,8 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LineUser="*res://LineUser.gd"
-Main2d="*res://main_2d.tscn"
+Settings="*res://settings_window.tscn"
 
 [editor]
 

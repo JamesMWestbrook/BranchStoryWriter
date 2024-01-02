@@ -5,13 +5,10 @@ var initial_position = Vector2(40,40)
 var node_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+	Settings.update_theme.connect(_update_theme) 
+	await get_tree().create_timer(0.01).timeout
+	if Settings.configdata.autoOpen and Settings.configdata.save_path != "":
+		_on_load_button_down()
 
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
@@ -34,19 +31,24 @@ func _on_list_button_down():
 
 
 func _on_save_button_down():
+	if Settings.configdata.save_path == "":
+		$TitleBar/SaveNamePopup.show()
+	else:
+		_save()
+		
+func _save():
 	var data = SaveData.new()
 	data.node_connections = $GraphEdit.get_connection_list()
 	
 	for child in $GraphEdit.get_children():
 		if child is GraphNode:
 			data._create_scene(child)
-	data.save()
-
+	data.save(Settings.configdata.save_path)
 
 func _on_load_button_down():
 	for child in $GraphEdit.get_children():
 		child.queue_free()
-	var data = SaveData.load()
+	var data = SaveData.load(Settings.configdata.save_path)
 	for child in data.all_nodes:
 		child.name.replace("@","_")
 		var node:GraphNode = graph_node.instantiate()
@@ -66,5 +68,28 @@ func _on_load_button_down():
 		
 func _on_select_all_button_down():
 	$GraphEdit.arrange_nodes()
-	#for child in $GraphEdit.get_children():
-		#$GraphEdit.set_selected(child)
+	
+func _update_theme(_theme):
+	theme = _theme
+
+
+func _on_save_file_file_selected(path):
+	Settings.configdata.save_path = path
+	_save()
+
+
+func _on_title_bar_open_file():
+	$TitleBar/OpenFile.show()
+
+
+func _on_open_file_file_selected(path):
+	Settings._set_save(path)
+	_on_load_button_down()
+
+
+func _on_title_bar_save_and_quit():
+	if Settings.configdata.save_path == "":
+		$TitleBar/SaveNamePopup.show()
+	else:
+		_save()
+		$TitleBar._on_close_button_down()

@@ -12,12 +12,6 @@ var comment:bool = false
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_speaker_edit_text_changed(new_text):
 	speaker = new_text
 	changed_dialog.emit()
@@ -79,10 +73,10 @@ func _on_dialog_copy_button_down():
 	DisplayServer.clipboard_set(dialog)
 
 
-func _set_text(speaker:String,dialog:String):
-	$HBoxContainer/LineEdit.text = speaker
-	$HBoxContainer2/TextEdit.text = dialog
-	_on_speaker_edit_text_changed(speaker)
+func _set_text(set_speaker:String,set_dialog:String):
+	$HBoxContainer/LineEdit.text = set_speaker
+	$HBoxContainer2/TextEdit.text = set_dialog
+	_on_speaker_edit_text_changed(set_speaker)
 	_on_dialog_edit_text_changed()
 	$HBoxContainer/RichTextLabel._change_text()
 	$HBoxContainer2/RichTextLabel._change_text()
