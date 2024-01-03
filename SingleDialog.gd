@@ -78,7 +78,6 @@ func _set_text(set_speaker:String,set_dialog:String):
 	$HBoxContainer2/TextEdit.text = set_dialog
 	_on_speaker_edit_text_changed(set_speaker)
 	_on_dialog_edit_text_changed()
-	$HBoxContainer/RichTextLabel._change_text()
 	$HBoxContainer2/RichTextLabel._change_text()
 
 func _on_delete_button_down():

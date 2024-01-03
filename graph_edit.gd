@@ -73,6 +73,7 @@ func _save():
 	data.characters = Settings.characters
 		
 	data.save(Settings.configdata.save_path)
+	Settings.configdata._save()
 	$TitleBar/SavedNotifyPanel.show()
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()

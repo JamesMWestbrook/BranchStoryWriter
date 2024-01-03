@@ -11,8 +11,9 @@ var characters:Array[String]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	configdata = ConfigData._load()
-	_on_theme_option_item_selected(configdata.theme)
+	if ResourceLoader.exists(configdata.config_path):
+		configdata = ConfigData._load()
+		_on_theme_option_item_selected(configdata.theme)
 	
 	if !configdata.autoOpen:
 		configdata.save_path = ""
