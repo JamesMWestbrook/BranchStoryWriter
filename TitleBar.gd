@@ -12,18 +12,19 @@ signal open_file
 
 func _onTitleBar_gui_input(event):
 	pass # Replace with function body.
-	if event is InputEventMouseButton:
-		if event.get_button_index() == 1:
-			following = !following
-			dragging_start_position = get_local_mouse_position()
+	#if event is InputEventMouseButton:
+		#if event.get_button_index() == 1:
+			#following = !following
+			#dragging_start_position = get_local_mouse_position()
 
 
 func _process(_delta):
-	if following:
-		DisplayServer.window_set_position(
-			Vector2(DisplayServer.window_get_position()) + get_global_mouse_position()
-			- dragging_start_position
-		)
+	#if following:
+		#DisplayServer.window_set_position(
+			#Vector2(DisplayServer.window_get_position()) + get_global_mouse_position()
+			#- dragging_start_position
+		#)
+	pass
 
 
 func _on_close_button_down():

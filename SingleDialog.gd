@@ -23,6 +23,8 @@ func _on_dialog_edit_text_changed():
 
 
 func _on_gui_input(event):
+
+		
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			0:
