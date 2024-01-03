@@ -1,7 +1,7 @@
 extends Window
 
 signal update_theme(theme)
-
+signal reset_timer()
 @export var dark_theme:Theme
 @export var light_theme:Theme
 
@@ -14,7 +14,8 @@ func _ready():
 	configdata = ConfigData._load()
 	_on_theme_option_item_selected(configdata.theme)
 	
-
+	if !configdata.autoOpen:
+		configdata.save_path = ""
 	
 	$VBoxContainer/HBoxContainer3/CheckBox.button_pressed = configdata.autosave
 	$VBoxContainer/HBoxContainer3/SpinBox.value = configdata.interval
@@ -60,6 +61,8 @@ func _save_config():
 
 func _on_autosave_toggled(toggled_on):
 	configdata.autosave = toggled_on
+	if toggled_on:
+		reset_timer.emit()
 
 
 func _on_spin_box_value_changed(value):

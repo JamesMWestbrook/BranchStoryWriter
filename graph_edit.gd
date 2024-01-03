@@ -4,13 +4,34 @@ extends VBoxContainer
 var initial_position = Vector2(40,40)
 var node_index = 0
 
+var time_left:float
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	time_left = 666
 	Settings.update_theme.connect(_update_theme) 
 	await get_tree().create_timer(0.01).timeout
 	if Settings.configdata.autoOpen and Settings.configdata.save_path != "":
 		_on_load_button_down()
+	if Settings.configdata.autosave:
+		time_left = Settings.configdata.interval
+	Settings.reset_timer.connect(_reset_time_left)
+	_reset_time_left()
 
+func _process(delta):
+	if Input.is_action_just_pressed("SaveAs"):
+		$TitleBar/SaveFile.show()
+	elif Input.is_action_just_pressed("Save"):
+		_on_save_button_down()	
+	elif Input.is_action_just_pressed("Open"):
+		_on_title_bar_open_file()
+	
+	if Settings.configdata.autosave:
+		time_left -= delta
+		if time_left <= 0:
+			_save()
+			_reset_time_left()
+func _reset_time_left():
+	time_left = Settings.configdata.interval * 60
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
 	node.position_offset  = $GraphEdit.scroll_offset / $GraphEdit.zoom
@@ -52,6 +73,9 @@ func _save():
 	data.characters = Settings.characters
 		
 	data.save(Settings.configdata.save_path)
+	$TitleBar/SavedNotifyPanel.show()
+	await get_tree().create_timer(2).timeout
+	$TitleBar/SavedNotifyPanel.hide()
 
 func _on_load_button_down():
 	for child in $GraphEdit.get_children():
@@ -66,8 +90,11 @@ func _on_load_button_down():
 		node.get_node("TextEdit").text = child.title
 		node._on_write_button_down(true)
 		node.get_node("Window").hide()
-		for dialog in child.dialogs:
-			node.get_node("Window")._create_dialog(null,true,true,dialog)
+		if !child.dialogs.is_empty():
+			for dialog in child.dialogs:
+				node.get_node("Window")._create_dialog(null,true,true,dialog)
+		else:
+				node.get_node("Window")._create_dialog(null,true)
 	for conn in data.node_connections:
 		conn.from_node = conn.from_node.replace("@","_")
 		conn.to_node = conn.to_node.replace("@","_")

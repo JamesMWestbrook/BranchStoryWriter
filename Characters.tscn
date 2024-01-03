@@ -6,6 +6,7 @@
 [node name="Window" type="Window"]
 initial_position = 2
 size = Vector2i(500, 500)
+visible = false
 script = ExtResource("1_6scwl")
 CharacterLine = ExtResource("2_johcl")
 
