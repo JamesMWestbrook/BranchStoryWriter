@@ -14,10 +14,6 @@ func _process(_delta):
 	pass
 
 
-func _on_size_changed():
-	print(size)
-
-
 func _create_dialog(node, first=false, loading = false, data = {}):
 	var dialog = Dialog.instantiate()
 	var separator = HSeparator.new()
@@ -29,6 +25,7 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 		node.add_sibling(separator)
 	dialog.get_node("HBoxContainer2/TextEdit").create_dialog.connect(_create_dialog.bind(dialog))
 	dialog.changed_dialog.connect(_update_scene_data)
+	dialog.tree_exited.connect(_update_scene_data)
 	await get_tree().process_frame
 	$ScrollContainer.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
 	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
@@ -39,6 +36,8 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 
 func _on_button_button_down():
 	pass # Replace with function body.
+	
+	
 func _update_scene_data():
 	all_dialog.clear()
 	for child in $ScrollContainer/VBoxContainer.get_children():

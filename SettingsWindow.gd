@@ -6,6 +6,9 @@ signal update_theme(theme)
 @export var light_theme:Theme
 
 var configdata:ConfigData = ConfigData.new()
+
+var characters:Array[String]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	configdata = ConfigData._load()

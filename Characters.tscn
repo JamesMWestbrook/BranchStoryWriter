@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://0abfv2n2a0ma"]
+
+[ext_resource type="Script" path="res://Characters.gd" id="1_6scwl"]
+[ext_resource type="PackedScene" uid="uid://b3is2c3ad72tg" path="res://character_line.tscn" id="2_johcl"]
+
+[node name="Window" type="Window"]
+initial_position = 2
+size = Vector2i(500, 500)
+script = ExtResource("1_6scwl")
+CharacterLine = ExtResource("2_johcl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(215, 0)
+layout_mode = 2
+placeholder_text = "New Character Name"
+
+[node name="Add Character" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Characters" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterLine" parent="VBoxContainer/ScrollContainer/Characters" instance=ExtResource("2_johcl")]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/Add Character" to="." method="_on_add_character_button_down"]

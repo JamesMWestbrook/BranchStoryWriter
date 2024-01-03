@@ -11,7 +11,7 @@ const config_path:String = "user://Config.tres"
 @export var export:String
 @export var theme:int
 
-
+@export var folder_path:String
 @export var save_path:String:
 	get:
 		return save_path

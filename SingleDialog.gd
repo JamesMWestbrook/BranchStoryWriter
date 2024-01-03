@@ -80,4 +80,6 @@ func _set_text(set_speaker:String,set_dialog:String):
 	_on_dialog_edit_text_changed()
 	$HBoxContainer/RichTextLabel._change_text()
 	$HBoxContainer2/RichTextLabel._change_text()
-	
+
+func _on_delete_button_down():
+	queue_free()

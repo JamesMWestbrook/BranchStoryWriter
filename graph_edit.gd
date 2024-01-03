@@ -3,6 +3,7 @@ extends VBoxContainer
 @export var graph_node:PackedScene
 var initial_position = Vector2(40,40)
 var node_index = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Settings.update_theme.connect(_update_theme) 
@@ -14,9 +15,14 @@ func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
 	node.position_offset  = $GraphEdit.scroll_offset / $GraphEdit.zoom
 	$GraphEdit.add_child(node)
+	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
 	node_index += 1
+	
 
-
+func _remove_node(node:GraphNode):
+	var _name = node.name
+	var list = $GraphEdit.get_connection_list()
+	pass
 func _on_graph_edit_connection_request(from_node, from_port, to_node, to_port):
 	$GraphEdit.connect_node(from_node, from_port, to_node, to_port)
 
@@ -39,10 +45,12 @@ func _on_save_button_down():
 func _save():
 	var data = SaveData.new()
 	data.node_connections = $GraphEdit.get_connection_list()
-	
 	for child in $GraphEdit.get_children():
 		if child is GraphNode:
 			data._create_scene(child)
+	
+	data.characters = Settings.characters
+		
 	data.save(Settings.configdata.save_path)
 
 func _on_load_button_down():
@@ -64,6 +72,9 @@ func _on_load_button_down():
 		conn.from_node = conn.from_node.replace("@","_")
 		conn.to_node = conn.to_node.replace("@","_")
 		$GraphEdit.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
+	
+	Settings.characters = data.characters
+	$TitleBar/HBoxContainer/Characters/Window._generate_list()
 	$GraphEdit.arrange_nodes()
 		
 func _on_select_all_button_down():
@@ -93,3 +104,4 @@ func _on_title_bar_save_and_quit():
 	else:
 		_save()
 		$TitleBar._on_close_button_down()
+
