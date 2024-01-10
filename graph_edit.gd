@@ -88,14 +88,15 @@ func _on_load_button_down():
 		$GraphEdit.add_child(node)
 		node.name = child.name
 		node.title = child.title
-		node.get_node("TextEdit").text = child.title
+		node.scene_desc_edit.text = child.description
+		node.title_edit.text = child.title
 		node._on_write_button_down(true)
-		node.get_node("Window").hide()
+		node.active_window.hide()
 		if !child.dialogs.is_empty():
 			for dialog in child.dialogs:
-				node.get_node("Window")._create_dialog(null,true,true,dialog)
+				node.active_window._create_dialog(null,true,true,dialog)
 		else:
-				node.get_node("Window")._create_dialog(null,true)
+				node.active_window._create_dialog(null,true)
 	for conn in data.node_connections:
 		conn.from_node = conn.from_node.replace("@","_")
 		conn.to_node = conn.to_node.replace("@","_")

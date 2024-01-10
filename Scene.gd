@@ -4,6 +4,9 @@ var scene:Array
 var active_window
 @export var WritingWindowScene:PackedScene
 
+@onready var title_edit = $TitleEdit
+@onready var scene_desc_edit:TextEdit = $DescEdit
+
 var connected_scenes:Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,8 +24,11 @@ func _on_write_button_down(loading: bool = false):
 		if !loading:
 			active_window._create_dialog(null,true)
 		active_window.scene_title = title
+		
+		
 func _update_scene():
 	scene = active_window.all_dialog
+	$WordCount.text = "Word Count: " +str(active_window.word_count)
 
 
 func _on_text_edit_text_changed(new_text):

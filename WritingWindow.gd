@@ -2,6 +2,7 @@ extends Window
 @export var Dialog: PackedScene
 var scene_title:String
 var all_dialog: Array[Dictionary]
+var word_count
 signal updated_dialog()
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,7 +49,7 @@ func _update_scene_data():
 				"comment": child.comment
 			}
 			all_dialog.append(new_dialog)
-	var word_count:int	
+	word_count = 0
 	for i in all_dialog:
 		var dialog:String = i.dialog.replacen(".","")
 		word_count += dialog.split(" ", false).size()
