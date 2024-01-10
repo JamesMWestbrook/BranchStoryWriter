@@ -8,7 +8,7 @@ class_name SaveData
 func _create_scene(node):
 	var scene: Dictionary = {}
 	scene.name = node.name
-	scene.title = node.get_node("TextEdit").text
+	scene.title = node.get_node("TitleEdit").text
 	scene.dialogs = node.scene
 	all_nodes.append(scene)
 

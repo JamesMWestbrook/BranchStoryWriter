@@ -78,6 +78,8 @@ func _on_dialog_copy_button_down():
 func _set_text(set_speaker:String,set_dialog:String):
 	$HBoxContainer/LineEdit.text = set_speaker
 	$HBoxContainer2/TextEdit.text = set_dialog
+	$HBoxContainer/RichTextLabel.text = set_speaker
+	$HBoxContainer2/RichTextLabel.text = set_dialog
 	_on_speaker_edit_text_changed(set_speaker)
 	_on_dialog_edit_text_changed()
 	$HBoxContainer2/RichTextLabel._change_text()

@@ -20,5 +20,13 @@ func _on_write_button_down(loading: bool = false):
 		active_window.position = get_viewport().get_mouse_position()
 		if !loading:
 			active_window._create_dialog(null,true)
+		active_window.scene_title = title
 func _update_scene():
 	scene = active_window.all_dialog
+
+
+func _on_text_edit_text_changed(new_text):
+	title = new_text
+	if is_instance_valid(active_window):
+		active_window.scene_title = title
+		active_window._update_scene_data()
