@@ -89,6 +89,7 @@ func _on_load_button_down():
 		node.name = child.name
 		node.title = child.title
 		node.scene_desc_edit.text = child.description
+		node.position_offset = child.position_offset
 		node.title_edit.text = child.title
 		node._on_write_button_down(true)
 		node.active_window.hide()
@@ -104,7 +105,7 @@ func _on_load_button_down():
 	
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
-	$GraphEdit.arrange_nodes()
+	#$GraphEdit.arrange_nodes()
 		
 func _on_select_all_button_down():
 	$GraphEdit.arrange_nodes()

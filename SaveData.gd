@@ -11,6 +11,7 @@ func _create_scene(node):
 	scene.title = node.title_edit.text
 	scene.description = node.scene_desc_edit.text
 	scene.dialogs = node.scene
+	scene.position_offset = node.position_offset
 	all_nodes.append(scene)
 
 func save(path):
