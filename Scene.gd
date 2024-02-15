@@ -6,7 +6,7 @@ var active_window
 
 @onready var title_edit = $TitleEdit
 @onready var scene_desc_edit:TextEdit = $DescEdit
-
+@onready var WordCount:Label = $WordCount
 var connected_scenes:Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +28,7 @@ func _on_write_button_down(loading: bool = false):
 		
 func _update_scene():
 	scene = active_window.all_dialog
-	$WordCount.text = "Word Count: " +str(active_window.word_count)
+	WordCount.text = "Word Count: " +str(active_window.word_count)
 
 
 func _on_text_edit_text_changed(new_text):

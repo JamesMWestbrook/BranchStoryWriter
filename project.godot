@@ -14,6 +14,7 @@ config/name="RPG_Writer"
 run/main_scene="res://graph_edit.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

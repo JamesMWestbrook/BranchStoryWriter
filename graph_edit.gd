@@ -4,18 +4,22 @@ extends VBoxContainer
 var initial_position = Vector2(40,40)
 var node_index = 0
 
-var time_left:float
+var save_time_left:float
+var second_timer:float
+@onready var WordCount:Label = $TitleBar/WordCount
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	time_left = 666
+	save_time_left = 666
 	Settings.update_theme.connect(_update_theme) 
 	await get_tree().create_timer(0.01).timeout
 	if Settings.configdata.autoOpen and Settings.configdata.save_path != "":
 		_on_load_button_down()
 	if Settings.configdata.autosave:
-		time_left = Settings.configdata.interval
+		save_time_left = Settings.configdata.interval
 	Settings.reset_timer.connect(_reset_time_left)
 	_reset_time_left()
+	await get_tree().create_timer(0.01).timeout
+	_word_count()
 
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
@@ -26,12 +30,16 @@ func _process(delta):
 		_on_title_bar_open_file()
 	
 	if Settings.configdata.autosave:
-		time_left -= delta
-		if time_left <= 0:
+		save_time_left -= delta
+		if save_time_left <= 0:
 			_save()
 			_reset_time_left()
+	second_timer += delta
+	if second_timer > 1:
+		_word_count()
+	
 func _reset_time_left():
-	time_left = Settings.configdata.interval * 60
+	save_time_left = Settings.configdata.interval * 60
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
 	node.position_offset  = $GraphEdit.scroll_offset / $GraphEdit.zoom
@@ -89,7 +97,8 @@ func _on_load_button_down():
 		node.name = child.name
 		node.title = child.title
 		node.scene_desc_edit.text = child.description
-		node.position_offset = child.position_offset
+		if child.has("position_offset"):
+			node.position_offset = child.position_offset
 		node.title_edit.text = child.title
 		node._on_write_button_down(true)
 		node.active_window.hide()
@@ -134,4 +143,12 @@ func _on_title_bar_save_and_quit():
 	else:
 		_save()
 		$TitleBar._on_close_button_down()
-
+func _word_count():
+	var count:int = 0
+	for child in $GraphEdit.get_children():
+		if child is GraphNode:
+			var string:String = child.WordCount.text
+			string = string.lstrip("Word Count: ")
+			var child_count:int = string.to_int()
+			count += child_count
+	WordCount.text = "Word Count: " + str(count)
