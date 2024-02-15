@@ -62,6 +62,15 @@ slot/5/right_type = 0
 slot/5/right_color = Color(1, 1, 1, 1)
 slot/5/right_icon = null
 slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = false
+slot/6/right_type = 0
+slot/6/right_color = Color(1, 1, 1, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
 script = ExtResource("1_tycku")
 WritingWindowScene = ExtResource("2_t2jnn")
 
@@ -89,5 +98,18 @@ layout_mode = 2
 [node name="WordCount" type="Label" parent="."]
 layout_mode = 2
 
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Delete Scene?"
+initial_position = 4
+
 [connection signal="pressed" from="Write" to="." method="_on_write_button_down"]
 [connection signal="text_changed" from="TitleEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]
+[connection signal="canceled" from="ConfirmationDialog" to="ConfirmationDialog" method="hide"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="clear_all_slots"]

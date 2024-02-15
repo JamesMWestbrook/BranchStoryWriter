@@ -36,3 +36,8 @@ func _on_text_edit_text_changed(new_text):
 	if is_instance_valid(active_window):
 		active_window.scene_title = title
 		active_window._update_scene_data()
+
+
+func _on_confirmation_delete_dialog_confirmed():
+	pass
+	pass # Replace with function body.
