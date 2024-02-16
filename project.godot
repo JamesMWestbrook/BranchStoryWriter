@@ -20,6 +20,10 @@ config/windows_native_icon="res://icon.ico"
 
 Settings="*res://settings_window.tscn"
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [dotnet]
 
 project/assembly_name="RPG_Writer"

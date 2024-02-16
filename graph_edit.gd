@@ -152,3 +152,4 @@ func _word_count():
 			var child_count:int = string.to_int()
 			count += child_count
 	WordCount.text = "Word Count: " + str(count)
+
