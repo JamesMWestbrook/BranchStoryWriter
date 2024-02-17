@@ -6,11 +6,6 @@ func _ready():
 	hide()
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_add_character_button_down():
 	_on_line_edit_text_submitted($VBoxContainer/HBoxContainer/LineEdit.text)
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=7 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_yhdet"]
 [ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_wq605"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_hmfxg"]
 [ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_j2imw"]
+[ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_yinnm"]
+[ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_uecwi"]
 
 [node name="VBoxContainer" type="VBoxContainer"]
 anchors_preset = 15
@@ -30,17 +32,19 @@ grow_vertical = 2
 [node name="MenuButton" type="MenuButton" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
 text = "File"
-item_count = 5
+item_count = 6
 popup/item_0/text = "Save"
 popup/item_0/id = 0
-popup/item_1/text = "Open"
-popup/item_1/id = 4
-popup/item_2/text = "Save As"
-popup/item_2/id = 1
-popup/item_3/text = "Save and Quit"
-popup/item_3/id = 2
-popup/item_4/text = "Quit Without Saving"
-popup/item_4/id = 3
+popup/item_1/text = "New"
+popup/item_1/id = 5
+popup/item_2/text = "Open"
+popup/item_2/id = 4
+popup/item_3/text = "Save As"
+popup/item_3/id = 1
+popup/item_4/text = "Save and Quit"
+popup/item_4/id = 2
+popup/item_5/text = "Quit Without Saving"
+popup/item_5/id = 3
 
 [node name="SettingsButton" type="Button" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
@@ -161,10 +165,26 @@ layout_mode = 2
 text = "SelectAll
 "
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
+[node name="SplitContainer" type="SplitContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="GraphEdit" type="GraphEdit" parent="SplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 right_disconnects = true
+
+[node name="WritingPanel" parent="SplitContainer" instance=ExtResource("5_yinnm")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WritingWindow" parent="." instance=ExtResource("6_uecwi")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="gui_input" from="TitleBar" to="TitleBar" method="_onTitleBar_gui_input"]
 [connection signal="open_file" from="TitleBar" to="." method="_on_title_bar_open_file"]
@@ -185,5 +205,5 @@ right_disconnects = true
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]
-[connection signal="connection_request" from="GraphEdit" to="." method="_on_graph_edit_connection_request"]
-[connection signal="disconnection_request" from="GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
+[connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
+[connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]

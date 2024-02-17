@@ -20,6 +20,10 @@ const config_path:String = "user://Config.tres"
 @export var autosave:bool
 @export var interval:int
 
+
+@export var popout:bool
+
+
 func _save():
 	ResourceSaver.save(self,config_path)
 	

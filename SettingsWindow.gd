@@ -2,6 +2,7 @@ extends Window
 
 signal update_theme(theme)
 signal reset_timer()
+signal set_window()
 @export var dark_theme:Theme
 @export var light_theme:Theme
 
@@ -22,11 +23,8 @@ func _ready():
 	$VBoxContainer/HBoxContainer3/CheckBox.button_pressed = configdata.autosave
 	$VBoxContainer/HBoxContainer3/SpinBox.value = configdata.interval
 	$VBoxContainer/AutoOpen.button_pressed = configdata.autoOpen
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+	%PopoutCheckBox.button_pressed = configdata.popout
+	
 func _load_defaults():
 	pass
 func _on_theme_option_item_selected(index):
@@ -65,14 +63,20 @@ func _on_autosave_toggled(toggled_on):
 	configdata.autosave = toggled_on
 	if toggled_on:
 		reset_timer.emit()
-
+	_save_config()
 
 func _on_spin_box_value_changed(value):
 	configdata.interval = value
-
+	_save_config()
 
 func _on_auto_open_toggled(toggled_on):
 	configdata.autoOpen = toggled_on
-
+	_save_config()
 func _set_save(path):
 	configdata.save_path = path
+	_save_config()
+
+func _on_popout_check_box_toggled(toggled_on):
+	configdata.popout = toggled_on
+	set_window.emit()
+	_save_config()

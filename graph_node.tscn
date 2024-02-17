@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhcbreqqqh448"]
+[gd_scene load_steps=2 format=3 uid="uid://dhcbreqqqh448"]
 
 [ext_resource type="Script" path="res://Scene.gd" id="1_tycku"]
-[ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingWindow.tscn" id="2_t2jnn"]
 
 [node name="GraphNode" type="GraphNode"]
 offset_right = 219.0
@@ -72,7 +71,6 @@ slot/6/right_color = Color(1, 1, 1, 1)
 slot/6/right_icon = null
 slot/6/draw_stylebox = true
 script = ExtResource("1_tycku")
-WritingWindowScene = ExtResource("2_t2jnn")
 
 [node name="Write" type="Button" parent="."]
 layout_mode = 2

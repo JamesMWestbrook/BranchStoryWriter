@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://SaveData.gd" id="1_38ba2"]
+
+[resource]
+script = ExtResource("1_38ba2")
+node_connections = Array[Dictionary]([])
+all_nodes = Array[Dictionary]([])
+characters = Array[String](["Gomero", "Hero", "Drowdn", "Goblin Father"])

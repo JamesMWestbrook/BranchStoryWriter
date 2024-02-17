@@ -10,14 +10,6 @@ signal save_and_quit
 signal quit_no_save
 signal open_file
 
-func _onTitleBar_gui_input(event):
-	pass # Replace with function body.
-	#if event is InputEventMouseButton:
-		#if event.get_button_index() == 1:
-			#following = !following
-			#dragging_start_position = get_local_mouse_position()
-
-
 func _process(_delta):
 	#if following:
 		#DisplayServer.window_set_position(
@@ -56,3 +48,6 @@ func _file_option_chosen(id:int):
 			quit_no_save.emit()
 		4:
 			open_file.emit()
+		5:
+			Settings.configdata.save_path = ""
+			LemonUtils.ClearChildren(%GraphEdit)

@@ -9,6 +9,8 @@ var second_timer:float
 @onready var WordCount:Label = $TitleBar/WordCount
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	Globals.Loading = true
 	save_time_left = 666
 	Settings.update_theme.connect(_update_theme) 
 	await get_tree().create_timer(0.01).timeout
@@ -20,7 +22,10 @@ func _ready():
 	_reset_time_left()
 	await get_tree().create_timer(0.01).timeout
 	_word_count()
-
+	Globals.Loading = false
+	Settings.set_window.connect(_set_window)
+	_set_window()
+		
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
 		$TitleBar/SaveFile.show()
@@ -42,26 +47,26 @@ func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
-	node.position_offset  = $GraphEdit.scroll_offset / $GraphEdit.zoom
-	$GraphEdit.add_child(node)
+	node.position_offset  = %GraphEdit.scroll_offset / %GraphEdit.zoom
+	%GraphEdit.add_child(node)
 	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
 	node_index += 1
 	
 
 func _remove_node(node:GraphNode):
 	var _name = node.name
-	var list = $GraphEdit.get_connection_list()
-	pass
+	var _list = %GraphEdit.get_connection_list()
+	
 func _on_graph_edit_connection_request(from_node, from_port, to_node, to_port):
-	$GraphEdit.connect_node(from_node, from_port, to_node, to_port)
+	%GraphEdit.connect_node(from_node, from_port, to_node, to_port)
 
 
 func _on_graph_edit_disconnection_request(from_node, from_port, to_node, to_port):
-	$GraphEdit.disconnect_node(from_node, from_port, to_node, to_port)
+	%GraphEdit.disconnect_node(from_node, from_port, to_node, to_port)
 
 
 func _on_list_button_down():
-	var list = $GraphEdit.get_connection_list()
+	var list = %GraphEdit.get_connection_list()
 	print(list)
 
 
@@ -73,8 +78,8 @@ func _on_save_button_down():
 		
 func _save():
 	var data = SaveData.new()
-	data.node_connections = $GraphEdit.get_connection_list()
-	for child in $GraphEdit.get_children():
+	data.node_connections = %GraphEdit.get_connection_list()
+	for child in %GraphEdit.get_children():
 		if child is GraphNode:
 			data._create_scene(child)
 	
@@ -87,37 +92,42 @@ func _save():
 	$TitleBar/SavedNotifyPanel.hide()
 
 func _on_load_button_down():
-	for child in $GraphEdit.get_children():
+	for child in %GraphEdit.get_children():
 		child.queue_free()
 	var data = SaveData.load(Settings.configdata.save_path)
 	for child in data.all_nodes:
 		child.name.replace("@","_")
 		var node:GraphNode = graph_node.instantiate()
-		$GraphEdit.add_child(node)
+		%GraphEdit.add_child(node)
 		node.name = child.name
 		node.title = child.title
+		if !child.dialogs.is_empty():
+			for i in child.dialogs:
+				node.scene.append(i)
+			#node.scene = child.dialogs
+			
 		node.scene_desc_edit.text = child.description
 		if child.has("position_offset"):
 			node.position_offset = child.position_offset
 		node.title_edit.text = child.title
-		node._on_write_button_down(true)
-		node.active_window.hide()
-		if !child.dialogs.is_empty():
-			for dialog in child.dialogs:
-				node.active_window._create_dialog(null,true,true,dialog)
-		else:
-				node.active_window._create_dialog(null,true)
+		#node._on_write_button_down()
+		#node.active_window.hide()
+		#if !child.dialogs.is_empty():
+			#for dialog in child.dialogs:
+				#node.active_window._create_dialog(null,true,true,dialog)
+		#else:
+				#node.active_window._create_dialog(null,true)
 	for conn in data.node_connections:
 		conn.from_node = conn.from_node.replace("@","_")
 		conn.to_node = conn.to_node.replace("@","_")
-		$GraphEdit.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
+		%GraphEdit.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
 	
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
-	#$GraphEdit.arrange_nodes()
+	#%GraphEdit.arrange_nodes()
 		
 func _on_select_all_button_down():
-	$GraphEdit.arrange_nodes()
+	%GraphEdit.arrange_nodes()
 	
 func _update_theme(_theme):
 	theme = _theme
@@ -145,7 +155,7 @@ func _on_title_bar_save_and_quit():
 		$TitleBar._on_close_button_down()
 func _word_count():
 	var count:int = 0
-	for child in $GraphEdit.get_children():
+	for child in %GraphEdit.get_children():
 		if child is GraphNode:
 			var string:String = child.WordCount.text
 			string = string.lstrip("Word Count: ")
@@ -153,3 +163,14 @@ func _word_count():
 			count += child_count
 	WordCount.text = "Word Count: " + str(count)
 
+func _set_window():
+	if Settings.configdata.popout:
+		Globals.WritingPanel = %WritingWindow/Window
+		%WritingWindow.show()
+		%WritingPanel.hide()
+		
+	else:
+		Globals.WritingPanel = %WritingPanel
+		%WritingPanel.show()
+		%WritingWindow.hide()
+		

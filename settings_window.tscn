@@ -6,9 +6,9 @@
 
 [node name="SettingsWindow" type="Window"]
 title = "Settings"
-initial_position = 2
+initial_position = 3
 size = Vector2i(300, 300)
-visible = false
+current_screen = 0
 script = ExtResource("1_8m15r")
 dark_theme = ExtResource("2_app53")
 light_theme = ExtResource("3_sgiso")
@@ -72,7 +72,18 @@ value = 1.0
 prefix = "Autosave every"
 suffix = "minutes"
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PopoutCheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Let Writing Window Popout
+(Restart program unless you want
+things to break!)"
+
 [node name="SaveSettings" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "TestSave"
 
@@ -82,4 +93,5 @@ text = "TestSave"
 [connection signal="toggled" from="VBoxContainer/AutoOpen" to="." method="_on_auto_open_toggled"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer3/CheckBox" to="." method="_on_autosave_toggled"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer3/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer4/PopoutCheckBox" to="." method="_on_popout_check_box_toggled"]
 [connection signal="button_down" from="VBoxContainer/SaveSettings" to="." method="_save_config"]

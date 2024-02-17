@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://f8r18060uj8l"]
+
+[ext_resource type="Script" path="res://WritingWindow.gd" id="1_yrtje"]
+[ext_resource type="PackedScene" uid="uid://bbod0wg6xf4wa" path="res://SingleDialog.tscn" id="2_x320a"]
+[ext_resource type="PackedScene" uid="uid://bfxdy5x1tuca5" path="res://WritingChildren.tscn" id="3_5teo2"]
+
+[node name="Window" type="Control"]
+layout_mode = 3
+anchor_right = 0.519
+anchor_bottom = 0.96
+offset_right = 0.111938
+offset_bottom = -0.0800171
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yrtje")
+Dialog = ExtResource("2_x320a")
+ScrollPath = NodePath("ScrollContainer")
+VBoxName = "ScrollContainer/VBoxContainer"
+
+[node name="ScrollContainer" parent="." instance=ExtResource("3_5teo2")]
+layout_mode = 1

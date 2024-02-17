@@ -1,6 +1,7 @@
 extends VBoxContainer
 class_name SingleDialog
 signal changed_dialog()
+signal deleted()
 var speaker:String
 var dialog:String
 
@@ -22,14 +23,16 @@ var comment:bool = false
 func _ready():
 	pass # Replace with function body.
 
-func _on_speaker_edit_text_changed(new_text):
+func _on_speaker_edit_text_changed(new_text,loading:bool = false):
 	speaker = new_text
-	changed_dialog.emit()
+	if !loading:
+		changed_dialog.emit()
 
 
-func _on_dialog_edit_text_changed():
+func _on_dialog_edit_text_changed(loading:bool = false):
 	dialog = dialog_edit.text
-	changed_dialog.emit()
+	if !loading:
+		changed_dialog.emit()
 
 
 func _on_gui_input(event):
@@ -85,14 +88,17 @@ func _on_dialog_copy_button_down():
 	DisplayServer.clipboard_set(dialog)
 
 
-func _set_text(set_speaker:String,set_dialog:String):
+func _set_text(set_speaker:String,set_dialog:String,loading:bool = false):
 	speaker_edit.text = set_speaker
 	dialog_edit.text = set_dialog
 	speaker_richtext.text = set_speaker
 	$HBoxContainer2/RichTextLabel.text = set_dialog
-	_on_speaker_edit_text_changed(set_speaker)
-	_on_dialog_edit_text_changed()
+	_on_speaker_edit_text_changed(set_speaker,loading)
+	_on_dialog_edit_text_changed(loading)
 	$HBoxContainer2/RichTextLabel._change_text()
 
 func _on_delete_button_down():
+	deleted.emit()
 	queue_free()
+	
+	
