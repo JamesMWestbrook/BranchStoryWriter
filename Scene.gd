@@ -9,7 +9,7 @@ var scene: Array[Dictionary]:
 @onready var scene_desc_edit:TextEdit = $DescEdit
 @onready var WordCount:Label = $WordCount
 var connected_scenes:Array
-
+var word_count
 func _ready():
 	pass
 
@@ -34,10 +34,16 @@ func _on_write_button_down():
 		
 func _update_scene(new_scene:Array[Dictionary]):
 	scene = new_scene.duplicate()
-	WordCount.text = "Word Count: " 
-	if is_instance_valid(Globals.WritingPanel.word_count):
-		WordCount.text += str(Globals.WritingPanel.word_count)
-
+	_set_word_count()
+		
+func _set_word_count():
+	word_count = 0
+	for i in scene:
+		var dialog:String = i.dialog.replacen(".","")
+		word_count += dialog.split(" ", false).size()
+	WordCount.text = "Word Count: " + str(word_count)
+	
+	
 func _on_text_edit_text_changed(new_text):
 	title = new_text
 	#if is_instance_valid(active_window):

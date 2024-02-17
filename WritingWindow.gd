@@ -65,10 +65,7 @@ func _update_scene_data():
 				"comment": child.comment
 			}
 			all_dialog.append(new_dialog)
-	word_count = 0
-	for i in all_dialog:
-		var dialog:String = i.dialog.replacen(".","")
-		word_count += dialog.split(" ", false).size()
+
 	#title = scene_title + " | Word Count: " + str(word_count)
 	updated_dialog.emit(all_dialog)
 

@@ -105,7 +105,7 @@ func _on_load_button_down():
 			for i in child.dialogs:
 				node.scene.append(i)
 			#node.scene = child.dialogs
-			
+		node._set_word_count()
 		node.scene_desc_edit.text = child.description
 		if child.has("position_offset"):
 			node.position_offset = child.position_offset
