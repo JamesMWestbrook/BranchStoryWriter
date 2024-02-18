@@ -18,6 +18,10 @@ func _ready():
 		_on_load_button_down()
 	if Settings.configdata.autosave:
 		save_time_left = Settings.configdata.interval
+		
+	if Settings.configdata.layout == "Vertical":
+		%SplitContainer.vertical = true
+	Settings.set_layout.connect(_set_layout)
 	Settings.reset_timer.connect(_reset_time_left)
 	_reset_time_left()
 	await get_tree().create_timer(0.01).timeout
@@ -174,3 +178,10 @@ func _set_window():
 		%WritingPanel.show()
 		%WritingWindow.hide()
 		
+func _set_layout(new_layout:String):
+	pass
+	match new_layout:
+		"Horizontal":
+			%SplitContainer.vertical = false
+		"Vertical":
+			%SplitContainer.vertical = true

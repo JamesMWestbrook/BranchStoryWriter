@@ -3,6 +3,7 @@ extends Window
 signal update_theme(theme)
 signal reset_timer()
 signal set_window()
+signal set_layout(new_layout:String)
 @export var dark_theme:Theme
 @export var light_theme:Theme
 
@@ -79,4 +80,13 @@ func _set_save(path):
 func _on_popout_check_box_toggled(toggled_on):
 	configdata.popout = toggled_on
 	set_window.emit()
+	_save_config()
+
+
+func _on_layout_item_selected(index):
+	match index:
+		0:
+			set_layout.emit("Horizontal")
+		1:
+			set_layout.emit("Vertical")
 	_save_config()

@@ -166,8 +166,10 @@ text = "SelectAll
 "
 
 [node name="SplitContainer" type="SplitContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+vertical = true
 
 [node name="GraphEdit" type="GraphEdit" parent="SplitContainer"]
 unique_name_in_owner = true
