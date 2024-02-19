@@ -25,10 +25,11 @@ func _ready():
 	Settings.reset_timer.connect(_reset_time_left)
 	_reset_time_left()
 	await get_tree().create_timer(0.01).timeout
-	_word_count()
 	Globals.Loading = false
 	Settings.set_window.connect(_set_window)
 	_set_window()
+	_word_count()
+	
 		
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
@@ -169,7 +170,7 @@ func _word_count():
 
 func _set_window():
 	if Settings.configdata.popout:
-		Globals.WritingPanel = %WritingWindow/Window
+		Globals.WritingPanel = %WritingWindow/VBoxContainer/Window
 		%WritingWindow.show()
 		%WritingPanel.hide()
 		

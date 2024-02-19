@@ -9,13 +9,15 @@ signal reassigned()
 
 var Scroll:ScrollContainer
 var VBox:VBoxContainer
+var WordLabel:Label
 @export var ScrollPath:NodePath
 @export var VBoxName:String
+@export var WordLabelPath:NodePath
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Scroll = get_node(ScrollPath)
 	VBox = get_node(VBoxName)
-	
+	WordLabel = get_node(WordLabelPath)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,6 +55,19 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 
 func _on_button_button_down():
 	pass # Replace with function body.
+
+enum TYPE {PANEL, WINDOW}
+@export var type:TYPE
+func _set_title(new_title):
+	match type:
+		TYPE.WINDOW:
+			$"../..".title = new_title
+		TYPE.PANEL:
+			$VBoxContainer/Title.text = new_title
+			
+			
+func _set_word_count(new_count):
+	WordLabel.text = "Word Count: " + str(new_count)
 	
 	
 func _update_scene_data():

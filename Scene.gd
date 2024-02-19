@@ -25,6 +25,8 @@ func _on_write_button_down():
 	Globals.WritingPanel.reassigned.connect(_reset_modulate)
 	Globals.WritingPanel.updated_dialog.connect(_update_scene)
 	Globals.WritingPanel._load_dialog(scene)
+	Globals.WritingPanel._set_title(title)
+	Globals.WritingPanel._set_word_count(word_count)
 	self_modulate = "ff0000"
 		#active_window.position = get_viewport().get_mouse_position()
 		#if !loading:
@@ -35,6 +37,8 @@ func _on_write_button_down():
 func _update_scene(new_scene:Array[Dictionary]):
 	scene = new_scene.duplicate()
 	_set_word_count()
+	Globals.WritingPanel._set_word_count(word_count)
+	
 		
 func _set_word_count():
 	word_count = 0
@@ -43,9 +47,9 @@ func _set_word_count():
 		word_count += dialog.split(" ", false).size()
 	WordCount.text = "Word Count: " + str(word_count)
 	
-	
 func _on_text_edit_text_changed(new_text):
 	title = new_text
+	Globals.WritingPanel._set_title(title)
 	#if is_instance_valid(active_window):
 		#active_window.scene_title = title
 		#active_window._update_scene_data()

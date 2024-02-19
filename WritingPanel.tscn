@@ -14,8 +14,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yrtje")
 Dialog = ExtResource("2_x320a")
-ScrollPath = NodePath("ScrollContainer")
-VBoxName = "ScrollContainer/VBoxContainer"
+ScrollPath = NodePath("VBoxContainer/ScrollContainer")
+VBoxName = "VBoxContainer/ScrollContainer/VBoxContainer"
+WordLabelPath = NodePath("VBoxContainer/WordCount")
 
-[node name="ScrollContainer" parent="." instance=ExtResource("3_5teo2")]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Title Here"
+
+[node name="ScrollContainer" parent="VBoxContainer" instance=ExtResource("3_5teo2")]
+layout_mode = 2
+
+[node name="WordCount" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Word Count:"
