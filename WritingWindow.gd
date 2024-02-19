@@ -53,7 +53,7 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 			dialog._set_text(data.speaker,data.dialog,true)
 
 
-func _on_button_button_down(): 
+func _on_button_button_down():
 	pass # Replace with function body.
 
 enum TYPE {PANEL, WINDOW}
