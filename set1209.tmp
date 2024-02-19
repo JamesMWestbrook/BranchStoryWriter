@@ -1,0 +1,113 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdfukwkxekwms"]
+
+[ext_resource type="Script" path="res://SettingsWindow.gd" id="1_8m15r"]
+[ext_resource type="Theme" uid="uid://bjpbhduw5qu7o" path="res://Themes/DarkTheme.tres" id="2_app53"]
+[ext_resource type="Theme" uid="uid://djrjmwch4gevi" path="res://Themes/LightTheme.tres" id="3_sgiso"]
+
+[node name="SettingsWindow" type="Window"]
+title = "Settings"
+initial_position = 3
+size = Vector2i(300, 300)
+current_screen = 0
+script = ExtResource("1_8m15r")
+dark_theme = ExtResource("2_app53")
+light_theme = ExtResource("3_sgiso")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ThemeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Theme"
+
+[node name="ThemeOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Dark Theme"
+popup/item_0/id = 0
+popup/item_1/text = "Light Theme"
+popup/item_1/id = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ExportLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "ExportFormat"
+
+[node name="ExportOption" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Godot"
+popup/item_0/id = 0
+popup/item_1/text = "RPG Maker MZ"
+popup/item_1/id = 1
+popup/item_2/text = "Unity TMP"
+popup/item_2/id = 2
+
+[node name="AutoOpen" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+text = "Open Last Project On Launch"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+prefix = "Autosave every"
+suffix = "minutes"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PopoutCheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Let Writing Window Popout
+(Restart program unless you want
+things to break!)"
+
+[node name="SaveSettings" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "TestSave"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="Layout" type="OptionButton" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Horizontal"
+popup/item_0/id = 0
+popup/item_1/text = "Vertical"
+popup/item_1/id = 1
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ThemeOption" to="." method="_on_theme_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/ExportOption" to="." method="_on_export_option_item_selected"]
+[connection signal="toggled" from="VBoxContainer/AutoOpen" to="." method="_on_auto_open_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer3/CheckBox" to="." method="_on_autosave_toggled"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer3/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer4/PopoutCheckBox" to="." method="_on_popout_check_box_toggled"]
+[connection signal="button_down" from="VBoxContainer/SaveSettings" to="." method="_save_config"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer5/Layout" to="." method="_on_layout_item_selected"]

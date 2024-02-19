@@ -20,7 +20,8 @@ func _ready():
 	
 	if !configdata.autoOpen:
 		configdata.save_path = ""
-	
+	if Settings.configdata.layout == "Vertical":
+		$VBoxContainer/HBoxContainer5/Layout.select(1)
 	$VBoxContainer/HBoxContainer3/CheckBox.button_pressed = configdata.autosave
 	$VBoxContainer/HBoxContainer3/SpinBox.value = configdata.interval
 	$VBoxContainer/AutoOpen.button_pressed = configdata.autoOpen
@@ -86,7 +87,9 @@ func _on_popout_check_box_toggled(toggled_on):
 func _on_layout_item_selected(index):
 	match index:
 		0:
+			configdata.layout = "Horizontal"
 			set_layout.emit("Horizontal")
 		1:
+			configdata.layout = "Vertical"
 			set_layout.emit("Vertical")
 	_save_config()
