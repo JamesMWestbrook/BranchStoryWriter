@@ -23,7 +23,6 @@ size_flags_horizontal = 4
 text = "Word Count: X"
 
 [node name="Window" type="Control" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("1_tgfnc")
 Dialog = ExtResource("1_522wy")

@@ -27,6 +27,8 @@ func _on_write_button_down():
 	Globals.WritingPanel._load_dialog(scene)
 	Globals.WritingPanel._set_title(title)
 	Globals.WritingPanel._set_word_count(word_count)
+	Globals.main._set_window()
+	
 	self_modulate = "ff0000"
 		#active_window.position = get_viewport().get_mouse_position()
 		#if !loading:

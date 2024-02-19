@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bfxdy5x1tuca5" path="res://WritingChildren.tscn" id="3_5teo2"]
 
 [node name="Window" type="Control"]
+visible = false
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
 anchor_right = 0.519
 anchor_bottom = 0.96

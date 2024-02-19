@@ -1,5 +1,5 @@
 extends VBoxContainer
-
+class_name Main
 @export var graph_node:PackedScene
 var initial_position = Vector2(40,40)
 var node_index = 0
@@ -9,7 +9,7 @@ var second_timer:float
 @onready var WordCount:Label = $TitleBar/WordCount
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	Globals.main = self
 	Globals.Loading = true
 	save_time_left = 666
 	Settings.update_theme.connect(_update_theme) 
@@ -30,6 +30,8 @@ func _ready():
 	_set_window()
 	_word_count()
 	
+	%WritingWindow.hide()
+	%WritingPanel.hide()
 		
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
@@ -166,7 +168,7 @@ func _word_count():
 			string = string.lstrip("Word Count: ")
 			var child_count:int = string.to_int()
 			count += child_count
-	WordCount.text = "Word Count: " + str(count)
+	WordCount.text = "Project Word Count: " + str(count)
 
 func _set_window():
 	if Settings.configdata.popout:
@@ -180,7 +182,6 @@ func _set_window():
 		%WritingWindow.hide()
 		
 func _set_layout(new_layout:String):
-	pass
 	match new_layout:
 		"Horizontal":
 			%SplitContainer.vertical = false

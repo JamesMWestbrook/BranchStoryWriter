@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_yhdet"]
 [ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_wq605"]
@@ -7,12 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_yinnm"]
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_uecwi"]
 
+[sub_resource type="Theme" id="Theme_xtqv5"]
+SplitContainer/constants/autohide = 0
+
 [node name="VBoxContainer" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_xtqv5")
 script = ExtResource("1_yhdet")
 graph_node = ExtResource("2_wq605")
 
@@ -169,7 +173,6 @@ text = "SelectAll
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-vertical = true
 
 [node name="GraphEdit" type="GraphEdit" parent="SplitContainer"]
 unique_name_in_owner = true
@@ -180,7 +183,6 @@ right_disconnects = true
 
 [node name="WritingPanel" parent="SplitContainer" instance=ExtResource("5_yinnm")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
