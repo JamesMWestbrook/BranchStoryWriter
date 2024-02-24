@@ -48,6 +48,10 @@ func _file_option_chosen(id:int):
 			quit_no_save.emit()
 		4:
 			open_file.emit()
-		5:
+		5:#new file
 			Settings.configdata.save_path = ""
+			Settings.characters.clear()
 			LemonUtils.ClearChildren(%GraphEdit)
+			LemonUtils.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
+			
+			

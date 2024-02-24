@@ -25,7 +25,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 focus_next = NodePath("../../HBoxContainer2/TextEdit")
-placeholder_text = "Wow Full name"
+placeholder_text = "Write character name here"
 script = ExtResource("1_xl6wp")
 NextNode = NodePath("../../HBoxContainer2/TextEdit")
 
@@ -34,7 +34,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 bbcode_enabled = true
-text = "SpeakerName"
 script = ExtResource("4_t2cui")
 matchMe = NodePath("../LineEdit")
 
@@ -49,7 +48,7 @@ size_flags_vertical = 3
 [node name="TextEdit" type="TextEdit" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Taco Bell Menu"
+placeholder_text = "Write dialog here"
 wrap_mode = 1
 scroll_fit_content_height = true
 script = ExtResource("3_23ka8")
@@ -59,7 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 bbcode_enabled = true
-text = "Test"
+text = "Preview"
 script = ExtResource("1_7b0r4")
 Edit = NodePath("../TextEdit")
 

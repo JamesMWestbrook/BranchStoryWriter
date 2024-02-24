@@ -1,6 +1,7 @@
 extends Window
 
 @export var CharacterLine:PackedScene
+@export var CharacterList: VBoxContainer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
