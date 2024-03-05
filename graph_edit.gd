@@ -54,7 +54,9 @@ func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
-	node.position_offset  = %GraphEdit.scroll_offset / %GraphEdit.zoom
+	
+	var center_offset:Vector2 = size / 2
+	node.position_offset  = (%GraphEdit.scroll_offset / %GraphEdit.zoom) + center_offset
 	
 	%GraphEdit.add_child(node)
 	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
