@@ -55,6 +55,7 @@ func _reset_time_left():
 func _on_button_button_down():
 	var node:GraphNode = graph_node.instantiate()
 	node.position_offset  = %GraphEdit.scroll_offset / %GraphEdit.zoom
+	
 	%GraphEdit.add_child(node)
 	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
 	node_index += 1

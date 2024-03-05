@@ -5,6 +5,7 @@ var scene: Array[Dictionary]:
 		scene = value
 		pass
 
+var writing_in_this_scene:bool
 @onready var title_edit = $TitleEdit
 @onready var scene_desc_edit:TextEdit = $DescEdit
 @onready var WordCount:Label = $WordCount
@@ -30,6 +31,7 @@ func _on_write_button_down():
 	Globals.main._set_window()
 	
 	self_modulate = "ff0000"
+	writing_in_this_scene = true
 		#active_window.position = get_viewport().get_mouse_position()
 		#if !loading:
 			#active_window._create_dialog(null,true)
@@ -51,13 +53,15 @@ func _set_word_count():
 	
 func _on_text_edit_text_changed(new_text):
 	title = new_text
-	Globals.WritingPanel._set_title(title)
+	if writing_in_this_scene:
+		Globals.WritingPanel._set_title(title)
 	#if is_instance_valid(active_window):
 		#active_window.scene_title = title
 		#active_window._update_scene_data()
 
 
 func _reset_modulate():
+	writing_in_this_scene = false
 	self_modulate = "ffffff"
 func _on_confirmation_delete_dialog_confirmed():
 	pass
