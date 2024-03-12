@@ -64,6 +64,7 @@ text = "Characters
 "
 
 [node name="Window" parent="TitleBar/HBoxContainer/Characters" instance=ExtResource("4_j2imw")]
+visible = false
 
 [node name="OpenFile" type="FileDialog" parent="TitleBar"]
 title = "Open a File"

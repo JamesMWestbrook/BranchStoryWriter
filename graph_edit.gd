@@ -94,9 +94,9 @@ func _save():
 			data._create_scene(child)
 	
 	data.characters = Settings.characters
-		
 	data.save(Settings.configdata.save_path)
 	Settings.configdata._save()
+	DisplayServer.window_set_title(data.file_name)
 	$TitleBar/SavedNotifyPanel.show()
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()
@@ -105,6 +105,7 @@ func _on_load_button_down():
 	for child in %GraphEdit.get_children():
 		child.queue_free()
 	var data = SaveData.load(Settings.configdata.save_path)
+	DisplayServer.window_set_title(data.file_name)
 	for child in data.all_nodes:
 		child.name.replace("@","_")
 		var node:GraphNode = graph_node.instantiate()

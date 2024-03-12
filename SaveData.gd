@@ -1,6 +1,7 @@
 extends Resource
 class_name SaveData
 
+@export var file_name:String
 @export var node_connections:Array[Dictionary]
 @export var all_nodes:Array[Dictionary]
 @export var characters:Array[String]
@@ -15,6 +16,9 @@ func _create_scene(node):
 	all_nodes.append(scene)
 
 func save(path):
+	if file_name == "":
+		file_name = path.get_file()
+		
 	ResourceSaver.save(self,path)
 
 	
