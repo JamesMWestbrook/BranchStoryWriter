@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://whd411v0ycss"]
+
+[node name="Node" type="Node"]
+
+[node name="ItemList" type="ItemList" parent="."]
+offset_right = 677.0
+offset_bottom = 574.0
+item_count = 4
+item_0/text = "Test1"
+item_1/text = "Test2"
+item_2/text = "Test3"
+item_3/text = "Test4"

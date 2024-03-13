@@ -25,13 +25,14 @@ func _process(_delta):
 	pass
 func _load_dialog(scene: Array[Dictionary]):
 	all_dialog = scene.duplicate()
-	if !all_dialog.is_empty():
+	if !all_dialog.is_empty(): #has a scene
 		for dialog in all_dialog:
 			_create_dialog(null,true,true,dialog)
 			
-	else:
+	else: #empty scene
 		_create_dialog(null,true)
-	
+		var dialog = VBox.get_child(0)
+		dialog.speaker_edit.grab_focus()
 	
 func _create_dialog(node, first=false, loading = false, data = {}):
 	var dialog = Dialog.instantiate()
