@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhcbreqqqh448"]
 
-[ext_resource type="Script" path="res://Scene.gd" id="1_tycku"]
+[ext_resource type="Script" path="res://SceneGraphNode.gd" id="1_6jnj5"]
 
 [node name="GraphNode" type="GraphNode"]
 offset_right = 219.0
@@ -70,7 +70,7 @@ slot/6/right_type = 0
 slot/6/right_color = Color(1, 1, 1, 1)
 slot/6/right_icon = null
 slot/6/draw_stylebox = true
-script = ExtResource("1_tycku")
+script = ExtResource("1_6jnj5")
 
 [node name="Write" type="Button" parent="."]
 layout_mode = 2

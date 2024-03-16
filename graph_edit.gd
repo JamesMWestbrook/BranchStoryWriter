@@ -59,7 +59,6 @@ func _on_button_button_down():
 	node.position_offset  = (%GraphEdit.scroll_offset / %GraphEdit.zoom) + center_offset
 	
 	%GraphEdit.add_child(node)
-	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
 	node_index += 1
 	
 
@@ -115,19 +114,12 @@ func _on_load_button_down():
 		if !child.dialogs.is_empty():
 			for i in child.dialogs:
 				node.scene.append(i)
-			#node.scene = child.dialogs
 		node._set_word_count()
 		node.scene_desc_edit.text = child.description
 		if child.has("position_offset"):
 			node.position_offset = child.position_offset
 		node.title_edit.text = child.title
-		#node._on_write_button_down()
-		#node.active_window.hide()
-		#if !child.dialogs.is_empty():
-			#for dialog in child.dialogs:
-				#node.active_window._create_dialog(null,true,true,dialog)
-		#else:
-				#node.active_window._create_dialog(null,true)
+		
 	for conn in data.node_connections:
 		conn.from_node = conn.from_node.replace("@","_")
 		conn.to_node = conn.to_node.replace("@","_")
@@ -135,7 +127,6 @@ func _on_load_button_down():
 	
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
-	#%GraphEdit.arrange_nodes()
 		
 func _on_select_all_button_down():
 	%GraphEdit.arrange_nodes()

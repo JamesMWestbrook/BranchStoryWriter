@@ -1,4 +1,4 @@
-extends PanelContainer
+extends GraphNode
 
 var scene: Array[Dictionary]:
 	set(value):
@@ -26,7 +26,7 @@ func _on_write_button_down():
 	Globals.WritingPanel.reassigned.connect(_reset_modulate)
 	Globals.WritingPanel.updated_dialog.connect(_update_scene)
 	Globals.WritingPanel._load_dialog(scene)
-	#Globals.WritingPanel._set_title(title)
+	Globals.WritingPanel._set_title(title)
 	Globals.WritingPanel._set_word_count(word_count)
 	Globals.main._set_window()
 	
@@ -52,11 +52,13 @@ func _set_word_count():
 	WordCount.text = "Word Count: " + str(word_count)
 	
 func _on_text_edit_text_changed(new_text):
-	pass
-	#title = new_text
-	#if writing_in_this_scene:
-		#Globals.WritingPanel._set_title(title)
-	
+	title = new_text
+	if writing_in_this_scene:
+		Globals.WritingPanel._set_title(title)
+	#if is_instance_valid(active_window):
+		#active_window.scene_title = title
+		#active_window._update_scene_data()
+
 
 func _reset_modulate():
 	writing_in_this_scene = false

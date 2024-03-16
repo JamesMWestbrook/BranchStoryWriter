@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=11 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_yhdet"]
 [ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_wq605"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_hmfxg"]
 [ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_j2imw"]
+[ext_resource type="Script" path="res://Scene.gd" id="5_2nfgj"]
+[ext_resource type="Script" path="res://ScrollMatch.gd" id="5_tqj50"]
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_yinnm"]
+[ext_resource type="Texture2D" uid="uid://cha8m7tatsl8n" path="res://icon.svg" id="6_7kqhd"]
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_uecwi"]
 
 [sub_resource type="Theme" id="Theme_xtqv5"]
@@ -175,8 +178,246 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="ChapterScrollContainer" type="ScrollContainer" parent="SplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Chapter" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical = true
+
+[node name="TitleEdit" type="LineEdit" parent="SplitContainer/ChapterScrollContainer/Chapter"]
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Chapter Title"
+alignment = 1
+expand_to_text_length = true
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScrollContainer/Chapter"]
+layout_mode = 2
+text = " Words"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scenes" type="ScrollContainer" parent="SplitContainer/ChapterScrollContainer/Chapter"]
+custom_minimum_size = Vector2(0, 23.85)
+layout_mode = 2
+script = ExtResource("5_tqj50")
+
+[node name="Panel" type="PanelContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="SceneContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+script = ExtResource("5_2nfgj")
+
+[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="Row1Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="Write" type="TextureButton" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(32.825, 20)
+layout_mode = 2
+texture_normal = ExtResource("6_7kqhd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TitleEdit" type="LineEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Scene Title"
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(141, 0)
+layout_mode = 2
+text = "XXXX Words"
+
+[node name="Row2Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="DescEdit" type="TextEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sdfsdfsdaf asfdsasdfsdafsd fsdafsdafsda  lksdjfl;kjdsl;kf sdl;kfjdskl;"
+placeholder_text = "Scene Description"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="Delete" type="Button" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container"]
+title = "Delete Scene?"
+initial_position = 4
+
+[node name="PanelContainer2" type="PanelContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+script = ExtResource("5_2nfgj")
+
+[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2"]
+layout_mode = 2
+vertical = true
+
+[node name="Row1Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer"]
+layout_mode = 2
+
+[node name="Write" type="TextureButton" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(32.825, 20)
+layout_mode = 2
+texture_normal = ExtResource("6_7kqhd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TitleEdit" type="LineEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Scene Title"
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(141, 0)
+layout_mode = 2
+text = "XXXX Words"
+
+[node name="Row2Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer"]
+layout_mode = 2
+
+[node name="DescEdit" type="TextEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sdfsdfsdaf asfdsasdfsdafsd fsdafsdafsda  lksdjfl;kjdsl;kf sdl;kfjdskl;"
+placeholder_text = "Scene Description"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="Delete" type="Button" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container"]
+title = "Delete Scene?"
+initial_position = 4
+
+[node name="PanelContainer3" type="PanelContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+script = ExtResource("5_2nfgj")
+
+[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3"]
+layout_mode = 2
+vertical = true
+
+[node name="Row1Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer"]
+layout_mode = 2
+
+[node name="Write" type="TextureButton" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(32.825, 20)
+layout_mode = 2
+texture_normal = ExtResource("6_7kqhd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TitleEdit" type="LineEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Scene Title"
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(141, 0)
+layout_mode = 2
+text = "XXXX Words"
+
+[node name="Row2Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer"]
+layout_mode = 2
+
+[node name="DescEdit" type="TextEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sdfsdfsdaf asfdsasdfsdafsd fsdafsdafsda  lksdjfl;kjdsl;kf sdl;kfjdskl;"
+placeholder_text = "Scene Description"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="Delete" type="Button" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container"]
+title = "Delete Scene?"
+initial_position = 4
+
+[node name="PanelContainer4" type="PanelContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+script = ExtResource("5_2nfgj")
+
+[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4"]
+layout_mode = 2
+vertical = true
+
+[node name="Row1Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer"]
+layout_mode = 2
+
+[node name="Write" type="TextureButton" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(32.825, 20)
+layout_mode = 2
+texture_normal = ExtResource("6_7kqhd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TitleEdit" type="LineEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Scene Title"
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(141, 0)
+layout_mode = 2
+text = "XXXX Words"
+
+[node name="Row2Container" type="HBoxContainer" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer"]
+layout_mode = 2
+
+[node name="DescEdit" type="TextEdit" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sdfsdfsdaf asfdsasdfsdafsd fsdafsdafsda  lksdjfl;kjdsl;kf sdl;kfjdskl;"
+placeholder_text = "Scene Description"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="Delete" type="Button" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container"]
+title = "Delete Scene?"
+initial_position = 4
+
 [node name="GraphEdit" type="GraphEdit" parent="SplitContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -211,5 +452,13 @@ visible = false
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]
+[connection signal="button_down" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container/Delete" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container/ConfirmationDialog" method="show"]
+[connection signal="canceled" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container/ConfirmationDialog" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer/BoxContainer/Row2Container/ConfirmationDialog" method="hide"]
+[connection signal="button_down" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container/Delete" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container/ConfirmationDialog" method="show"]
+[connection signal="canceled" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container/ConfirmationDialog" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer2/BoxContainer/Row2Container/ConfirmationDialog" method="hide"]
+[connection signal="button_down" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container/Delete" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container/ConfirmationDialog" method="show"]
+[connection signal="canceled" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container/ConfirmationDialog" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer3/BoxContainer/Row2Container/ConfirmationDialog" method="hide"]
+[connection signal="button_down" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container/Delete" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container/ConfirmationDialog" method="show"]
+[connection signal="canceled" from="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container/ConfirmationDialog" to="SplitContainer/ChapterScrollContainer/Chapter/Scenes/Panel/SceneContainer/PanelContainer4/BoxContainer/Row2Container/ConfirmationDialog" method="hide"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
