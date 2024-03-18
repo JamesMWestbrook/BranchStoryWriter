@@ -11,7 +11,6 @@ vertical = true
 script = ExtResource("1_715lu")
 
 [node name="Button" type="Button" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Above"
@@ -38,7 +37,14 @@ script = ExtResource("1_dtbjd")
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="SceneContainer" type="BoxContainer" parent="Scenes/Panel"]
+[node name="BoxContainer" type="BoxContainer" parent="Scenes/Panel"]
+layout_mode = 2
+
+[node name="AddStart" type="Button" parent="Scenes/Panel/BoxContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="SceneContainer" type="BoxContainer" parent="Scenes/Panel/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -48,3 +54,5 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Below"
+
+[connection signal="button_down" from="Scenes/Panel/BoxContainer/AddStart" to="." method="_on_add_start_button_down"]

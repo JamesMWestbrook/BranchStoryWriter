@@ -6,7 +6,7 @@ var node_index = 0
 
 var save_time_left:float
 var second_timer:float
-@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterContainer/ChapterSpawnees
+@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
 
 @onready var WordCount:Label = $TitleBar/WordCount
 
@@ -102,32 +102,19 @@ func _save():
 
 
 func _on_load_button_down():
-	return
 	LemonUtils.ClearChildren(ChapterContainer)
-	for child in %GraphEdit.get_children():
-		child.queue_free()
-	var data = SaveData.load(Settings.configdata.save_path)
+	var data:SaveData = SaveData.load(Settings.configdata.save_path)
 	DisplayServer.window_set_title(data.file_name)
-	for child in data.all_nodes:
-		child.name.replace("@","_")
-		var node:GraphNode = graph_node.instantiate()
-		%GraphEdit.add_child(node)
-		node.name = child.name
-		node.title = child.title
-		if !child.dialogs.is_empty():
-			for i in child.dialogs:
-				node.scene.append(i)
-		node._set_word_count()
-		node.scene_desc_edit.text = child.description
-		if child.has("position_offset"):
-			node.position_offset = child.position_offset
-		node.title_edit.text = child.title
-		
-	for conn in data.node_connections:
-		conn.from_node = conn.from_node.replace("@","_")
-		conn.to_node = conn.to_node.replace("@","_")
-		%GraphEdit.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
-	
+	for chapter:Dictionary in data.chapters:
+		var new_chapter:Chapter = ChapterFile.instantiate()
+		ChapterContainer.add_child(new_chapter)
+		new_chapter.title = chapter.title
+		if !chapter.scenes.is_empty():
+			for i in chapter.scenes:
+				new_chapter._on_add_scene_right_button_down(null,i)
+		#new_chapter._set_word_count()
+		new_chapter.TitleEdit.text = chapter.title
+
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
 		
@@ -191,21 +178,9 @@ func _on_add_chapter_top_button_down():
 	_add_chapter(0)
 
 func _on_add_chapter_bottom_button_down():
-	_add_chapter(ChapterContainer.get_child_count() - 1)
+	_add_chapter(ChapterContainer.get_child_count())
 
 func _add_chapter(index):
 	var new_chapter:Chapter = ChapterFile.instantiate()
-	var sibling = ChapterContainer.get_child(index)
-	if is_instance_valid(sibling):
-		if index == 0:
-			ChapterContainer.add_child(new_chapter)
-			ChapterContainer.move_child(new_chapter,0)
-		else:
-			sibling.add_sibling(new_chapter)
-	else:
-		if index == 0:
-			ChapterContainer.add_child(new_chapter)
-			ChapterContainer.move_child(new_chapter,0)
-		else:
-			ChapterContainer.add_child(new_chapter)
-			new_chapter.move_to_front()
+	ChapterContainer.add_child(new_chapter)
+	ChapterContainer.move_child(new_chapter,index)

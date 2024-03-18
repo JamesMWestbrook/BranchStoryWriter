@@ -39,5 +39,10 @@ text = "+"
 layout_mode = 2
 scroll_fit_content_height = true
 
+[node name="Delete" type="Button" parent="BoxContainer"]
+layout_mode = 2
+text = "Delete Scene"
+
 [connection signal="button_down" from="BoxContainer/Row1Container/Write" to="." method="_on_write_button_down"]
 [connection signal="text_changed" from="BoxContainer/Row1Container/TitleEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="button_down" from="BoxContainer/Delete" to="." method="queue_free"]

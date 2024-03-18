@@ -179,22 +179,22 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ChapterContainer" type="BoxContainer" parent="SplitContainer/ChapterScroll"]
+[node name="ChapterSection" type="BoxContainer" parent="SplitContainer/ChapterScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 vertical = true
 
-[node name="AddChapterTop" type="Button" parent="SplitContainer/ChapterScroll/ChapterContainer"]
+[node name="AddChapterTop" type="Button" parent="SplitContainer/ChapterScroll/ChapterSection"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "+ Chapter"
 
-[node name="ChapterSpawnees" type="BoxContainer" parent="SplitContainer/ChapterScroll/ChapterContainer"]
+[node name="ChapterContainer" type="BoxContainer" parent="SplitContainer/ChapterScroll/ChapterSection"]
 layout_mode = 2
 vertical = true
 
-[node name="AddChapterBottom" type="Button" parent="SplitContainer/ChapterScroll/ChapterContainer"]
+[node name="AddChapterBottom" type="Button" parent="SplitContainer/ChapterScroll/ChapterSection"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "+ Chapter"
@@ -236,7 +236,7 @@ visible = false
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]
-[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterContainer/AddChapterTop" to="." method="_on_add_chapter_top_button_down"]
-[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterContainer/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
+[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterSection/AddChapterTop" to="." method="_on_add_chapter_top_button_down"]
+[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterSection/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
