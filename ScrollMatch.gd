@@ -7,8 +7,5 @@ func _ready():
 	child.resized.connect(fit_content)
 	pass
 
-func _process(delta):
-	pass
-
 func fit_content():
 	custom_minimum_size.y = child.size.y + margin

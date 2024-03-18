@@ -1,5 +1,5 @@
 extends PanelContainer
-
+class_name Scene
 var scene: Array[Dictionary]:
 	set(value):
 		scene = value
@@ -9,6 +9,7 @@ var writing_in_this_scene:bool
 @onready var title_edit = $TitleEdit
 @onready var scene_desc_edit:TextEdit = $DescEdit
 @onready var WordCount:Label = $WordCount
+@onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
 var connected_scenes:Array
 var word_count
 func _ready():
