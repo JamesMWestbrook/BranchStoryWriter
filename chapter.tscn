@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxpkcqo7palr1"]
+[gd_scene load_steps=3 format=3 uid="uid://cxpkcqo7palr1"]
 
 [ext_resource type="Script" path="res://chapter.gd" id="1_715lu"]
 [ext_resource type="Script" path="res://ScrollMatch.gd" id="1_dtbjd"]
-[ext_resource type="PackedScene" uid="uid://co3uisjc08oy5" path="res://Scene.tscn" id="2_4lnxl"]
 
 [node name="Chapter" type="BoxContainer"]
 offset_right = 469.0
@@ -43,10 +42,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Scene" parent="Scenes/Panel/SceneContainer" instance=ExtResource("2_4lnxl")]
-visible = false
-layout_mode = 2
 
 [node name="Button2" type="Button" parent="."]
 visible = false

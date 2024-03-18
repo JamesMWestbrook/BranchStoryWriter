@@ -1,4 +1,5 @@
 extends BoxContainer
+class_name Chapter
 
 var title:String
 @onready var scene_file = load("res://Scene.tscn")

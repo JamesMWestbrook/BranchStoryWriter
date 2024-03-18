@@ -6,7 +6,12 @@ var node_index = 0
 
 var save_time_left:float
 var second_timer:float
+@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterContainer
+
 @onready var WordCount:Label = $TitleBar/WordCount
+
+@onready var ChapterFile = load("res://chapter.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Globals.main = self
@@ -52,14 +57,7 @@ func _process(delta):
 	
 func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
-func _on_button_button_down():
-	var node:GraphNode = graph_node.instantiate()
-	
-	var center_offset:Vector2 = size / 2
-	node.position_offset  = (%GraphEdit.scroll_offset / %GraphEdit.zoom) + center_offset
-	
-	%GraphEdit.add_child(node)
-	node_index += 1
+
 	
 
 func _remove_node(node:GraphNode):
@@ -101,6 +99,7 @@ func _save():
 	$TitleBar/SavedNotifyPanel.hide()
 
 func _on_load_button_down():
+	return
 	for child in %GraphEdit.get_children():
 		child.queue_free()
 	var data = SaveData.load(Settings.configdata.save_path)
@@ -182,3 +181,15 @@ func _set_layout(new_layout:String):
 			%SplitContainer.vertical = false
 		"Vertical":
 			%SplitContainer.vertical = true
+
+
+func _on_add_chapter_top_button_down():
+	_add_chapter(0)
+
+func _on_add_chapter_bottom_button_down():
+	_add_chapter(ChapterContainer.get_child_count() - 2)
+
+func _add_chapter(index):
+	var new_chapter:Chapter = ChapterFile.instantiate()
+	var sibling = ChapterContainer.get_child(index)
+	sibling.add_sibling(new_chapter)

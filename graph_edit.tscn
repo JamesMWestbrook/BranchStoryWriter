@@ -176,25 +176,25 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ChapterScrollContainer" type="ScrollContainer" parent="SplitContainer"]
+[node name="ChapterScroll" type="ScrollContainer" parent="SplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/ChapterScrollContainer"]
+[node name="ChapterContainer" type="BoxContainer" parent="SplitContainer/ChapterScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 vertical = true
 
-[node name="AddChapterTop" type="Button" parent="SplitContainer/ChapterScrollContainer/BoxContainer"]
+[node name="AddChapterTop" type="Button" parent="SplitContainer/ChapterScroll/ChapterContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "+ Chapter"
 
-[node name="Chapter" parent="SplitContainer/ChapterScrollContainer/BoxContainer" instance=ExtResource("5_u3jxl")]
+[node name="Chapter" parent="SplitContainer/ChapterScroll/ChapterContainer" instance=ExtResource("5_u3jxl")]
 layout_mode = 2
 
-[node name="AddChapterBottom" type="Button" parent="SplitContainer/ChapterScrollContainer/BoxContainer"]
+[node name="AddChapterBottom" type="Button" parent="SplitContainer/ChapterScroll/ChapterContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "+ Chapter"
@@ -236,7 +236,9 @@ visible = false
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]
+[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterContainer/AddChapterTop" to="." method="_on_add_chapter_top_button_down"]
+[connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterContainer/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
 
-[editable path="SplitContainer/ChapterScrollContainer/BoxContainer/Chapter"]
+[editable path="SplitContainer/ChapterScroll/ChapterContainer/Chapter"]

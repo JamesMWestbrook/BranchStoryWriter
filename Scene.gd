@@ -6,9 +6,9 @@ var scene: Array[Dictionary]:
 		pass
 
 var writing_in_this_scene:bool
-@onready var title_edit = $TitleEdit
-@onready var scene_desc_edit:TextEdit = $DescEdit
-@onready var WordCount:Label = $WordCount
+@onready var title_edit = $BoxContainer/Row1Container/TitleEdit
+@onready var scene_desc_edit:TextEdit = $BoxContainer/TextEdit
+@onready var WordCount:Label = $BoxContainer/Row1Container/WordCount
 @onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
 var connected_scenes:Array
 var word_count
@@ -27,7 +27,7 @@ func _on_write_button_down():
 	Globals.WritingPanel.reassigned.connect(_reset_modulate)
 	Globals.WritingPanel.updated_dialog.connect(_update_scene)
 	Globals.WritingPanel._load_dialog(scene)
-	#Globals.WritingPanel._set_title(title)
+	Globals.WritingPanel._set_title(title_edit.text)
 	Globals.WritingPanel._set_word_count(word_count)
 	Globals.main._set_window()
 	
@@ -53,10 +53,8 @@ func _set_word_count():
 	WordCount.text = "Word Count: " + str(word_count)
 	
 func _on_text_edit_text_changed(new_text):
-	pass
-	#title = new_text
-	#if writing_in_this_scene:
-		#Globals.WritingPanel._set_title(title)
+	if writing_in_this_scene:
+		Globals.WritingPanel._set_title(new_text)
 	
 
 func _reset_modulate():

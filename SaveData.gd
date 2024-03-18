@@ -6,6 +6,8 @@ class_name SaveData
 @export var all_nodes:Array[Dictionary]
 @export var characters:Array[String]
 
+
+
 func _create_scene(node):
 	var scene: Dictionary = {}
 	scene.name = node.name
