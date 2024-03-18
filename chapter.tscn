@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxpkcqo7palr1"]
+
+[ext_resource type="Script" path="res://chapter.gd" id="1_715lu"]
+[ext_resource type="Script" path="res://ScrollMatch.gd" id="1_dtbjd"]
+
+[node name="Chapter" type="BoxContainer"]
+offset_right = 469.0
+offset_bottom = 148.0
+size_flags_horizontal = 3
+vertical = true
+script = ExtResource("1_715lu")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+text = "New Chapter Above"
+
+[node name="TitleEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Chapter Title"
+alignment = 1
+expand_to_text_length = true
+
+[node name="WordCount" type="Label" parent="."]
+layout_mode = 2
+text = " Words"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scenes" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 23.85)
+layout_mode = 2
+script = ExtResource("1_dtbjd")
+
+[node name="Panel" type="PanelContainer" parent="Scenes"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Scenes/Panel"]
+layout_mode = 2
+
+[node name="AddStart" type="Button" parent="Scenes/Panel/BoxContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="SceneContainer" type="BoxContainer" parent="Scenes/Panel/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button2" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+text = "New Chapter Below"
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete Chapter"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 4
+size = Vector2i(247, 106)
+
+[node name="Label" type="Label" parent="ConfirmationDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 239.0
+offset_bottom = 57.0
+text = "You wish to delete this entire chapter
+and all scenes contained within?"
+
+[connection signal="button_down" from="Scenes/Panel/BoxContainer/AddStart" to="." method="_on_add_start_button_down"]
+[connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]

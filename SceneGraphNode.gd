@@ -1,15 +1,14 @@
-extends PanelContainer
-class_name Scene
+extends GraphNode
+
 var scene: Array[Dictionary]:
 	set(value):
 		scene = value
 		pass
 
 var writing_in_this_scene:bool
-@onready var title_edit = $BoxContainer/Row1Container/TitleEdit
-@onready var scene_desc_edit:TextEdit = $BoxContainer/TextEdit
-@onready var WordCount:Label = $BoxContainer/Row1Container/WordCount
-@onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
+@onready var title_edit = $TitleEdit
+@onready var scene_desc_edit:TextEdit = $DescEdit
+@onready var WordCount:Label = $WordCount
 var connected_scenes:Array
 var word_count
 func _ready():
@@ -27,7 +26,7 @@ func _on_write_button_down():
 	Globals.WritingPanel.reassigned.connect(_reset_modulate)
 	Globals.WritingPanel.updated_dialog.connect(_update_scene)
 	Globals.WritingPanel._load_dialog(scene)
-	Globals.WritingPanel._set_title(title_edit.text)
+	Globals.WritingPanel._set_title(title)
 	Globals.WritingPanel._set_word_count(word_count)
 	Globals.main._set_window()
 	
@@ -53,26 +52,17 @@ func _set_word_count():
 	WordCount.text = "Word Count: " + str(word_count)
 	
 func _on_text_edit_text_changed(new_text):
+	title = new_text
 	if writing_in_this_scene:
-		Globals.WritingPanel._set_title(new_text)
-	
+		Globals.WritingPanel._set_title(title)
+	#if is_instance_valid(active_window):
+		#active_window.scene_title = title
+		#active_window._update_scene_data()
+
 
 func _reset_modulate():
 	writing_in_this_scene = false
 	self_modulate = "ffffff"
-	
-	
 func _on_confirmation_delete_dialog_confirmed():
 	pass
 	pass # Replace with function body.
-
-
-func save():
-	var new_scene:Dictionary = {
-		"title":title_edit.text,
-		"description":scene_desc_edit.text,
-		"scenes":scene
-	}
-	
-	return new_scene
-	

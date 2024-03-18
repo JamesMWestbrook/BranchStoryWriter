@@ -6,7 +6,12 @@ var node_index = 0
 
 var save_time_left:float
 var second_timer:float
+@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
+
 @onready var WordCount:Label = $TitleBar/WordCount
+
+@onready var ChapterFile = load("res://chapter.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Globals.main = self
@@ -52,15 +57,7 @@ func _process(delta):
 	
 func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
-func _on_button_button_down():
-	var node:GraphNode = graph_node.instantiate()
-	
-	var center_offset:Vector2 = size / 2
-	node.position_offset  = (%GraphEdit.scroll_offset / %GraphEdit.zoom) + center_offset
-	
-	%GraphEdit.add_child(node)
-	#node.get_node("Delete/ConfirmationDialog").confirmed.connect(_remove_node.bind(node))
-	node_index += 1
+
 	
 
 func _remove_node(node:GraphNode):
@@ -86,12 +83,14 @@ func _on_save_button_down():
 	else:
 		_save()
 		
+		
 func _save():
 	var data = SaveData.new()
-	data.node_connections = %GraphEdit.get_connection_list()
-	for child in %GraphEdit.get_children():
-		if child is GraphNode:
-			data._create_scene(child)
+	
+	for chapter in ChapterContainer.get_children():
+		if chapter is Chapter:
+			data.chapters.append(chapter.save())
+	
 	
 	data.characters = Settings.characters
 	data.save(Settings.configdata.save_path)
@@ -101,41 +100,23 @@ func _save():
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()
 
+
 func _on_load_button_down():
-	for child in %GraphEdit.get_children():
-		child.queue_free()
-	var data = SaveData.load(Settings.configdata.save_path)
+	LemonUtils.ClearChildren(ChapterContainer)
+	var data:SaveData = SaveData.load(Settings.configdata.save_path)
 	DisplayServer.window_set_title(data.file_name)
-	for child in data.all_nodes:
-		child.name.replace("@","_")
-		var node:GraphNode = graph_node.instantiate()
-		%GraphEdit.add_child(node)
-		node.name = child.name
-		node.title = child.title
-		if !child.dialogs.is_empty():
-			for i in child.dialogs:
-				node.scene.append(i)
-			#node.scene = child.dialogs
-		node._set_word_count()
-		node.scene_desc_edit.text = child.description
-		if child.has("position_offset"):
-			node.position_offset = child.position_offset
-		node.title_edit.text = child.title
-		#node._on_write_button_down()
-		#node.active_window.hide()
-		#if !child.dialogs.is_empty():
-			#for dialog in child.dialogs:
-				#node.active_window._create_dialog(null,true,true,dialog)
-		#else:
-				#node.active_window._create_dialog(null,true)
-	for conn in data.node_connections:
-		conn.from_node = conn.from_node.replace("@","_")
-		conn.to_node = conn.to_node.replace("@","_")
-		%GraphEdit.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
-	
+	for chapter:Dictionary in data.chapters:
+		var new_chapter:Chapter = ChapterFile.instantiate()
+		ChapterContainer.add_child(new_chapter)
+		new_chapter.title = chapter.title
+		if !chapter.scenes.is_empty():
+			for i in chapter.scenes:
+				new_chapter._on_add_scene_right_button_down(null,i)
+		#new_chapter._set_word_count()
+		new_chapter.TitleEdit.text = chapter.title
+
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
-	#%GraphEdit.arrange_nodes()
 		
 func _on_select_all_button_down():
 	%GraphEdit.arrange_nodes()
@@ -191,3 +172,15 @@ func _set_layout(new_layout:String):
 			%SplitContainer.vertical = false
 		"Vertical":
 			%SplitContainer.vertical = true
+
+
+func _on_add_chapter_top_button_down():
+	_add_chapter(0)
+
+func _on_add_chapter_bottom_button_down():
+	_add_chapter(ChapterContainer.get_child_count())
+
+func _add_chapter(index):
+	var new_chapter:Chapter = ChapterFile.instantiate()
+	ChapterContainer.add_child(new_chapter)
+	ChapterContainer.move_child(new_chapter,index)
