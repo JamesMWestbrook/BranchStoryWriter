@@ -43,6 +43,18 @@ scroll_fit_content_height = true
 layout_mode = 2
 text = "Delete Scene"
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 4
+size = Vector2i(247, 106)
+
+[node name="Label" type="Label" parent="ConfirmationDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 239.0
+offset_bottom = 57.0
+text = "You wish to delete this entire scene?"
+
 [connection signal="button_down" from="BoxContainer/Row1Container/Write" to="." method="_on_write_button_down"]
 [connection signal="text_changed" from="BoxContainer/Row1Container/TitleEdit" to="." method="_on_text_edit_text_changed"]
-[connection signal="button_down" from="BoxContainer/Delete" to="." method="queue_free"]
+[connection signal="button_down" from="BoxContainer/Delete" to="ConfirmationDialog" method="show"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]

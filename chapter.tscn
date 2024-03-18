@@ -11,6 +11,7 @@ vertical = true
 script = ExtResource("1_715lu")
 
 [node name="Button" type="Button" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Above"
@@ -55,4 +56,23 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Below"
 
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Delete Chapter"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 4
+size = Vector2i(247, 106)
+
+[node name="Label" type="Label" parent="ConfirmationDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 239.0
+offset_bottom = 57.0
+text = "You wish to delete this entire chapter
+and all scenes contained within?"
+
 [connection signal="button_down" from="Scenes/Panel/BoxContainer/AddStart" to="." method="_on_add_start_button_down"]
+[connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]
