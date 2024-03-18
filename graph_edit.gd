@@ -6,7 +6,7 @@ var node_index = 0
 
 var save_time_left:float
 var second_timer:float
-@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterContainer
+@onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterContainer/ChapterSpawnees
 
 @onready var WordCount:Label = $TitleBar/WordCount
 
@@ -83,12 +83,14 @@ func _on_save_button_down():
 	else:
 		_save()
 		
+		
 func _save():
 	var data = SaveData.new()
-	data.node_connections = %GraphEdit.get_connection_list()
-	for child in %GraphEdit.get_children():
-		if child is GraphNode:
-			data._create_scene(child)
+	
+	for chapter in ChapterContainer.get_children():
+		if chapter is Chapter:
+			data.chapters.append(chapter.save())
+	
 	
 	data.characters = Settings.characters
 	data.save(Settings.configdata.save_path)
@@ -98,8 +100,10 @@ func _save():
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()
 
+
 func _on_load_button_down():
 	return
+	LemonUtils.ClearChildren(ChapterContainer)
 	for child in %GraphEdit.get_children():
 		child.queue_free()
 	var data = SaveData.load(Settings.configdata.save_path)
@@ -187,9 +191,21 @@ func _on_add_chapter_top_button_down():
 	_add_chapter(0)
 
 func _on_add_chapter_bottom_button_down():
-	_add_chapter(ChapterContainer.get_child_count() - 2)
+	_add_chapter(ChapterContainer.get_child_count() - 1)
 
 func _add_chapter(index):
 	var new_chapter:Chapter = ChapterFile.instantiate()
 	var sibling = ChapterContainer.get_child(index)
-	sibling.add_sibling(new_chapter)
+	if is_instance_valid(sibling):
+		if index == 0:
+			ChapterContainer.add_child(new_chapter)
+			ChapterContainer.move_child(new_chapter,0)
+		else:
+			sibling.add_sibling(new_chapter)
+	else:
+		if index == 0:
+			ChapterContainer.add_child(new_chapter)
+			ChapterContainer.move_child(new_chapter,0)
+		else:
+			ChapterContainer.add_child(new_chapter)
+			new_chapter.move_to_front()

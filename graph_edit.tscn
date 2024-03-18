@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_yhdet"]
 [ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_wq605"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_hmfxg"]
 [ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_j2imw"]
-[ext_resource type="PackedScene" uid="uid://cxpkcqo7palr1" path="res://chapter.tscn" id="5_u3jxl"]
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_yinnm"]
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_uecwi"]
 
@@ -191,8 +190,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "+ Chapter"
 
-[node name="Chapter" parent="SplitContainer/ChapterScroll/ChapterContainer" instance=ExtResource("5_u3jxl")]
+[node name="ChapterSpawnees" type="BoxContainer" parent="SplitContainer/ChapterScroll/ChapterContainer"]
 layout_mode = 2
+vertical = true
 
 [node name="AddChapterBottom" type="Button" parent="SplitContainer/ChapterScroll/ChapterContainer"]
 layout_mode = 2
@@ -240,5 +240,3 @@ visible = false
 [connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterContainer/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
-
-[editable path="SplitContainer/ChapterScroll/ChapterContainer/Chapter"]

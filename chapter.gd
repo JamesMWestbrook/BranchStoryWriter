@@ -29,3 +29,13 @@ func _on_add_scene_right_button_down(prev_scene, data): #false data = brand new
 	if data:
 		pass
 	
+func save():
+	pass
+	var chapter: Dictionary = {
+		"title": title,
+		"scenes": []
+	}
+	for scene in SceneContainer.get_children():
+		if scene is Scene:
+			chapter.scenes.append(scene.save())
+	return chapter

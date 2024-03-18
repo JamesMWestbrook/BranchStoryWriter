@@ -60,6 +60,19 @@ func _on_text_edit_text_changed(new_text):
 func _reset_modulate():
 	writing_in_this_scene = false
 	self_modulate = "ffffff"
+	
+	
 func _on_confirmation_delete_dialog_confirmed():
 	pass
 	pass # Replace with function body.
+
+
+func save():
+	var new_scene:Dictionary = {
+		"title":title_edit.text,
+		"description":scene_desc_edit.text,
+		"scenes":scene
+	}
+	
+	return new_scene
+	
