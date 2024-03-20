@@ -5,6 +5,8 @@ var title:String
 @onready var scene_file = load("res://Scene.tscn")
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $TitleEdit
+@onready var WordCount = $WordCount
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,12 +21,13 @@ func _on_add_scene_right_button_down(prev_scene, data,start:bool = false): #fals
 		SceneContainer.add_child(new_scene)
 		
 	new_scene.AddSceneRight.button_down.connect(_on_add_scene_right_button_down.bind(new_scene,false))
-	
+	new_scene.update_word_count.connect(_get_word_count)
 #on load
 	if data:
 		new_scene.title_edit.text = data.title
 		new_scene.scene_desc_edit.text = data.description
 		new_scene.scene = data.scenes
+		new_scene._set_word_count()
 	if start:
 		SceneContainer.move_child(new_scene,0)
 	
@@ -42,3 +45,10 @@ func save():
 
 func _on_add_start_button_down():
 	_on_add_scene_right_button_down(null,null,true)
+
+func _get_word_count():
+	var word_count = 0
+	for scene in SceneContainer.get_children():
+		if scene is Scene:
+			word_count += scene.word_count
+	WordCount.text = str(word_count)

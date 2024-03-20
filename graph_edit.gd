@@ -114,9 +114,10 @@ func _on_load_button_down():
 				new_chapter._on_add_scene_right_button_down(null,i)
 		#new_chapter._set_word_count()
 		new_chapter.TitleEdit.text = chapter.title
-
+		new_chapter._get_word_count()
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
+	
 		
 func _on_select_all_button_down():
 	%GraphEdit.arrange_nodes()

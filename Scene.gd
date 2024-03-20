@@ -11,7 +11,8 @@ var writing_in_this_scene:bool
 @onready var WordCount:Label = $BoxContainer/Row1Container/WordCount
 @onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
 var connected_scenes:Array
-var word_count
+var word_count:int
+signal update_word_count()
 func _ready():
 	pass
 
@@ -43,6 +44,7 @@ func _update_scene(new_scene:Array[Dictionary]):
 	scene = new_scene.duplicate()
 	_set_word_count()
 	Globals.WritingPanel._set_word_count(word_count)
+	update_word_count.emit()
 	
 		
 func _set_word_count():
