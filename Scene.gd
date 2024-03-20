@@ -52,7 +52,7 @@ func _set_word_count():
 	for i in scene:
 		var dialog:String = i.dialog.replacen(".","")
 		word_count += dialog.split(" ", false).size()
-	WordCount.text = "Word Count: " + str(word_count)
+	WordCount.text = str(word_count) + " Words"
 	
 func _on_text_edit_text_changed(new_text):
 	if writing_in_this_scene:

@@ -8,7 +8,7 @@ var save_time_left:float
 var second_timer:float
 @onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
 
-@onready var WordCount:Label = $TitleBar/WordCount
+@onready var WordCount:Label = $SplitContainer/ChapterScroll/ChapterSection/WordCount
 
 @onready var ChapterFile = load("res://chapter.tscn")
 

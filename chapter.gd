@@ -54,5 +54,5 @@ func _get_word_count():
 		if scene is Scene:
 			new_word_count += scene.word_count
 	word_count = new_word_count
-	WordCount.text = str(new_word_count)
+	WordCount.text = str(new_word_count) + " words"
 	update_word_count.emit()
