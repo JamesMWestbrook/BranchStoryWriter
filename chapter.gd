@@ -6,7 +6,8 @@ var title:String
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $TitleEdit
 @onready var WordCount = $WordCount
-
+var word_count:int
+signal update_word_count()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -22,6 +23,7 @@ func _on_add_scene_right_button_down(prev_scene, data,start:bool = false): #fals
 		
 	new_scene.AddSceneRight.button_down.connect(_on_add_scene_right_button_down.bind(new_scene,false))
 	new_scene.update_word_count.connect(_get_word_count)
+	
 #on load
 	if data:
 		new_scene.title_edit.text = data.title
@@ -47,8 +49,10 @@ func _on_add_start_button_down():
 	_on_add_scene_right_button_down(null,null,true)
 
 func _get_word_count():
-	var word_count = 0
+	var new_word_count = 0
 	for scene in SceneContainer.get_children():
 		if scene is Scene:
-			word_count += scene.word_count
-	WordCount.text = str(word_count)
+			new_word_count += scene.word_count
+	word_count = new_word_count
+	WordCount.text = str(new_word_count)
+	update_word_count.emit()

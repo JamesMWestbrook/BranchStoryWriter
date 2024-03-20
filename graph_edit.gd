@@ -33,7 +33,6 @@ func _ready():
 	Globals.Loading = false
 	Settings.set_window.connect(_set_window)
 	_set_window()
-	_word_count()
 	
 	%WritingWindow.hide()
 	%WritingPanel.hide()
@@ -52,8 +51,7 @@ func _process(delta):
 			_save()
 			_reset_time_left()
 	second_timer += delta
-	if second_timer > 1:
-		_word_count()
+
 	
 func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
@@ -114,9 +112,11 @@ func _on_load_button_down():
 				new_chapter._on_add_scene_right_button_down(null,i)
 		#new_chapter._set_word_count()
 		new_chapter.TitleEdit.text = chapter.title
+		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
 	Settings.characters = data.characters
 	$TitleBar/HBoxContainer/Characters/Window._generate_list()
+	_update_word_count()
 	
 		
 func _on_select_all_button_down():
@@ -146,15 +146,7 @@ func _on_title_bar_save_and_quit():
 	else:
 		_save()
 		$TitleBar._on_close_button_down()
-func _word_count():
-	var count:int = 0
-	for child in %GraphEdit.get_children():
-		if child is GraphNode:
-			var string:String = child.WordCount.text
-			string = string.lstrip("Word Count: ")
-			var child_count:int = string.to_int()
-			count += child_count
-	WordCount.text = "Project Word Count: " + str(count)
+
 
 func _set_window():
 	if Settings.configdata.popout:
@@ -185,3 +177,14 @@ func _add_chapter(index):
 	var new_chapter:Chapter = ChapterFile.instantiate()
 	ChapterContainer.add_child(new_chapter)
 	ChapterContainer.move_child(new_chapter,index)
+	new_chapter.update_word_count.connect(_update_word_count)
+
+
+func _update_word_count():
+	var new_word_count = 0
+	for i in ChapterContainer.get_children():
+		if i is Chapter:
+			new_word_count += i.word_count
+	
+	
+	WordCount.text = str(new_word_count) + " Words"
