@@ -98,4 +98,4 @@ func _clear():
 	LemonUtils.ClearSignals(reassigned)
 	LemonUtils.ClearChildren(VBox)
 	all_dialog.clear()
-
+	

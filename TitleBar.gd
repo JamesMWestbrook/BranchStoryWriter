@@ -53,5 +53,5 @@ func _file_option_chosen(id:int):
 			Settings.characters.clear()
 			LemonUtils.ClearChildren(%GraphEdit)
 			LemonUtils.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
-			
+			LemonUtils.ClearChildren(Globals.WritingPanel.VBox)
 			
