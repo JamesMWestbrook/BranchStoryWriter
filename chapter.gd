@@ -9,10 +9,6 @@ var title:String
 var word_count:int
 signal update_word_count()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_add_scene_right_button_down(prev_scene, data,start:bool = false): #false data = brand new
 	var new_scene:Scene = scene_file.instantiate()

@@ -24,14 +24,10 @@ func _on_edit_button_down():
 
 
 func _on_save_button_down():
-	var new_char = character( NameEdit.text,Desc.text,Desc.visible)
-	#var new_char = {
-		#"name" : NameEdit.text,
-		#"desc" : Desc.text,
-		#"expand" : Desc.visible
-	#}
-	#Settings.characters.erase(character)
-	#Settings.characters.append(character)
+	var new_char = CharacterLine.character( 
+		NameEdit.text,
+		Desc.text,
+		Desc.visible)
 	Save.hide()
 	NameEdit.editable = false
 	Settings.characters[index] = new_char
