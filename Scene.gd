@@ -18,11 +18,6 @@ func _ready():
 
 
 func _on_write_button_down():
-	#if is_instance_valid(active_window):
-		#active_window.show()
-	#else:
-		#active_window = WritingWindowScene.instantiate()
-		#add_child(active_window)
 	Globals.WritingPanel.updated_dialog.emit(Globals.WritingPanel.all_dialog)
 	Globals.WritingPanel._clear()
 	Globals.WritingPanel.reassigned.connect(_reset_modulate)
@@ -34,10 +29,6 @@ func _on_write_button_down():
 	
 	self_modulate = "ff0000"
 	writing_in_this_scene = true
-		#active_window.position = get_viewport().get_mouse_position()
-		#if !loading:
-			#active_window._create_dialog(null,true)
-		#active_window.scene_title = title
 	pass
 		
 func _update_scene(new_scene:Array[Dictionary]):

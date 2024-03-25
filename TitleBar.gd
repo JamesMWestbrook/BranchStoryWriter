@@ -51,7 +51,9 @@ func _file_option_chosen(id:int):
 		5:#new file
 			Settings.configdata.save_path = ""
 			Settings.characters.clear()
-			LemonUtils.ClearChildren(%GraphEdit)
-			LemonUtils.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
-			LemonUtils.ClearChildren(Globals.WritingPanel.VBox)
-			
+			LUtil.ClearChildren(%GraphEdit)
+			LUtil.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
+			LUtil.ClearChildren(Globals.WritingPanel.VBox)
+			#each object needs its own clear method for clarity/ease sake
+			#word count
+			#title

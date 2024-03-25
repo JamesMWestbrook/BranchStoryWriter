@@ -1,7 +1,5 @@
 extends Node
-class_name LemonUtils
-
-
+class_name LUtil
 
 
 static func ClearChildren(node:Node):

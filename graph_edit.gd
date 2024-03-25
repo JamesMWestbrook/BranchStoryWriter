@@ -100,7 +100,7 @@ func _save():
 
 
 func _on_load_button_down():
-	LemonUtils.ClearChildren(ChapterContainer)
+	LUtil.ClearChildren(ChapterContainer)
 	var data:SaveData = SaveData.load(Settings.configdata.save_path)
 	DisplayServer.window_set_title(data.file_name)
 	for chapter:Dictionary in data.chapters:

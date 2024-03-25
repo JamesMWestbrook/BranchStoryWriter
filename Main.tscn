@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
 
-[ext_resource type="Script" path="res://graph_edit.gd" id="1_yhdet"]
-[ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_wq605"]
-[ext_resource type="Script" path="res://TitleBar.gd" id="3_hmfxg"]
-[ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_j2imw"]
-[ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_yinnm"]
-[ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_uecwi"]
+[ext_resource type="Script" path="res://graph_edit.gd" id="1_nsxrj"]
+[ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_d16w7"]
+[ext_resource type="Script" path="res://TitleBar.gd" id="3_2wqex"]
+[ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_7xxva"]
+[ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_vcs5m"]
+[ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_eimfy"]
 
 [sub_resource type="Theme" id="Theme_xtqv5"]
 SplitContainer/constants/autohide = 0
@@ -17,13 +17,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xtqv5")
-script = ExtResource("1_yhdet")
-graph_node = ExtResource("2_wq605")
+script = ExtResource("1_nsxrj")
+graph_node = ExtResource("2_d16w7")
 
 [node name="TitleBar" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-script = ExtResource("3_hmfxg")
+script = ExtResource("3_2wqex")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TitleBar"]
 layout_mode = 1
@@ -63,7 +63,7 @@ layout_mode = 2
 text = "Characters
 "
 
-[node name="Window" parent="TitleBar/HBoxContainer/Characters" instance=ExtResource("4_j2imw")]
+[node name="Window" parent="TitleBar/HBoxContainer/Characters" instance=ExtResource("4_7xxva")]
 visible = false
 
 [node name="OpenFile" type="FileDialog" parent="TitleBar"]
@@ -198,13 +198,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
 
-[node name="WritingPanel" parent="SplitContainer" instance=ExtResource("5_yinnm")]
+[node name="WritingPanel" parent="SplitContainer" instance=ExtResource("5_vcs5m")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
+type = null
 
-[node name="WritingWindow" parent="." instance=ExtResource("6_uecwi")]
+[node name="WritingWindow" parent="." instance=ExtResource("6_eimfy")]
 unique_name_in_owner = true
 visible = false
 

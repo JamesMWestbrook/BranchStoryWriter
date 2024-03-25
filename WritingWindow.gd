@@ -93,9 +93,9 @@ func _on_dialog_delete():
 	_update_scene_data()
 
 func _clear():
-	LemonUtils.ClearSignals(updated_dialog)
+	LUtil.ClearSignals(updated_dialog)
 	reassigned.emit()
-	LemonUtils.ClearSignals(reassigned)
-	LemonUtils.ClearChildren(VBox)
+	LUtil.ClearSignals(reassigned)
+	LUtil.ClearChildren(VBox)
 	all_dialog.clear()
 	
