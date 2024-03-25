@@ -3,7 +3,7 @@ class_name SaveData
 
 @export var file_name:String
 @export var chapters:Array[Dictionary]
-@export var characters:Array[String]
+@export var characters:Array[Dictionary]
 
 
 func save(path):

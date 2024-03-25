@@ -9,9 +9,9 @@ func _ready():
 func _on_line_edit_text_changed(new_text):
 	
 	var has_true:bool
-	for i:String in Settings.characters:
-		if i.to_lower().contains(new_text.to_lower()):
-			text = i
+	for i:Dictionary in Settings.characters:
+		if i.name.to_lower().contains(new_text.to_lower()):
+			text = i.name
 			has_true = true
 	has_match = has_true
 	if !has_true:

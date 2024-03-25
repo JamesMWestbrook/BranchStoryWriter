@@ -7,7 +7,6 @@
 initial_position = 2
 size = Vector2i(500, 500)
 script = ExtResource("1_6scwl")
-CharacterLine = ExtResource("2_johcl")
 CharacterList = NodePath("VBoxContainer/ScrollContainer/Characters")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

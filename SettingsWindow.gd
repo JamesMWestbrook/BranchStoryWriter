@@ -8,8 +8,8 @@ signal set_layout(new_layout:String)
 @export var light_theme:Theme
 
 var configdata:ConfigData = ConfigData.new()
-
-var characters:Array[String]
+var character_count:int
+var characters:Array[Dictionary]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

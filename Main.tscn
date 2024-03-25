@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=9 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_nsxrj"]
 [ext_resource type="PackedScene" uid="uid://dhcbreqqqh448" path="res://graph_node.tscn" id="2_d16w7"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_2wqex"]
 [ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_7xxva"]
+[ext_resource type="PackedScene" uid="uid://b3is2c3ad72tg" path="res://character_line.tscn" id="5_8shvh"]
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_vcs5m"]
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_eimfy"]
 
@@ -65,6 +66,7 @@ text = "Characters
 
 [node name="Window" parent="TitleBar/HBoxContainer/Characters" instance=ExtResource("4_7xxva")]
 visible = false
+CharLine = ExtResource("5_8shvh")
 
 [node name="OpenFile" type="FileDialog" parent="TitleBar"]
 title = "Open a File"

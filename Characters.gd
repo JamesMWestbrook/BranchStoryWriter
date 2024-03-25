@@ -1,6 +1,6 @@
 extends Window
-
-@export var CharacterLine:PackedScene
+class_name CharacterWindow
+@export var CharLine:PackedScene
 @export var CharacterList: VBoxContainer
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,20 +15,29 @@ func _on_line_edit_text_submitted(new_text):
 	if Settings.characters.has(new_text):
 		return
 	else:
-		Settings.characters.append(new_text)
-		_add_item(new_text)
+		var new_char = CharacterLine.character(new_text)
+		Settings.characters.append(new_char)
+		_add_item(new_char)
 
 func _generate_list():
-	for child in $VBoxContainer/ScrollContainer/Characters.get_children():
+	for child in CharacterList.get_children():
 		child.queue_free()
 	for person in Settings.characters:
 		_add_item(person)
 
 func _add_item(person):
-		var new_line = CharacterLine.instantiate()
-		$VBoxContainer/ScrollContainer/Characters.add_child(new_line)
+		Settings.character_count += 1
+		var new_index = Settings.character_count - 1
+		var new_line:CharacterLine = CharLine.instantiate()
+		CharacterList.add_child(new_line)
 		new_line._assign_character(person)
-
+		new_line.index = new_index
+		new_line.fixIndex.connect(_fix_index)
 
 func _on_close_requested():
 	hide()
+
+func _fix_index(index_removed):
+	for line in CharacterList.get_children():
+		if line.index > index_removed:
+			line.index -= 1

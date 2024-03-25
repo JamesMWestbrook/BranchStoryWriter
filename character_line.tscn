@@ -46,3 +46,4 @@ scroll_fit_content_height = true
 [connection signal="button_down" from="HBoxContainer/Edit" to="." method="_on_edit_button_down"]
 [connection signal="button_down" from="HBoxContainer/Delete" to="." method="_on_delete_button_down"]
 [connection signal="button_down" from="HBoxContainer/Expand" to="." method="_on_expand_button_down"]
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]

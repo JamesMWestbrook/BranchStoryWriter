@@ -11,7 +11,7 @@ var second_timer:float
 @onready var WordCount:Label = $SplitContainer/ChapterScroll/ChapterSection/WordCount
 
 @onready var ChapterFile = load("res://chapter.tscn")
-
+@onready var CharWindow:CharacterWindow = $TitleBar/HBoxContainer/Characters/Window
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Globals.main = self
@@ -115,7 +115,7 @@ func _on_load_button_down():
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
 	Settings.characters = data.characters
-	$TitleBar/HBoxContainer/Characters/Window._generate_list()
+	CharWindow._generate_list()
 	_update_word_count()
 	
 		
