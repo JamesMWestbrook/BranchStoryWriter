@@ -69,3 +69,23 @@ func save():
 	
 	return new_scene
 	
+
+func _export_scene():
+	var full_scene:String
+	full_scene += title_edit.text + "\n"
+	for d in scene:
+		full_scene += d.speaker + "\n"
+		full_scene += d.dialog + "\n\n"
+	full_scene += "------------------\n"
+	return full_scene
+
+func _on_file_dialog_file_selected(path):
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	var string = _export_scene()
+	file.store_string(string)
+	OS.shell_open(path.get_base_dir())
+
+
+func _on_export_scene_button_down():
+	$FileDialog.current_file = title_edit.text
+	$FileDialog.show()

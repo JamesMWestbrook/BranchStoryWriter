@@ -5,6 +5,8 @@
 
 [node name="Scene" type="PanelContainer"]
 custom_minimum_size = Vector2(450, 0)
+offset_right = 545.0
+offset_bottom = 105.0
 script = ExtResource("1_sbm3w")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
@@ -31,6 +33,10 @@ custom_minimum_size = Vector2(141, 0)
 layout_mode = 2
 text = "XXXX Words"
 
+[node name="ExportScene" type="Button" parent="BoxContainer/Row1Container"]
+layout_mode = 2
+text = "Export"
+
 [node name="AddSceneRight" type="Button" parent="BoxContainer/Row1Container"]
 layout_mode = 2
 text = "+"
@@ -54,7 +60,14 @@ offset_right = 239.0
 offset_bottom = 57.0
 text = "You wish to delete this entire scene?"
 
+[node name="FileDialog" type="FileDialog" parent="."]
+size = Vector2i(1067, 354)
+access = 2
+filters = PackedStringArray("*.txt")
+
 [connection signal="button_down" from="BoxContainer/Row1Container/Write" to="." method="_on_write_button_down"]
 [connection signal="text_changed" from="BoxContainer/Row1Container/TitleEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="button_down" from="BoxContainer/Row1Container/ExportScene" to="." method="_on_export_scene_button_down"]
 [connection signal="button_down" from="BoxContainer/Delete" to="ConfirmationDialog" method="show"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
