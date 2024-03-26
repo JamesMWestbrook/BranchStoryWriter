@@ -9,7 +9,7 @@ func _ready():
 func _on_line_edit_text_changed(new_text):
 	
 	var has_true:bool
-	for i:Dictionary in Settings.characters:
+	for i:Dictionary in Main.characters:
 		if i.name.to_lower().contains(new_text.to_lower()):
 			text = i.name
 			has_true = true

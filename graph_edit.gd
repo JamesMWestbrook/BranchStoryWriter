@@ -1,5 +1,6 @@
 extends VBoxContainer
 class_name Main
+static var instance:Main
 @export var graph_node:PackedScene
 var initial_position = Vector2(40,40)
 var node_index = 0
@@ -12,6 +13,10 @@ var second_timer:float
 
 @onready var ChapterFile = load("res://chapter.tscn")
 @onready var CharWindow:CharacterWindow = $TitleBar/HBoxContainer/Characters/Window
+
+static var character_count:int
+static var characters:Array[Dictionary]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Globals.main = self
@@ -90,7 +95,7 @@ func _save():
 			data.chapters.append(chapter.save())
 	
 	
-	data.characters = Settings.characters
+	data.characters = Main.characters
 	data.save(Settings.configdata.save_path)
 	Settings.configdata._save()
 	DisplayServer.window_set_title(data.file_name)
@@ -114,7 +119,7 @@ func _on_load_button_down():
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
-	Settings.characters = data.characters
+	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
 	

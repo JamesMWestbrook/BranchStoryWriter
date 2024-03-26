@@ -7,9 +7,6 @@ var index:int
 
 signal fixIndex(index_removed)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 func _assign_character(new_character:Dictionary):
 	NameEdit.text = new_character.name
@@ -30,10 +27,10 @@ func _on_save_button_down():
 		Desc.visible)
 	Save.hide()
 	NameEdit.editable = false
-	Settings.characters[index] = new_char
+	Main.characters[index] = new_char
 
 func _on_delete_button_down():
-	Settings.characters.remove_at(index)
+	Main.characters.remove_at(index)
 	fixIndex.emit(index)
 	queue_free()
 
