@@ -9,13 +9,30 @@ var save_time_left:float
 var second_timer:float
 @onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
 
-@onready var WordCount:Label = $SplitContainer/ChapterScroll/ChapterSection/WordCount
+@onready var WordCount:Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/WordCount
+@onready var TodayWordCount: Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/TodayCount
+@onready var GoalLabel: Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/GoalLabel
+@onready var EditGoal: LineEdit = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/EditGoal
 
 @onready var ChapterFile = load("res://chapter.tscn")
 @onready var CharWindow:CharacterWindow = $TitleBar/HBoxContainer/Characters/Window
 
 static var character_count:int
 static var characters:Array[Dictionary]
+
+var CurrentDailyGoal:int
+var history:Dictionary
+
+func Goal(goal:int=0,start_count:int = 0,met:bool=false,date:String=""):
+	return {
+		"goal":goal,
+		"start_count":start_count,
+		"word_count":0,
+		"met":met,
+		"date":date
+	}
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,6 +58,11 @@ func _ready():
 	
 	%WritingWindow.hide()
 	%WritingPanel.hide()
+	var date = Time.get_date_string_from_system()
+	if !history.has(date):
+		history[date] = (Goal(CurrentDailyGoal,_update_word_count(),false,date))
+	else:
+		pass
 		
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
@@ -77,7 +99,6 @@ func _on_graph_edit_disconnection_request(from_node, from_port, to_node, to_port
 
 func _on_list_button_down():
 	var list = %GraphEdit.get_connection_list()
-	print(list)
 
 
 func _on_save_button_down():
@@ -96,6 +117,8 @@ func _save():
 	
 	
 	data.characters = Main.characters
+	data.GoalHistory = history
+	data.CurrentDailyGoal = CurrentDailyGoal
 	data.save(Settings.configdata.save_path)
 	Settings.configdata._save()
 	DisplayServer.window_set_title(data.file_name)
@@ -119,6 +142,9 @@ func _on_load_button_down():
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
+	history = data.GoalHistory
+	CurrentDailyGoal = data.CurrentDailyGoal
+	EditGoal.text = str(CurrentDailyGoal)
 	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
@@ -191,5 +217,25 @@ func _update_word_count():
 		if i is Chapter:
 			new_word_count += i.word_count
 	
-	
 	WordCount.text = str(new_word_count) + " Words"
+	_update_goal(new_word_count)
+	return new_word_count
+
+func _get_today_goal():
+	var date = Time.get_date_string_from_system()
+	if history.has(date):
+		return history[date]
+	
+func _update_goal(count):
+	var today = _get_today_goal()
+	if _get_today_goal():
+		var updated_count = count - _get_today_goal().start_count
+		today.word_count = updated_count
+		TodayWordCount.text = "Today's Word Count: " + str(updated_count)
+		if today.word_count >= today.goal:
+			today.met = true
+			TodayWordCount.modulate = Color.GREEN
+
+func _on_edit_goal_text_changed(new_text):
+	CurrentDailyGoal = int(new_text)
+	_get_today_goal().goal = CurrentDailyGoal

@@ -173,10 +173,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 vertical = true
 
-[node name="WordCount" type="Label" parent="SplitContainer/ChapterScroll/ChapterSection"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitContainer/ChapterScroll/ChapterSection"]
+layout_mode = 2
+
+[node name="WordCount" type="Label" parent="SplitContainer/ChapterScroll/ChapterSection/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Word Count: "
+
+[node name="GoalLabel" type="Label" parent="SplitContainer/ChapterScroll/ChapterSection/HBoxContainer"]
+layout_mode = 2
+text = "Goal"
+
+[node name="EditGoal" type="LineEdit" parent="SplitContainer/ChapterScroll/ChapterSection/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "0"
+
+[node name="TodayCount" type="Label" parent="SplitContainer/ChapterScroll/ChapterSection/HBoxContainer"]
+layout_mode = 2
+text = "Today's Word Count: "
 
 [node name="AddChapterTop" type="Button" parent="SplitContainer/ChapterScroll/ChapterSection"]
 layout_mode = 2
@@ -230,6 +245,7 @@ visible = false
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]
+[connection signal="text_changed" from="SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/EditGoal" to="." method="_on_edit_goal_text_changed"]
 [connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterSection/AddChapterTop" to="." method="_on_add_chapter_top_button_down"]
 [connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterSection/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]

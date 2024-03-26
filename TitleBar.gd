@@ -24,7 +24,6 @@ func _on_close_button_down():
 
 func _on_theme_menu_button_down():
 	var id = $HBoxContainer/SettingsWindow/VBoxContainer/HBoxContainer/ThemeMenu.get_index()
-	print(id)
 
 
 func _on_settings_button_down():

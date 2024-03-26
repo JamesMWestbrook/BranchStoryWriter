@@ -13,11 +13,9 @@ func _process(_delta):
 func _input(event):
 	if has_focus():
 		if event is InputEventKey and event.is_pressed():
-			print(event.keycode)
 			if event.keycode == KEY_ENTER:
 				create_dialog.emit()
 				get_viewport().set_input_as_handled()
 func _on_text_set():
-	print("Set")
 	pass # Replace with function body.
 
