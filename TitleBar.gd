@@ -9,7 +9,7 @@ signal save_as
 signal save_and_quit
 signal quit_no_save
 signal open_file
-
+@onready var ExportDialog = $ExportFileDialog
 func _process(_delta):
 	#if following:
 		#DisplayServer.window_set_position(
@@ -56,3 +56,24 @@ func _file_option_chosen(id:int):
 			#each object needs its own clear method for clarity/ease sake
 			#word count
 			#title
+		6:#export txt
+			var file_name = Settings.configdata.save_path.get_file()
+			file_name = file_name.replace(".tres","")
+			ExportDialog.current_file = file_name
+			ExportDialog.show()
+			
+			
+func _export_project():
+	var file_name = Settings.configdata.save_path.get_file()
+	file_name = file_name.replace(".tres","")
+	var export:String = file_name + "\n"
+	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
+		export += chapter._export_chapter()
+	
+	return export
+
+func _on_export_file_dialog_file_selected(path):
+	var export:String = _export_project()
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(export)
+	OS.shell_open(path.get_base_dir())
