@@ -30,9 +30,8 @@ func _on_add_scene_right_button_down(prev_scene, data,start:bool = false): #fals
 		SceneContainer.move_child(new_scene,0)
 	
 func save():
-	pass
 	var chapter: Dictionary = {
-		"title": title,
+		"title": TitleEdit.text,
 		"scenes": []
 	}
 	for scene in SceneContainer.get_children():
