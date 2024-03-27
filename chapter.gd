@@ -54,6 +54,8 @@ func _get_word_count():
 
 
 func _on_export_button_down():
+	if !Globals.export_path.is_empty():
+		$FileDialog.current_dir = Globals.export_path
 	$FileDialog.current_file = TitleEdit.text
 	$FileDialog.show()
 
@@ -70,3 +72,4 @@ func _on_file_dialog_file_selected(path):
 	var string = _export_chapter()
 	file.store_string(string)
 	OS.shell_open(path.get_base_dir())
+	Globals.new_export_path(path)

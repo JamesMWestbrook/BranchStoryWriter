@@ -84,8 +84,10 @@ func _on_file_dialog_file_selected(path):
 	var string = _export_scene()
 	file.store_string(string)
 	OS.shell_open(path.get_base_dir())
-
+	Globals.new_export_path(path)
 
 func _on_export_scene_button_down():
+	if !Globals.export_path.is_empty():
+		$FileDialog.current_dir = Globals.export_path
 	$FileDialog.current_file = title_edit.text
 	$FileDialog.show()

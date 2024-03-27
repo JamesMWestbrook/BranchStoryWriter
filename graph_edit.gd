@@ -22,6 +22,7 @@ static var characters:Array[Dictionary]
 var CurrentDailyGoal:int
 var history:Dictionary
 
+
 func Goal(goal:int=0,start_count:int = 0,met:bool=false,date:String=""):
 	return {
 		"goal":goal,
@@ -114,7 +115,7 @@ func _save():
 		if chapter is Chapter:
 			data.chapters.append(chapter.save())
 	
-	
+	data.export_path = Globals.export_path
 	data.characters = Main.characters
 	data.GoalHistory = history
 	data.CurrentDailyGoal = CurrentDailyGoal
@@ -141,6 +142,7 @@ func _on_load_button_down():
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
+		Globals.export_path = data.export_path
 	history = data.GoalHistory
 	CurrentDailyGoal = data.CurrentDailyGoal
 	EditGoal.text = str(CurrentDailyGoal)

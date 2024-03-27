@@ -59,6 +59,8 @@ func _file_option_chosen(id:int):
 		6:#export txt
 			var file_name = Settings.configdata.save_path.get_file()
 			file_name = file_name.replace(".tres","")
+			if !Globals.export_path.is_empty():
+				ExportDialog.current_dir = Globals.export_path
 			ExportDialog.current_file = file_name
 			ExportDialog.show()
 			
@@ -77,3 +79,4 @@ func _on_export_file_dialog_file_selected(path):
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	file.store_string(export)
 	OS.shell_open(path.get_base_dir())
+	Globals.new_export_path(path)

@@ -2,6 +2,7 @@ extends Resource
 class_name SaveData
 
 @export var file_name:String
+@export var export_path:String
 @export var chapters:Array[Dictionary]
 @export var characters:Array[Dictionary]
 @export var GoalHistory:Dictionary
