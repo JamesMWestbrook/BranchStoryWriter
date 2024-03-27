@@ -5,7 +5,7 @@ var title:String
 @onready var scene_file = load("res://Scene.tscn")
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $TitleEdit
-@onready var WordCount = $WordCount
+@onready var WordCount = $HBoxContainer/WordCount
 var word_count:int
 signal update_word_count()
 
@@ -52,3 +52,22 @@ func _get_word_count():
 	word_count = new_word_count
 	WordCount.text = str(new_word_count) + " words"
 	update_word_count.emit()
+
+
+func _on_export_button_down():
+	$FileDialog.current_file = TitleEdit.text
+	$FileDialog.show()
+
+func _export_chapter():
+	var export:String = "---    " + TitleEdit.text.to_upper() + "    ---\n"
+	for scene:Scene in SceneContainer.get_children():
+		export += scene._export_scene()
+	export += "\n"
+	return export
+	
+	
+func _on_file_dialog_file_selected(path):
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	var string = _export_chapter()
+	file.store_string(string)
+	OS.shell_open(path.get_base_dir())

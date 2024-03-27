@@ -23,7 +23,14 @@ placeholder_text = "Chapter Title"
 alignment = 1
 expand_to_text_length = true
 
-[node name="WordCount" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Export" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Export Chapter"
+
+[node name="WordCount" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 text = " Words"
 horizontal_alignment = 1
@@ -73,6 +80,14 @@ offset_bottom = 57.0
 text = "You wish to delete this entire chapter
 and all scenes contained within?"
 
+[node name="FileDialog" type="FileDialog" parent="."]
+initial_position = 4
+size = Vector2i(949, 319)
+access = 2
+filters = PackedStringArray("*.txt")
+
+[connection signal="button_down" from="HBoxContainer/Export" to="." method="_on_export_button_down"]
 [connection signal="button_down" from="Scenes/Panel/BoxContainer/AddStart" to="." method="_on_add_start_button_down"]
 [connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

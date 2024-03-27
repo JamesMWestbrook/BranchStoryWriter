@@ -1,7 +1,6 @@
 extends VBoxContainer
 class_name Main
 static var instance:Main
-@export var graph_node:PackedScene
 var initial_position = Vector2(40,40)
 var node_index = 0
 
