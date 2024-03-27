@@ -9,10 +9,10 @@ var save_time_left:float
 var second_timer:float
 @onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
 
-@onready var WordCount:Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/WordCount
-@onready var TodayWordCount: Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/TodayCount
-@onready var GoalLabel: Label = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/GoalLabel
-@onready var EditGoal: LineEdit = $SplitContainer/ChapterScroll/ChapterSection/HBoxContainer/EditGoal
+@onready var WordCount:Label = $TitleBar/HBoxContainer/WordCount
+@onready var TodayWordCount: Label = $TitleBar/HBoxContainer/TodayCount
+@onready var GoalLabel: Label = $TitleBar/HBoxContainer/GoalLabel
+@onready var EditGoal: LineEdit = $TitleBar/HBoxContainer/EditGoal
 
 @onready var ChapterFile = load("res://chapter.tscn")
 @onready var CharWindow:CharacterWindow = $TitleBar/HBoxContainer/Characters/Window
@@ -235,6 +235,9 @@ func _update_goal(count):
 		if today.word_count >= today.goal:
 			today.met = true
 			TodayWordCount.modulate = Color.GREEN
+		else:
+			today.met = false
+			TodayWordCount.modulate = Color.WHITE
 
 func _on_edit_goal_text_changed(new_text):
 	CurrentDailyGoal = int(new_text)
