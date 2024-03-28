@@ -104,6 +104,10 @@ func _on_list_button_down():
 func _on_save_button_down():
 	if Settings.configdata.save_path == "":
 		$TitleBar/SaveNamePopup.show()
+		if ConfigData.config_path.is_empty():
+			Globals.set_my_documents()
+		var path:String = Globals.export_path
+		
 	else:
 		_save()
 		

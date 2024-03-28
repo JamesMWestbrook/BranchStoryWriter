@@ -81,6 +81,7 @@ text = "You wish to delete this entire chapter
 and all scenes contained within?"
 
 [node name="FileDialog" type="FileDialog" parent="."]
+title = "Export a Chapter"
 initial_position = 4
 size = Vector2i(949, 319)
 access = 2

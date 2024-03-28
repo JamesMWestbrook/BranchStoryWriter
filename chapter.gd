@@ -6,6 +6,7 @@ var title:String
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $TitleEdit
 @onready var WordCount = $HBoxContainer/WordCount
+@onready var fileDialog = $FileDialog
 var word_count:int
 signal update_word_count()
 
@@ -54,10 +55,12 @@ func _get_word_count():
 
 
 func _on_export_button_down():
-	if !Globals.export_path.is_empty():
-		$FileDialog.current_dir = Globals.export_path
-	$FileDialog.current_file = TitleEdit.text
-	$FileDialog.show()
+	if Globals.export_path.is_empty():
+		Globals.set_my_documents()
+	var path = Globals.export_path
+	fileDialog.current_dir = path
+	fileDialog.current_file = TitleEdit.text
+	fileDialog.show()
 
 func _export_chapter():
 	var export:String = "---    " + TitleEdit.text.to_upper() + "    ---\n"
