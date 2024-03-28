@@ -48,8 +48,7 @@ func _file_option_chosen(id:int):
 		4:
 			open_file.emit()
 		5:#new file
-			Settings.configdata.save_path = ""
-			Settings.characters.clear()
+			clear()
 			LUtil.ClearChildren(%GraphEdit)
 			LUtil.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
 			LUtil.ClearChildren(Globals.WritingPanel.VBox)
@@ -58,16 +57,21 @@ func _file_option_chosen(id:int):
 			#title
 		6:#export txt
 			
-			if Globals.export_path.is_empty():
-				Globals.set_my_documents()
-			var path:String = Globals.export_path
-			var file_name:String = Settings.configdata.save_path.get_file()
+			if Globals.export_folder.is_empty():
+				Globals.set_export_path()
+			var path:String = Globals.export_folder
+			var file_name:String = Globals.export_folder.get_file()
 			file_name = file_name.replace(".tres","")
-			ExportDialog.current_dir = Globals.export_path
+			ExportDialog.current_dir = Globals.export_folder
 			ExportDialog.current_file = file_name
 			ExportDialog.show()
 			
-			
+func clear():
+	Globals.clear()
+	Globals.main.clear()
+	Settings.configdata.last_save_path = ""
+	
+	
 func _export_project():
 	var file_name = Settings.configdata.save_path.get_file()
 	file_name = file_name.replace(".tres","")
@@ -86,4 +90,4 @@ func _on_export_file_dialog_file_selected(path):
 
 
 func _on_clear_debug_button_down():
-	Globals.export_path = ""
+	Globals.export_folder = ""

@@ -86,7 +86,6 @@ layout_mode = 2
 text = "Today's Word Count: "
 
 [node name="ClearDebug" type="Button" parent="TitleBar/HBoxContainer"]
-visible = false
 self_modulate = Color(0.819608, 0, 0.329412, 1)
 layout_mode = 2
 text = "Clear Path"

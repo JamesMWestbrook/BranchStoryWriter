@@ -55,9 +55,9 @@ func _get_word_count():
 
 
 func _on_export_button_down():
-	if Globals.export_path.is_empty():
-		Globals.set_my_documents()
-	var path = Globals.export_path
+	if Globals.export_folder.is_empty():
+		Globals.set_export_path()
+	var path = Globals.export_folder
 	fileDialog.current_dir = path
 	fileDialog.current_file = TitleEdit.text
 	fileDialog.show()

@@ -87,9 +87,9 @@ func _on_file_dialog_file_selected(path):
 	Globals.new_export_path(path)
 
 func _on_export_scene_button_down():
-	if Globals.export_path.is_empty():
+	if Globals.export_folder.is_empty():
 		Globals.set_my_documents()
-	var path = Globals.export_path
-	$FileDialog.current_dir = Globals.export_path
+	var path = Globals.export_folder
+	$FileDialog.current_dir = Globals.export_folder
 	$FileDialog.current_file = title_edit.text
 	$FileDialog.show()

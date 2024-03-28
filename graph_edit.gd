@@ -41,13 +41,17 @@ func _ready():
 	save_time_left = 666
 	Settings.update_theme.connect(_update_theme) 
 	await get_tree().create_timer(0.01).timeout
-	if Settings.configdata.autoOpen and Settings.configdata.save_path != "":
+	if Settings.configdata.autoOpen and Settings.configdata.last_save_path != "":
 		_on_load_button_down()
 	if Settings.configdata.autosave:
 		save_time_left = Settings.configdata.interval
 		
 	if Settings.configdata.layout == "Vertical":
 		%SplitContainer.vertical = true
+	if Settings.configdata.default_folder_path.is_empty():
+		Globals.set_save_path()
+	$TitleBar/OpenFile.current_dir = Settings.configdata.default_folder_path
+	$TitleBar/SaveFile.current_dir = Settings.configdata.default_folder_path
 	Settings.set_layout.connect(_set_layout)
 	Settings.reset_timer.connect(_reset_time_left)
 	_reset_time_left()
@@ -79,6 +83,12 @@ func _process(delta):
 			_reset_time_left()
 	second_timer += delta
 
+func clear():
+	characters.clear()
+	LUtil.ClearChildren(ChapterContainer)
+	history.clear()
+	TodayWordCount.text = "Today's Word Count: " + str(0)
+	TodayWordCount.modulate = Color.WHITE
 	
 func _reset_time_left():
 	save_time_left = Settings.configdata.interval * 60
@@ -102,11 +112,8 @@ func _on_list_button_down():
 
 
 func _on_save_button_down():
-	if Settings.configdata.save_path == "":
+	if Globals.file_name == "":
 		$TitleBar/SaveNamePopup.show()
-		if ConfigData.config_path.is_empty():
-			Globals.set_my_documents()
-		var path:String = Globals.export_path
 		
 	else:
 		_save()
@@ -119,11 +126,11 @@ func _save():
 		if chapter is Chapter:
 			data.chapters.append(chapter.save())
 	
-	data.export_path = Globals.export_path
+	data.export_folder = Globals.export_folder
 	data.characters = Main.characters
 	data.GoalHistory = history
 	data.CurrentDailyGoal = CurrentDailyGoal
-	data.save(Settings.configdata.save_path)
+	data.save(Globals.file_name)
 	Settings.configdata._save()
 	DisplayServer.window_set_title(data.file_name)
 	$TitleBar/SavedNotifyPanel.show()
@@ -132,8 +139,8 @@ func _save():
 
 
 func _on_load_button_down():
-	LUtil.ClearChildren(ChapterContainer)
-	var data:SaveData = SaveData.load(Settings.configdata.save_path)
+	clear()
+	var data:SaveData = SaveData.load(Settings.configdata.last_save_path)
 	DisplayServer.window_set_title(data.file_name)
 	for chapter:Dictionary in data.chapters:
 		var new_chapter:Chapter = ChapterFile.instantiate()
@@ -146,7 +153,7 @@ func _on_load_button_down():
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
-		Globals.export_path = data.export_path
+		Globals.export_folder = data.export_folder
 	history = data.GoalHistory
 	CurrentDailyGoal = data.CurrentDailyGoal
 	EditGoal.text = str(CurrentDailyGoal)
@@ -163,7 +170,9 @@ func _update_theme(_theme):
 
 
 func _on_save_file_file_selected(path):
-	Settings.configdata.save_path = path
+	Globals.file_name = path
+	Settings.configdata.last_save_path = path
+	Settings.configdata.default_folder_path = path.get_base_dir()
 	_save()
 
 
@@ -174,14 +183,6 @@ func _on_title_bar_open_file():
 func _on_open_file_file_selected(path):
 	Settings._set_save(path)
 	_on_load_button_down()
-
-
-func _on_title_bar_save_and_quit():
-	if Settings.configdata.save_path == "":
-		$TitleBar/SaveNamePopup.show()
-	else:
-		_save()
-		$TitleBar._on_close_button_down()
 
 
 func _set_window():
@@ -233,8 +234,8 @@ func _get_today_goal():
 	
 func _update_goal(count):
 	var today = _get_today_goal()
-	if _get_today_goal():
-		var updated_count = count - _get_today_goal().start_count
+	if _get_today_goal() and count > _get_today_goal().start_count:
+		var updated_count:int = count - _get_today_goal().start_count
 		today.word_count = updated_count
 		TodayWordCount.text = "Today's Word Count: " + str(updated_count)
 		if today.word_count >= today.goal:
@@ -243,6 +244,7 @@ func _update_goal(count):
 		else:
 			today.met = false
 			TodayWordCount.modulate = Color.WHITE
+	
 
 func _on_edit_goal_text_changed(new_text):
 	CurrentDailyGoal = int(new_text)

@@ -62,6 +62,7 @@ text = "You wish to delete this entire scene?"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Export a Scene"
+initial_position = 4
 size = Vector2i(1067, 354)
 access = 2
 filters = PackedStringArray("*.txt")

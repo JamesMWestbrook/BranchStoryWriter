@@ -74,7 +74,9 @@ func _on_auto_open_toggled(toggled_on):
 	configdata.autoOpen = toggled_on
 	_save_config()
 func _set_save(path):
-	configdata.save_path = path
+	#global and last save path
+	Globals.file_name = path
+	configdata.last_save_path = path
 	_save_config()
 
 func _on_popout_check_box_toggled(toggled_on):
