@@ -51,7 +51,6 @@ func _file_option_chosen(id:int):
 			clear()
 			LUtil.ClearChildren(%GraphEdit)
 			LUtil.ClearChildren($HBoxContainer/Characters/Window.CharacterList)
-			LUtil.ClearChildren(Globals.WritingPanel.VBox)
 			#each object needs its own clear method for clarity/ease sake
 			#word count
 			#title
@@ -68,7 +67,6 @@ func _file_option_chosen(id:int):
 			
 func clear():
 	Globals.clear()
-	Globals.main.clear()
 	Settings.configdata.last_save_path = ""
 	
 	

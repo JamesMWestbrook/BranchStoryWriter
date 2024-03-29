@@ -20,7 +20,9 @@ static var character_count:int
 static var characters:Array[Dictionary]
 
 var CurrentDailyGoal:int
-var history:Dictionary
+var history:Dictionary:
+	set(value):
+		history = value
 
 
 func Goal(goal:int=0,start_count:int = 0,met:bool=false,date:String=""):
@@ -86,7 +88,10 @@ func _process(delta):
 func clear():
 	characters.clear()
 	LUtil.ClearChildren(ChapterContainer)
+	if is_instance_valid(Globals.WritingPanel):
+		LUtil.ClearChildren(Globals.WritingPanel.VBox)
 	history.clear()
+	$TitleBar/HBoxContainer/WordCount.text = "Word Count: 0"
 	TodayWordCount.text = "Today's Word Count: " + str(0)
 	TodayWordCount.modulate = Color.WHITE
 	
@@ -140,12 +145,12 @@ func _save():
 
 func _on_load_button_down():
 	clear()
+	await get_tree().process_frame
 	var data:SaveData = SaveData.load(Settings.configdata.last_save_path)
 	DisplayServer.window_set_title(data.file_name)
 	for chapter:Dictionary in data.chapters:
 		var new_chapter:Chapter = ChapterFile.instantiate()
 		ChapterContainer.add_child(new_chapter)
-		new_chapter.title = chapter.title
 		if !chapter.scenes.is_empty():
 			for i in chapter.scenes:
 				new_chapter._on_add_scene_right_button_down(null,i)
@@ -234,7 +239,8 @@ func _get_today_goal():
 	
 func _update_goal(count):
 	var today = _get_today_goal()
-	if _get_today_goal() and count > _get_today_goal().start_count:
+	if _get_today_goal():
+		var start_count:int = _get_today_goal().start_count
 		var updated_count:int = count - _get_today_goal().start_count
 		today.word_count = updated_count
 		TodayWordCount.text = "Today's Word Count: " + str(updated_count)

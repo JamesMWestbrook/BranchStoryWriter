@@ -97,5 +97,6 @@ func _clear():
 	reassigned.emit()
 	LUtil.ClearSignals(reassigned)
 	LUtil.ClearChildren(VBox)
+	LUtil.ClearChildren(Globals.WritingPanel.VBox)
 	all_dialog.clear()
 	

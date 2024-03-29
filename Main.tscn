@@ -232,7 +232,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
-type = null
 
 [node name="WritingWindow" parent="." instance=ExtResource("6_eimfy")]
 unique_name_in_owner = true

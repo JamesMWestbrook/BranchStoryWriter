@@ -29,3 +29,4 @@ static func set_my_documents():
 
 static func clear():
 	file_name = ""
+	Globals.main.clear()

@@ -1,7 +1,6 @@
 extends BoxContainer
 class_name Chapter
 
-var title:String
 @onready var scene_file = load("res://Scene.tscn")
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $TitleEdit
