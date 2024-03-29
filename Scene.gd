@@ -71,8 +71,7 @@ func save():
 	
 
 func _export_scene():
-	var full_scene:String
-	full_scene += title_edit.text + "\n"
+	var full_scene:String = title_edit.text + "\n"
 	for d in scene:
 		full_scene += d.speaker + "\n"
 		full_scene += d.dialog + "\n\n"
@@ -89,7 +88,6 @@ func _on_file_dialog_file_selected(path):
 func _on_export_scene_button_down():
 	if Globals.export_folder.is_empty():
 		Globals.set_my_documents()
-	var path = Globals.export_folder
 	$FileDialog.current_dir = Globals.export_folder
 	$FileDialog.current_file = title_edit.text
 	$FileDialog.show()

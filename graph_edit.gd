@@ -112,10 +112,6 @@ func _on_graph_edit_disconnection_request(from_node, from_port, to_node, to_port
 	%GraphEdit.disconnect_node(from_node, from_port, to_node, to_port)
 
 
-func _on_list_button_down():
-	var list = %GraphEdit.get_connection_list()
-
-
 func _on_save_button_down():
 	if Globals.file_name == "":
 		$TitleBar/SaveNamePopup.show()

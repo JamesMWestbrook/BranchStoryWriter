@@ -22,9 +22,6 @@ func _process(_delta):
 func _on_close_button_down():
 	get_tree().quit()
 
-func _on_theme_menu_button_down():
-	var id = $HBoxContainer/SettingsWindow/VBoxContainer/HBoxContainer/ThemeMenu.get_index()
-
 
 func _on_settings_button_down():
 	Settings.show()
@@ -58,7 +55,6 @@ func _file_option_chosen(id:int):
 			
 			if Globals.export_folder.is_empty():
 				Globals.set_export_path()
-			var path:String = Globals.export_folder
 			var file_name:String = Globals.export_folder.get_file()
 			file_name = file_name.replace(".tres","")
 			ExportDialog.current_dir = Globals.export_folder
