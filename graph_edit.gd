@@ -151,6 +151,8 @@ func _on_load_button_down():
 			for i in chapter.scenes:
 				new_chapter._on_add_scene_right_button_down(null,i)
 		#new_chapter._set_word_count()
+		new_chapter.AddChapterAfter.button_down.connect(_add_chapter_sibling.bind(new_chapter,false))
+		new_chapter.AddChapterBefore.button_down.connect(_add_chapter_sibling.bind(new_chapter,true))
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
@@ -210,12 +212,22 @@ func _on_add_chapter_top_button_down():
 
 func _on_add_chapter_bottom_button_down():
 	_add_chapter(ChapterContainer.get_child_count())
-
+	
+	
+func _add_chapter_sibling(chapter:Chapter,left:bool):
+	var index:int = chapter.get_index()
+	if !left:
+		index += 1
+	_add_chapter(index)
+	
+	
 func _add_chapter(index):
 	var new_chapter:Chapter = ChapterFile.instantiate()
 	ChapterContainer.add_child(new_chapter)
 	ChapterContainer.move_child(new_chapter,index)
 	new_chapter.update_word_count.connect(_update_word_count)
+	new_chapter.AddChapterAfter.button_down.connect(_add_chapter_sibling.bind(new_chapter,false))
+	new_chapter.AddChapterBefore.button_down.connect(_add_chapter_sibling.bind(new_chapter,true))
 
 
 func _update_word_count():

@@ -6,6 +6,8 @@ class_name Chapter
 @onready var TitleEdit = $TitleEdit
 @onready var WordCount = $HBoxContainer/WordCount
 @onready var fileDialog = $FileDialog
+@onready var AddChapterBefore:Button = $AddChapterBefore
+@onready var AddChapterAfter:Button = $AddChapterAfter
 var word_count:int
 signal update_word_count()
 
@@ -75,3 +77,5 @@ func _on_file_dialog_file_selected(path):
 	file.store_string(string)
 	OS.shell_open(path.get_base_dir())
 	Globals.new_export_path(path)
+
+
