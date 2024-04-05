@@ -85,6 +85,9 @@ size = Vector2i(949, 319)
 access = 2
 filters = PackedStringArray("*.txt")
 
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
 [connection signal="button_down" from="HBoxContainer/Export" to="." method="_on_export_button_down"]
 [connection signal="button_down" from="Scenes/Panel/BoxContainer/AddStart" to="." method="_on_add_start_button_down"]
 [connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]

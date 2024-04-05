@@ -36,13 +36,10 @@ func _load_dialog(scene: Array[Dictionary]):
 	
 func _create_dialog(node, first=false, loading = false, data = {}):
 	var dialog = Dialog.instantiate()
-	var separator = HSeparator.new()
 	if first:
 		VBox.add_child(dialog)
-		VBox.add_child(separator)
 	else:
 		node.add_sibling(dialog)
-		node.add_sibling(separator)
 	dialog.get_node("HBoxContainer2/TextEdit").create_dialog.connect(_create_dialog.bind(dialog))
 	dialog.changed_dialog.connect(_update_scene_data)
 	dialog.deleted.connect(_on_dialog_delete)

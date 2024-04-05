@@ -83,6 +83,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Delete"
 
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/LineEdit" to="HBoxContainer/LineEdit" method="_on_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_speaker_edit_text_changed"]
