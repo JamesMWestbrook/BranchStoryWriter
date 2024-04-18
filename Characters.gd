@@ -11,7 +11,11 @@ func _on_add_character_button_down():
 
 func _on_line_edit_text_submitted(new_text):
 	$VBoxContainer/HBoxContainer/LineEdit.text = ""
-	if Main.characters.has(new_text):
+	var has_char:bool
+	for ch in Main.characters:
+		if ch.name == new_text:
+			has_char = true
+	if has_char:
 		return
 	else:
 		var new_char = CharacterLine.character(new_text)

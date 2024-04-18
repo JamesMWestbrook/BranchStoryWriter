@@ -169,6 +169,7 @@ func _on_load_button_down():
 	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
+	print(characters)
 	
 		
 func _on_select_all_button_down():
