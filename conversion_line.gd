@@ -16,7 +16,6 @@ func _replace():
 		former_from = From.text
 	Main.conversions.erase(former_from)
 	Main.conversions[From.text] = To.text
-	print(Main.conversions)
 	former_from = From.text
 
 

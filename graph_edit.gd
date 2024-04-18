@@ -162,7 +162,6 @@ func _on_load_button_down():
 		Globals.export_folder = data.export_folder
 	history = data.GoalHistory
 	conversions = data.conversions
-	print(conversions)
 	for conv in conversions:
 		Conversion.main.add_conversion_line(conv,conversions[conv])
 	CurrentDailyGoal = data.CurrentDailyGoal

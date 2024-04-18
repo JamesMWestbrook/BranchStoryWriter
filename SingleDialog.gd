@@ -81,13 +81,18 @@ func _reverse_comment():
 
 
 func _on_speaker_copy_button_down():
-	DisplayServer.clipboard_set(speaker)
+	DisplayServer.clipboard_set(_convert(speaker))
 
 
 func _on_dialog_copy_button_down():
-	DisplayServer.clipboard_set(dialog)
+	DisplayServer.clipboard_set(_convert(dialog))
 
-
+func _convert(text:String):
+	var new_string = text
+	for conv in Main.conversions:
+		if new_string.contains(conv):
+			new_string = new_string.replace(conv,Main.conversions[conv])
+	return new_string
 func _set_text(set_speaker:String,set_dialog:String,loading:bool = false):
 	speaker_edit.text = set_speaker
 	dialog_edit.text = set_dialog
