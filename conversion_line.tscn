@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvio7mt8s2db6"]
+
+[ext_resource type="Script" path="res://conversion_line.gd" id="1_8nf3v"]
+
+[node name="Conversion" type="HBoxContainer"]
+script = ExtResource("1_8nf3v")
+
+[node name="From" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Ex. [b]"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "To"
+
+[node name="To" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+text = "Del"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 4
+size = Vector2i(228, 100)
+dialog_text = "Delete this conversion line?"
+
+[connection signal="text_changed" from="From" to="." method="_on_from_text_changed"]
+[connection signal="text_changed" from="To" to="." method="_on_to_text_changed"]
+[connection signal="button_down" from="Delete" to="ConfirmationDialog" method="show"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

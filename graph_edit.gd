@@ -19,6 +19,8 @@ var second_timer:float
 static var character_count:int
 static var characters:Array[Dictionary]
 
+static var conversions:Dictionary
+
 var CurrentDailyGoal:int
 var history:Dictionary:
 	set(value):
