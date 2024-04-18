@@ -131,6 +131,7 @@ func _save():
 	
 	data.export_folder = Globals.export_folder
 	data.characters = Main.characters
+	data.conversions = Main.conversions
 	data.GoalHistory = history
 	data.CurrentDailyGoal = CurrentDailyGoal
 	data.save(Globals.file_name)
@@ -160,6 +161,10 @@ func _on_load_button_down():
 		new_chapter._get_word_count()
 		Globals.export_folder = data.export_folder
 	history = data.GoalHistory
+	conversions = data.conversions
+	print(conversions)
+	for conv in conversions:
+		Conversion.main.add_conversion_line(conv,conversions[conv])
 	CurrentDailyGoal = data.CurrentDailyGoal
 	EditGoal.text = str(CurrentDailyGoal)
 	Main.characters = data.characters

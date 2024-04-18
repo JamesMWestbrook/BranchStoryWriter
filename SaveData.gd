@@ -7,6 +7,7 @@ class_name SaveData
 @export var characters:Array[Dictionary]
 @export var GoalHistory:Dictionary
 @export var CurrentDailyGoal:int
+@export var conversions:Dictionary
 func save(path):
 	file_name = path.get_file()
 	ResourceSaver.save(self,path)

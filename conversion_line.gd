@@ -20,9 +20,9 @@ func _replace():
 	former_from = From.text
 
 
-func _on_to_text_changed(new_text):
+func _on_to_text_changed(_new_text):
 	_replace()
 
 
-func _on_from_text_changed(new_text):
+func _on_from_text_changed(_new_text):
 	_replace()
