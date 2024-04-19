@@ -56,7 +56,8 @@ func _file_option_chosen(id:int):
 			
 			if Globals.export_folder.is_empty():
 				Globals.set_export_path()
-			var file_name:String = Globals.export_folder.get_file()
+			var file_name:String = Globals.file_name.get_file()
+			#var file_name:String = Globals.export_folder.get_file()
 			file_name = file_name.replace(".tres","")
 			ExportDialog.current_dir = Globals.export_folder
 			ExportDialog.current_file = file_name
@@ -69,8 +70,10 @@ func clear():
 	
 func _export_project():
 	var file_name = Settings.configdata.last_save_path.get_file()
+	var data = Settings.configdata
 	file_name = file_name.replace(".tres","")
 	var export:String = file_name + "\n"
+	
 	if Settings.configdata.export_char_with_story:
 		export += Main._characters_to_text()
 	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
@@ -79,6 +82,7 @@ func _export_project():
 	return export
 
 func _on_export_file_dialog_file_selected(path):
+	Globals.export_folder = path.get_base_dir()
 	var export:String = _export_project()
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	file.store_string(export)
