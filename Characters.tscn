@@ -17,6 +17,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Export" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Export Characters to .txt"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -41,6 +46,14 @@ size_flags_horizontal = 3
 [node name="CharacterLine" parent="VBoxContainer/ScrollContainer/Characters" instance=ExtResource("2_johcl")]
 layout_mode = 2
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Export characters"
+size = Vector2i(507, 534)
+access = 2
+filters = PackedStringArray("*.txt")
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="button_down" from="VBoxContainer/Export" to="FileDialog" method="show"]
 [connection signal="text_submitted" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="button_down" from="VBoxContainer/HBoxContainer/Add Character" to="." method="_on_add_character_button_down"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

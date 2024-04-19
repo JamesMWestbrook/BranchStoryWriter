@@ -45,9 +45,11 @@ func _fix_index(index_removed):
 		if line.index > index_removed:
 			line.index -= 1
 
-func _to_text():
-	pass
-	var text = "Characters\n"
+
 	
-	return text
-	
+
+
+
+
+func _on_file_dialog_file_selected(path):
+	pass # Replace with function body.

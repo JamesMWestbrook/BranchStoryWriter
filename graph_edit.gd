@@ -172,7 +172,7 @@ func _on_load_button_down():
 	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
-	print(characters)
+	print(_characters_to_text())
 	
 		
 func _on_select_all_button_down():
@@ -273,3 +273,11 @@ func _update_goal(count):
 func _on_edit_goal_text_changed(new_text):
 	CurrentDailyGoal = int(new_text)
 	_get_today_goal().goal = CurrentDailyGoal
+
+static func _characters_to_text():
+	var text = "Characters\n"
+	for i in Main.characters:
+		text += i.name + "\n"
+		text += i.desc + "\n"
+		text += "--------------------\n"
+	return text
