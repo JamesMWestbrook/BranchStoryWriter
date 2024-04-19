@@ -172,7 +172,6 @@ func _on_load_button_down():
 	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
-	print(_characters_to_text())
 	
 		
 func _on_select_all_button_down():
@@ -280,4 +279,5 @@ static func _characters_to_text():
 		text += i.name + "\n"
 		text += i.desc + "\n"
 		text += "--------------------\n"
+	text += "\n"
 	return text

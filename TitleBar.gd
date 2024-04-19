@@ -52,6 +52,7 @@ func _file_option_chosen(id:int):
 			#word count
 			#title
 		6:#export txt
+			print(Globals.export_folder.get_file())
 			
 			if Globals.export_folder.is_empty():
 				Globals.set_export_path()
@@ -67,9 +68,11 @@ func clear():
 	
 	
 func _export_project():
-	var file_name = Settings.configdata.save_path.get_file()
+	var file_name = Settings.configdata.last_save_path.get_file()
 	file_name = file_name.replace(".tres","")
 	var export:String = file_name + "\n"
+	if Settings.configdata.export_char_with_story:
+		export += Main._characters_to_text()
 	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
 		export += chapter._export_chapter()
 	
