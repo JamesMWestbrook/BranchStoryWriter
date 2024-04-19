@@ -44,3 +44,10 @@ func _fix_index(index_removed):
 	for line in CharacterList.get_children():
 		if line.index > index_removed:
 			line.index -= 1
+
+func _to_text():
+	pass
+	var text = "Characters\n"
+	
+	return text
+	

@@ -18,7 +18,9 @@ var second_timer:float
 
 static var character_count:int
 static var characters:Array[Dictionary]
-
+func sort_alph(a,b):
+	return a.name < b.name
+	
 static var conversions:Dictionary
 
 var CurrentDailyGoal:int
@@ -130,6 +132,7 @@ func _save():
 			data.chapters.append(chapter.save())
 	
 	data.export_folder = Globals.export_folder
+	characters.sort_custom(sort_alph)
 	data.characters = Main.characters
 	data.conversions = Main.conversions
 	data.GoalHistory = history
