@@ -8,27 +8,33 @@
 [node name="SettingsWindow" type="Window"]
 title = "Settings"
 initial_position = 3
-size = Vector2i(300, 300)
+size = Vector2i(300, 355)
 current_screen = 0
 script = ExtResource("1_8m15r")
 dark_theme = ExtResource("2_app53")
 light_theme = ExtResource("3_sgiso")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Conversions" parent="." instance=ExtResource("4_mmogd")]
+visible = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 
-[node name="ThemeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ThemeLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Theme"
 
-[node name="ThemeOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+[node name="ThemeOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -37,14 +43,14 @@ popup/item_0/id = 0
 popup/item_1/text = "Light Theme"
 popup/item_1/id = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ExportLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="ExportLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "ExportFormat"
 
-[node name="ExportOption" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
+[node name="ExportOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -55,17 +61,20 @@ popup/item_1/id = 1
 popup/item_2/text = "Unity TMP"
 popup/item_2/id = 2
 
-[node name="AutoOpen" type="CheckBox" parent="VBoxContainer"]
+[node name="AutoOpen" type="CheckBox" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Open Last Project On Launch"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer3"]
+[node name="AutoSaveCheckBox" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3"]
+[node name="AutoSaveSpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -73,28 +82,29 @@ value = 1.0
 prefix = "Autosave every"
 suffix = "minutes"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PopoutCheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer4"]
+[node name="PopoutCheckBox" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Let Writing Window Popout
 (Restart program unless you want
 things to break!)"
 
-[node name="SaveSettings" type="Button" parent="VBoxContainer"]
+[node name="SaveSettings" type="Button" parent="ScrollContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "TestSave"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer5"]
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 
-[node name="Layout" type="OptionButton" parent="VBoxContainer/HBoxContainer5"]
+[node name="Layout" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -103,20 +113,24 @@ popup/item_0/id = 0
 popup/item_1/text = "Vertical"
 popup/item_1/id = 1
 
-[node name="Conversion Options" type="Button" parent="VBoxContainer"]
+[node name="Conversion Options" type="Button" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Speaker/Dialog Convert Options"
 
-[node name="Conversions" parent="." instance=ExtResource("4_mmogd")]
-visible = false
+[node name="ExportCharWithStory" type="CheckBox" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Include characters when exporting
+script"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ThemeOption" to="." method="_on_theme_option_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/ExportOption" to="." method="_on_export_option_item_selected"]
-[connection signal="toggled" from="VBoxContainer/AutoOpen" to="." method="_on_auto_open_toggled"]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer3/CheckBox" to="." method="_on_autosave_toggled"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer3/SpinBox" to="." method="_on_spin_box_value_changed"]
-[connection signal="toggled" from="VBoxContainer/HBoxContainer4/PopoutCheckBox" to="." method="_on_popout_check_box_toggled"]
-[connection signal="button_down" from="VBoxContainer/SaveSettings" to="." method="_save_config"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer5/Layout" to="." method="_on_layout_item_selected"]
-[connection signal="button_down" from="VBoxContainer/Conversion Options" to="Conversions" method="show"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/ThemeOption" to="." method="_on_theme_option_item_selected"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer2/ExportOption" to="." method="_on_export_option_item_selected"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/AutoOpen" to="." method="_on_auto_open_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer3/AutoSaveCheckBox" to="." method="_on_autosave_toggled"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/AutoSaveSpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer4/PopoutCheckBox" to="." method="_on_popout_check_box_toggled"]
+[connection signal="button_down" from="ScrollContainer/VBoxContainer/SaveSettings" to="." method="_save_config"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer5/Layout" to="." method="_on_layout_item_selected"]
+[connection signal="button_down" from="ScrollContainer/VBoxContainer/Conversion Options" to="Conversions" method="show"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/ExportCharWithStory" to="." method="_on_export_char_with_story_toggled"]

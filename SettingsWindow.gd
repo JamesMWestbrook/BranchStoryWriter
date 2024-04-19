@@ -20,12 +20,12 @@ func _ready():
 	if !configdata.autoOpen:
 		configdata.save_path = ""
 	if Settings.configdata.layout == "Vertical":
-		$VBoxContainer/HBoxContainer5/Layout.select(1)
-	$VBoxContainer/HBoxContainer3/CheckBox.button_pressed = configdata.autosave
-	$VBoxContainer/HBoxContainer3/SpinBox.value = configdata.interval
-	$VBoxContainer/AutoOpen.button_pressed = configdata.autoOpen
+		%Layout.select(1)
+	%AutoSaveCheckBox.button_pressed = configdata.autosave
+	%AutoSaveSpinBox.value = configdata.interval
+	%AutoOpen.button_pressed = configdata.autoOpen
 	%PopoutCheckBox.button_pressed = configdata.popout
-	
+	%ExportCharWithStory.button_pressed = configdata.export_char_with_story
 func _load_defaults():
 	pass
 func _on_theme_option_item_selected(index):
@@ -93,4 +93,9 @@ func _on_layout_item_selected(index):
 		1:
 			configdata.layout = "Vertical"
 			set_layout.emit("Vertical")
+	_save_config()
+
+
+func _on_export_char_with_story_toggled(toggled_on):
+	configdata.export_char_with_story = toggled_on
 	_save_config()

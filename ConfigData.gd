@@ -15,7 +15,7 @@ const config_path:String = "user://Config.tres"
 @export var default_folder_path:String
 @export var autosave:bool
 @export var interval:int
-
+@export var export_char_with_story:bool
 
 @export var popout:bool
 @export var layout:String = "Horizontal"
