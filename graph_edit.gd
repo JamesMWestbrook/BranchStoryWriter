@@ -173,6 +173,7 @@ func _on_load_button_down():
 	CharWindow._generate_list()
 	_update_word_count()
 	
+	_update_stats()
 		
 func _on_select_all_button_down():
 	%GraphEdit.arrange_nodes()
@@ -281,3 +282,9 @@ static func _characters_to_text():
 		text += "--------------------\n"
 	text += "\n"
 	return text
+	
+	
+func _update_stats():
+	var chars:Array[String]
+	var scenes_total:Array[int]
+	

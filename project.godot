@@ -32,6 +32,10 @@ project/assembly_name="RPG_Writer"
 
 export/convert_text_resources_to_binary=false
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg")
+
 [input]
 
 Save={

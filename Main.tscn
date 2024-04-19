@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=9 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_nsxrj"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_2wqex"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b3is2c3ad72tg" path="res://character_line.tscn" id="5_8shvh"]
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_vcs5m"]
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_eimfy"]
+[ext_resource type="PackedScene" uid="uid://8f6ly2nvog2" path="res://addons/easy_charts/examples/pie_chart_characters/Control.tscn" id="7_2fx8t"]
 
 [sub_resource type="Theme" id="Theme_xtqv5"]
 SplitContainer/constants/autohide = 0
@@ -229,6 +230,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="WritingWindow" parent="." instance=ExtResource("6_eimfy")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Window" type="Window" parent="."]
+position = Vector2i(0, 36)
+size = Vector2i(525, 435)
+
+[node name="CharacterStats" parent="Window" instance=ExtResource("7_2fx8t")]
 unique_name_in_owner = true
 visible = false
 
