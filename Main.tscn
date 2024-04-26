@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjaf30ohu3nqq"]
+[gd_scene load_steps=10 format=3 uid="uid://cjaf30ohu3nqq"]
 
 [ext_resource type="Script" path="res://graph_edit.gd" id="1_nsxrj"]
 [ext_resource type="Script" path="res://TitleBar.gd" id="3_2wqex"]
@@ -8,8 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://cewlefdinvu0c" path="res://WritingWindow.tscn" id="6_eimfy"]
 [ext_resource type="PackedScene" uid="uid://8f6ly2nvog2" path="res://addons/easy_charts/examples/pie_chart_characters/Control.tscn" id="7_2fx8t"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_mmlwf"]
+thickness = 19
+vertical = true
+
 [sub_resource type="Theme" id="Theme_xtqv5"]
 SplitContainer/constants/autohide = 0
+VScrollBar/styles/scroll = SubResource("StyleBoxLine_mmlwf")
 
 [node name="VBoxContainer" type="VBoxContainer"]
 anchors_preset = 15
@@ -236,6 +241,7 @@ visible = false
 [node name="Window" type="Window" parent="."]
 position = Vector2i(0, 36)
 size = Vector2i(525, 435)
+visible = false
 
 [node name="CharacterStats" parent="Window" instance=ExtResource("7_2fx8t")]
 unique_name_in_owner = true
