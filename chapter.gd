@@ -8,7 +8,7 @@ class_name Chapter
 @onready var fileDialog = $FileDialog
 @onready var AddChapterBefore:Button = $AddChapterBefore
 @onready var AddChapterAfter:Button = $AddChapterAfter
-
+@onready var DeleteConfirmation:ConfirmationDialog = $ConfirmationDialog
 
 var word_count:int
 signal update_word_count()
@@ -104,4 +104,4 @@ func _option_chosen(id:int):
 		2: #add chapter below:
 			add_below.emit()
 		3: #delete
-			pass
+			DeleteConfirmation.show()

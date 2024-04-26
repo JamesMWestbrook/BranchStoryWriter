@@ -11,17 +11,19 @@ vertical = true
 script = ExtResource("1_715lu")
 
 [node name="AddChapterBefore" type="Button" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Above"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 
 [node name="TitleEdit" type="LineEdit" parent="HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
 placeholder_text = "Chapter Title"
 alignment = 1
 expand_to_text_length = true
@@ -70,6 +72,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AddChapterAfter" type="Button" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 text = "New Chapter Below"
@@ -94,6 +97,7 @@ access = 2
 filters = PackedStringArray("*.txt")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
