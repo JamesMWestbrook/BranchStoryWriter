@@ -1,12 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://co3uisjc08oy5"]
+[gd_scene load_steps=2 format=3 uid="uid://co3uisjc08oy5"]
 
 [ext_resource type="Script" path="res://Scene.gd" id="1_sbm3w"]
-[ext_resource type="Texture2D" uid="uid://cha8m7tatsl8n" path="res://icon.svg" id="2_cv422"]
 
 [node name="Scene" type="PanelContainer"]
 custom_minimum_size = Vector2(450, 0)
 offset_right = 545.0
-offset_bottom = 105.0
+offset_bottom = 72.005
 script = ExtResource("1_sbm3w")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
@@ -16,17 +15,23 @@ vertical = true
 [node name="Row1Container" type="HBoxContainer" parent="BoxContainer"]
 layout_mode = 2
 
-[node name="Write" type="TextureButton" parent="BoxContainer/Row1Container"]
+[node name="Write" type="Button" parent="BoxContainer/Row1Container"]
 custom_minimum_size = Vector2(32.825, 20)
 layout_mode = 2
-texture_normal = ExtResource("2_cv422")
-ignore_texture_size = true
-stretch_mode = 4
+text = "Write"
 
 [node name="TitleEdit" type="LineEdit" parent="BoxContainer/Row1Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scene Title"
+
+[node name="Options" type="MenuButton" parent="BoxContainer/Row1Container"]
+custom_minimum_size = Vector2(32.825, 20)
+layout_mode = 2
+text = "*"
+item_count = 1
+popup/item_0/text = "Delete"
+popup/item_0/id = 0
 
 [node name="WordCount" type="Label" parent="BoxContainer/Row1Container"]
 custom_minimum_size = Vector2(141, 0)
@@ -46,6 +51,7 @@ layout_mode = 2
 scroll_fit_content_height = true
 
 [node name="Delete" type="Button" parent="BoxContainer"]
+visible = false
 layout_mode = 2
 text = "Delete Scene"
 
@@ -69,6 +75,7 @@ filters = PackedStringArray("*.txt")
 
 [connection signal="button_down" from="BoxContainer/Row1Container/Write" to="." method="_on_write_button_down"]
 [connection signal="text_changed" from="BoxContainer/Row1Container/TitleEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="button_down" from="BoxContainer/Row1Container/Options" to="." method="_on_write_button_down"]
 [connection signal="button_down" from="BoxContainer/Row1Container/ExportScene" to="." method="_on_export_scene_button_down"]
 [connection signal="button_down" from="BoxContainer/Delete" to="ConfirmationDialog" method="show"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="queue_free"]

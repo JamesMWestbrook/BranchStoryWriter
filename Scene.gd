@@ -10,11 +10,14 @@ var writing_in_this_scene:bool
 @onready var scene_desc_edit:TextEdit = $BoxContainer/TextEdit
 @onready var WordCount:Label = $BoxContainer/Row1Container/WordCount
 @onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
+@onready var DeleteConfirmation = $ConfirmationDialog
 var connected_scenes:Array
 var word_count:int
 signal update_word_count()
 func _ready():
-	pass
+	var popup:PopupMenu = $BoxContainer/Row1Container/Options .get_popup()
+	if !popup.id_pressed.is_connected(_option_chosen):
+		popup.id_pressed.connect(_option_chosen)
 
 
 func _on_write_button_down():
@@ -91,3 +94,7 @@ func _on_export_scene_button_down():
 	$FileDialog.current_dir = Globals.export_folder
 	$FileDialog.current_file = title_edit.text
 	$FileDialog.show()
+func _option_chosen(id:int):
+	match id:
+		0: #delete scene
+			DeleteConfirmation.show()

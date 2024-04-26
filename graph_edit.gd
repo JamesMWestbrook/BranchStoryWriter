@@ -141,9 +141,11 @@ func _save():
 	Settings.configdata._save()
 	DisplayServer.window_set_title(data.file_name)
 	$TitleBar/SavedNotifyPanel.show()
+	_reset_time_left()
+	
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()
-
+	
 
 func _on_load_button_down():
 	clear()
