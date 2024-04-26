@@ -1,17 +1,27 @@
 extends BoxContainer
 class_name Chapter
-
+@onready var menu_button = $HBoxContainer3/MenuButton
 @onready var scene_file = load("res://Scene.tscn")
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
-@onready var TitleEdit = $TitleEdit
+@onready var TitleEdit = $HBoxContainer3/TitleEdit
 @onready var WordCount = $HBoxContainer/WordCount
 @onready var fileDialog = $FileDialog
 @onready var AddChapterBefore:Button = $AddChapterBefore
 @onready var AddChapterAfter:Button = $AddChapterAfter
+
+
 var word_count:int
 signal update_word_count()
+signal add_above()
+signal add_below()
 
 
+func _ready():
+	var popup:PopupMenu = menu_button.get_popup()
+	if !popup.id_pressed.is_connected(_option_chosen):
+		popup.id_pressed.connect(_option_chosen)
+		
+		
 func _on_add_scene_right_button_down(prev_scene, data,start:bool = false): #false data = brand new
 	var new_scene:Scene = scene_file.instantiate()
 	if is_instance_valid(prev_scene):
@@ -79,3 +89,19 @@ func _on_file_dialog_file_selected(path):
 	Globals.new_export_path(path)
 
 
+
+
+func _on_menu_button_button_down():
+	pass
+
+func _option_chosen(id:int):
+	print(id)
+	match id:
+		0: #export
+			_on_export_button_down()
+		1: #add chapter above
+			add_above.emit()
+		2: #add chapter below:
+			add_below.emit()
+		3: #delete
+			pass
