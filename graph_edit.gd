@@ -151,17 +151,11 @@ func _on_load_button_down():
 	var data:SaveData = SaveData.load(Settings.configdata.last_save_path)
 	DisplayServer.window_set_title(data.file_name)
 	for chapter:Dictionary in data.chapters:
-		var new_chapter:Chapter = ChapterFile.instantiate()
-		ChapterContainer.add_child(new_chapter)
+		var new_chapter:Chapter = _add_chapter(-1)
 		if !chapter.scenes.is_empty():
 			for i in chapter.scenes:
 				new_chapter._on_add_scene_right_button_down(null,i)
-		new_chapter.add_above.connect(_add_chapter_sibling.bind(new_chapter,true))
-		new_chapter.add_below.connect(_add_chapter_sibling.bind(new_chapter,false))
-		#new_chapter.AddChapterAfter.button_down.connect(_add_chapter_sibling.bind(new_chapter,false))
-		#new_chapter.AddChapterBefore.button_down.connect(_add_chapter_sibling.bind(new_chapter,true))
 		new_chapter.TitleEdit.text = chapter.title
-		new_chapter.update_word_count.connect(_update_word_count)
 		new_chapter._get_word_count()
 		Globals.export_folder = data.export_folder
 	history = data.GoalHistory
@@ -175,7 +169,16 @@ func _on_load_button_down():
 	_update_word_count()
 	
 	_update_stats()
-		
+
+func _add_chapter(index):
+	var new_chapter:Chapter = ChapterFile.instantiate()
+	ChapterContainer.add_child(new_chapter)
+	if index != -1:
+		ChapterContainer.move_child(new_chapter,index)
+	new_chapter.update_word_count.connect(_update_word_count)
+	new_chapter.add_above.connect(_add_chapter_sibling.bind(new_chapter,true))
+	new_chapter.add_below.connect(_add_chapter_sibling.bind(new_chapter,false))
+	return new_chapter
 func _on_select_all_button_down():
 	%GraphEdit.arrange_nodes()
 	
@@ -232,16 +235,6 @@ func _add_chapter_sibling(chapter:Chapter,left:bool):
 	_add_chapter(index)
 	
 	
-func _add_chapter(index):
-	var new_chapter:Chapter = ChapterFile.instantiate()
-	ChapterContainer.add_child(new_chapter)
-	ChapterContainer.move_child(new_chapter,index)
-	new_chapter.update_word_count.connect(_update_word_count)
-	new_chapter.add_above.connect(_add_chapter_sibling.bind(new_chapter,true))
-	new_chapter.add_below.connect(_add_chapter_sibling.bind(new_chapter,false))
-	#new_chapter.AddChapterBefore.button_down.connect(_add_chapter_sibling.bind(new_chapter,true))
-	#new_chapter.AddChapterAfter.button_down.connect(_add_chapter_sibling.bind(new_chapter,false))
-	#new_chapter.AddChapterBefore.button_down.connect(_add_chapter_sibling.bind(new_chapter,true))
 
 func _update_word_count():
 	var new_word_count = 0
