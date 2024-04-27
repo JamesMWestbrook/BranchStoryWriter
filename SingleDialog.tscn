@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbod0wg6xf4wa"]
+[gd_scene load_steps=8 format=3 uid="uid://bbod0wg6xf4wa"]
 
 [ext_resource type="Script" path="res://SingleDialog.gd" id="1_4h5oy"]
 [ext_resource type="Theme" uid="uid://bpki24ruk18no" path="res://Themes/DialogCommentDarkTheme.tres" id="1_7aa4r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://EnterMove.gd" id="1_xl6wp"]
 [ext_resource type="Script" path="res://DialogEdit.gd" id="3_23ka8"]
 [ext_resource type="Script" path="res://MatchName.gd" id="4_t2cui"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_atp8d"]
 
 [node name="SingleDialog" type="VBoxContainer"]
 anchors_preset = 15
@@ -69,17 +71,23 @@ text = "Cp"
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 size = Vector2i(170, 100)
-item_count = 2
+item_count = 4
 item_0/text = "Make Comment"
 item_0/id = 0
 item_1/text = "Reverse Comment"
 item_1/id = 1
 item_1/disabled = true
+item_2/text = "Delete"
+item_2/icon = SubResource("ImageTexture_atp8d")
+item_2/id = 2
+item_3/text = "Import from Clipboard"
+item_3/id = 3
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="Delete" type="Button" parent="HBoxContainer3"]
+visible = false
 layout_mode = 2
 text = "Delete"
 

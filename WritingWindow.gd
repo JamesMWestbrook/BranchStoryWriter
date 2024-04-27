@@ -46,12 +46,12 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 	await get_tree().process_frame
 	Scroll.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
 	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
+	dialog.import.connect(_import.bind(dialog))
 	if loading:
 		if data:
 			dialog._set_text(data.speaker,data.dialog,true)
-			if data.comment:
+			if data.has("comment") and data.comment:
 				dialog._turn_comment()
-
 
 func _on_button_button_down():
 	pass # Replace with function body.
@@ -99,3 +99,18 @@ func _clear():
 	LUtil.ClearChildren(Globals.WritingPanel.VBox)
 	all_dialog.clear()
 	
+func _import(dialog:SingleDialog):
+	var index = dialog.get_index()
+	var text:String = DisplayServer.clipboard_get()
+	
+	var scene:Array = text.split("\n")
+	print(scene)
+	for i in range(0,scene.size() - 1, 2):
+		print(scene[i])
+		print(scene[i + 1])
+		var data:Dictionary = {
+			"speaker": scene[i],
+			"dialog": scene[i+1]
+			}
+		_create_dialog(null,true, true,data)
+	#while !text.is_empty():

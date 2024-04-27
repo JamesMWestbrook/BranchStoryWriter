@@ -43,6 +43,8 @@ func _update_scene(new_scene:Array[Dictionary]):
 func _set_word_count():
 	word_count = 0
 	for i in scene:
+		if i.comment:
+			continue
 		var dialog:String = i.dialog.replacen(".","")
 		word_count += dialog.split(" ", false).size()
 	WordCount.text = str(word_count) + " Words"

@@ -2,15 +2,12 @@ extends VBoxContainer
 class_name SingleDialog
 signal changed_dialog()
 signal deleted()
+signal import()
 var speaker:String
 var dialog:String
 
 
-var comment:bool = false:
-	get:
-		return comment
-	set(value):
-		comment = value
+var comment:bool = false
 
 @export var comment_theme_dark:Theme
 
@@ -56,11 +53,12 @@ func _on_popup_menu_id_pressed(id):
 	match id:
 		0: #turn into comment
 			_turn_comment()
-			
 		1: #turn back into dialog
 			_reverse_comment()
-
-
+		2: #delete
+			_on_delete_button_down()
+		3: #import via paste
+			import.emit()
 func _turn_comment():
 	comment = true
 	$PopupMenu.set_item_disabled(0,true)
@@ -100,8 +98,6 @@ func _convert(text:String):
 			new_string = new_string.replace(conv,Main.conversions[conv])
 	return new_string
 	
-	
-	
 func _set_text(set_speaker:String,set_dialog:String,loading:bool = false):
 	speaker_edit.text = set_speaker
 	dialog_edit.text = set_dialog
@@ -115,4 +111,4 @@ func _on_delete_button_down():
 	deleted.emit()
 	queue_free()
 	
-	
+
