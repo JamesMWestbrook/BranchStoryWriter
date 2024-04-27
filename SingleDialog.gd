@@ -6,7 +6,11 @@ var speaker:String
 var dialog:String
 
 
-var comment:bool = false
+var comment:bool = false:
+	get:
+		return comment
+	set(value):
+		comment = value
 
 @export var comment_theme_dark:Theme
 
@@ -67,6 +71,7 @@ func _turn_comment():
 	speaker_richtext.hide()
 	speaker_button.hide()
 	dialog_richtext.hide()
+	changed_dialog.emit()
 	
 func _reverse_comment():
 	comment = false
@@ -78,6 +83,7 @@ func _reverse_comment():
 	speaker_richtext.show()
 	speaker_button.show()
 	dialog_richtext.show()
+	changed_dialog.emit()
 
 
 func _on_speaker_copy_button_down():
@@ -93,6 +99,9 @@ func _convert(text:String):
 		if new_string.contains(conv):
 			new_string = new_string.replace(conv,Main.conversions[conv])
 	return new_string
+	
+	
+	
 func _set_text(set_speaker:String,set_dialog:String,loading:bool = false):
 	speaker_edit.text = set_speaker
 	dialog_edit.text = set_dialog
