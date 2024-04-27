@@ -51,5 +51,3 @@ func _fix_index(index_removed):
 
 
 
-func _on_file_dialog_file_selected(path):
-	pass # Replace with function body.

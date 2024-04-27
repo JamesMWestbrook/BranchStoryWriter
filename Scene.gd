@@ -32,8 +32,7 @@ func _on_write_button_down():
 	
 	self_modulate = "ff0000"
 	writing_in_this_scene = true
-	pass
-		
+	
 func _update_scene(new_scene:Array[Dictionary]):
 	scene = new_scene.duplicate()
 	_set_word_count()

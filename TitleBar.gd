@@ -70,7 +70,6 @@ func clear():
 	
 func _export_project():
 	var file_name = Settings.configdata.last_save_path.get_file()
-	var data = Settings.configdata
 	file_name = file_name.replace(".tres","")
 	var export:String = file_name + "\n"
 	
