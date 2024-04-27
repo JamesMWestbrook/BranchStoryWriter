@@ -104,7 +104,6 @@ func _import(dialog:SingleDialog):
 	var text:String = DisplayServer.clipboard_get()
 	
 	var scene:Array = text.split("\n")
-	print(scene)
 	for i in range(0,scene.size() - 1, 2):
 		print(scene[i])
 		print(scene[i + 1])
@@ -112,5 +111,8 @@ func _import(dialog:SingleDialog):
 			"speaker": scene[i],
 			"dialog": scene[i+1]
 			}
-		_create_dialog(null,true, true,data)
-	#while !text.is_empty():
+		var sibling = VBox.get_child(index)
+		_create_dialog(sibling,false, true,data)
+		index += 1
+	await get_tree().process_frame
+	_update_scene_data()
