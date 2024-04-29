@@ -5,7 +5,7 @@ var initial_position = Vector2(40,40)
 var node_index = 0
 
 var save_time_left:float
-var second_timer:float
+var backup_timer:float
 @onready var ChapterContainer: BoxContainer = $SplitContainer/ChapterScroll/ChapterSection/ChapterContainer
 
 @onready var WordCount:Label = $TitleBar/HBoxContainer/WordCount
@@ -87,7 +87,9 @@ func _process(delta):
 		if save_time_left <= 0:
 			_save()
 			_reset_time_left()
-	second_timer += delta
+	backup_timer += delta
+	if backup_timer >= 60 * 2:
+		_make_backup()
 
 func clear():
 	characters.clear()
@@ -125,18 +127,7 @@ func _on_save_button_down():
 		
 		
 func _save():
-	var data = SaveData.new()
-	
-	for chapter in ChapterContainer.get_children():
-		if chapter is Chapter:
-			data.chapters.append(chapter.save())
-	
-	data.export_folder = Globals.export_folder
-	characters.sort_custom(sort_alph)
-	data.characters = Main.characters
-	data.conversions = Main.conversions
-	data.GoalHistory = history
-	data.CurrentDailyGoal = CurrentDailyGoal
+	var data:SaveData = _create_data()
 	data.save(Globals.file_name)
 	Settings.configdata._save()
 	DisplayServer.window_set_title(data.file_name)
@@ -145,8 +136,28 @@ func _save():
 	
 	await get_tree().create_timer(2).timeout
 	$TitleBar/SavedNotifyPanel.hide()
-	
+func _make_backup():
+	backup_timer = 0
+	var data = _create_data()
+	Globals._check_backup_folder()
+	var backup_path:String = Globals.backup_folder +"/" + Globals.file_name.get_file().replacen(".tres", Time.get_time_string_from_system().replacen(":"," ") + ".tres")
+	data.save_backup(backup_path)
 
+func _create_data():
+	var data = SaveData.new()
+	for chapter in ChapterContainer.get_children():
+		if chapter is Chapter:
+			data.chapters.append(chapter.save())
+	
+	data.export_folder = Globals.export_folder
+	data.backups = Globals.backups
+	characters.sort_custom(sort_alph)
+	data.characters = Main.characters
+	data.conversions = Main.conversions
+	data.GoalHistory = history
+	data.CurrentDailyGoal = CurrentDailyGoal
+	return data
+	
 func _on_load_button_down():
 	clear()
 	await get_tree().process_frame
@@ -160,6 +171,7 @@ func _on_load_button_down():
 		new_chapter.TitleEdit.text = chapter.title
 		new_chapter._get_word_count()
 		Globals.export_folder = data.export_folder
+	Globals.backups = data.backups
 	history = data.GoalHistory
 	conversions = data.conversions
 	for conv in conversions:

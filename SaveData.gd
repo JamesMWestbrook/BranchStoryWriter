@@ -8,8 +8,24 @@ class_name SaveData
 @export var GoalHistory:Dictionary
 @export var CurrentDailyGoal:int
 @export var conversions:Dictionary
+@export var backups:Array[String]
 func save(path):
 	file_name = path.get_file()
+	ResourceSaver.save(self,path)
+
+func save_backup(path:String):
+	print("Making backup")	
+	Globals._check_backup_folder()
+	if Globals.backups.size() >= 5:
+		printt("Removing backup",Globals.backups[4])
+		if ResourceLoader.exists(Globals.backups[4]):
+			var dir = DirAccess.open(Globals.backup_folder)
+			dir.remove_absolute(Globals.backups[4])
+		Globals.backups.remove_at(4)
+	#save
+	printt("saving backup at", path)
+	var filename:String = path.get_file()
+	Globals.backups.insert(0,path)
 	ResourceSaver.save(self,path)
 	
 	
