@@ -23,7 +23,9 @@ text = "Write"
 [node name="TitleEdit" type="LineEdit" parent="BoxContainer/Row1Container"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_next = NodePath("../../TextEdit")
 text = "Scene Title"
+expand_to_text_length = true
 
 [node name="Options" type="MenuButton" parent="BoxContainer/Row1Container"]
 custom_minimum_size = Vector2(32.825, 20)

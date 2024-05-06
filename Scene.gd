@@ -78,7 +78,12 @@ func _export_scene():
 	var full_scene:String = title_edit.text + "\n"
 	for d in scene:
 		full_scene += d.speaker + "\n"
-		full_scene += d.dialog + "\n\n"
+		if d.comment:
+			full_scene += "*******"
+		full_scene += d.dialog
+		if d.comment:
+			full_scene += "*******"
+		full_scene += "\n"
 	full_scene += "------------------\n"
 	return full_scene
 

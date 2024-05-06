@@ -46,7 +46,8 @@ func _on_gui_input(event):
 				# left button clicked
 			2: #right click
 				$PopupMenu.show()
-				$PopupMenu.position = get_viewport().get_mouse_position()
+	#			$PopupMenu.position = get_viewport().get_mouse_position()
+				$PopupMenu.position = DisplayServer.mouse_get_position()
 
 
 func _on_popup_menu_id_pressed(id):
@@ -59,7 +60,7 @@ func _on_popup_menu_id_pressed(id):
 			_on_delete_button_down()
 		3: #import via paste
 			import.emit()
-func _turn_comment():
+func _turn_comment(loading:bool = false):
 	comment = true
 	$PopupMenu.set_item_disabled(0,true)
 	$PopupMenu.set_item_disabled(1,false)
@@ -69,7 +70,9 @@ func _turn_comment():
 	speaker_richtext.hide()
 	speaker_button.hide()
 	dialog_richtext.hide()
-	changed_dialog.emit()
+	if !loading:
+		changed_dialog.emit()
+		dialog_edit.grab_focus()
 	
 func _reverse_comment():
 	comment = false

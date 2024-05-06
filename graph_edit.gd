@@ -88,7 +88,7 @@ func _process(delta):
 			_save()
 			_reset_time_left()
 	backup_timer += delta
-	if backup_timer >= 60 * 2:
+	if backup_timer >= 60 * 5:
 		_make_backup()
 
 func clear():
@@ -102,7 +102,7 @@ func clear():
 	TodayWordCount.modulate = Color.WHITE
 	
 func _reset_time_left():
-	save_time_left = Settings.configdata.interval * 60
+	save_time_left = Settings.configdata.interval * 5
 
 	
 

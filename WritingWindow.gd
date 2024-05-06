@@ -51,7 +51,7 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 		if data:
 			dialog._set_text(data.speaker,data.dialog,true)
 			if data.has("comment") and data.comment:
-				dialog._turn_comment()
+				dialog._turn_comment(true)
 
 func _on_button_button_down():
 	pass # Replace with function body.
