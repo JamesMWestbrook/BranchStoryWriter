@@ -35,7 +35,21 @@ func _on_dialog_edit_text_changed(loading:bool = false):
 	if !loading:
 		changed_dialog.emit()
 
-
+func _input(event):
+	
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_C:
+			if speaker_edit.has_focus():
+				dialog_edit.grab_focus()
+			if dialog_edit.has_focus():
+				if event.ctrl_pressed:
+					if comment:
+						_reverse_comment()
+					elif !comment:
+						_turn_comment()
+	
+	
+	#get_viewport().set_input_as_handled()
 func _on_gui_input(event):
 
 		
