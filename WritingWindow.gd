@@ -44,6 +44,7 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 	dialog.changed_dialog.connect(_update_scene_data)
 	dialog.deleted.connect(_on_dialog_delete)
 	await get_tree().process_frame
+	await get_tree().process_frame
 	Scroll.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
 	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
 	dialog.import.connect(_import.bind(dialog))
