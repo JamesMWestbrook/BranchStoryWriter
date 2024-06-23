@@ -104,3 +104,13 @@ func _option_chosen(id:int):
 	match id:
 		0: #delete scene
 			DeleteConfirmation.show()
+		1: #export scene
+			_on_export_scene_button_down()
+
+func _slim():
+	$BoxContainer/TextEdit.hide()
+	await get_tree().process_frame
+	$BoxContainer.size.y = 31
+func _medium():
+	$BoxContainer/TextEdit.show()
+	$BoxContainer.size.y = $BoxContainer/Row1Container.size.y + $BoxContainer/TextEdit.size.y

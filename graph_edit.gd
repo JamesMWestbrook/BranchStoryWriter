@@ -18,6 +18,7 @@ var backup_timer:float
 
 static var character_count:int
 static var characters:Array[Dictionary]
+var notes:String
 func sort_alph(a,b):
 	return a.name < b.name
 	
@@ -73,6 +74,7 @@ func _ready():
 		history[date] = (Goal(CurrentDailyGoal,_update_word_count(),false,date))
 	else:
 		pass
+
 		
 func _process(delta):
 	if Input.is_action_just_pressed("SaveAs"):
@@ -88,7 +90,7 @@ func _process(delta):
 			_save()
 			_reset_time_left()
 	backup_timer += delta
-	if backup_timer >= 60 * 5:
+	if backup_timer >= 60 * 15:
 		_make_backup()
 
 func clear():
@@ -102,7 +104,7 @@ func clear():
 	TodayWordCount.modulate = Color.WHITE
 	
 func _reset_time_left():
-	save_time_left = Settings.configdata.interval * 5
+	save_time_left = Settings.configdata.interval * 60
 
 	
 
@@ -156,6 +158,7 @@ func _create_data():
 	data.conversions = Main.conversions
 	data.GoalHistory = history
 	data.CurrentDailyGoal = CurrentDailyGoal
+	data.notes = notes
 	return data
 	
 func _on_load_button_down():
@@ -181,8 +184,12 @@ func _on_load_button_down():
 	Main.characters = data.characters
 	CharWindow._generate_list()
 	_update_word_count()
+	notes = data.notes
+	%NotesEdit.text = notes
 	
 	_update_stats()
+	
+
 
 func _add_chapter(index):
 	var new_chapter:Chapter = ChapterFile.instantiate()
@@ -298,3 +305,7 @@ func _update_stats():
 	var chars:Array[String]
 	var scenes_total:Array[int]
 	
+
+
+func _on_notes_edit_text_changed():
+	notes = %NotesEdit.text

@@ -4,7 +4,7 @@ class_name Chapter
 @onready var scene_file = load("res://Scene.tscn")
 @onready var SceneContainer = $Scenes/Panel/BoxContainer/SceneContainer
 @onready var TitleEdit = $HBoxContainer3/TitleEdit
-@onready var WordCount = $HBoxContainer/WordCount
+@onready var WordCount = $HBoxContainer3/WordCount
 @onready var fileDialog = $FileDialog
 @onready var AddChapterBefore:Button = $AddChapterBefore
 @onready var AddChapterAfter:Button = $AddChapterAfter
@@ -105,3 +105,7 @@ func _option_chosen(id:int):
 			add_below.emit()
 		3: #delete
 			DeleteConfirmation.show()
+func _medium():
+	pass
+func _slim():
+	pass

@@ -78,6 +78,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Word Count: "
 
+[node name="VSeparator2" type="VSeparator" parent="TitleBar/HBoxContainer"]
+layout_mode = 2
+
 [node name="GoalLabel" type="Label" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
 text = "Goal"
@@ -85,6 +88,9 @@ text = "Goal"
 [node name="EditGoal" type="LineEdit" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
 placeholder_text = "0"
+
+[node name="VSeparator" type="VSeparator" parent="TitleBar/HBoxContainer"]
+layout_mode = 2
 
 [node name="TodayCount" type="Label" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
@@ -97,9 +103,14 @@ layout_mode = 2
 text = "Clear Path"
 
 [node name="Backupdebug" type="Button" parent="TitleBar/HBoxContainer"]
+visible = false
 self_modulate = Color(0.819608, 0, 0.329412, 1)
 layout_mode = 2
 text = "Make backup"
+
+[node name="Notes" type="Button" parent="TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "Notes"
 
 [node name="OpenFile" type="FileDialog" parent="TitleBar"]
 title = "Open a File"
@@ -243,6 +254,18 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 visible = false
 
+[node name="Notes" type="Window" parent="."]
+position = Vector2i(0, 36)
+size = Vector2i(550, 485)
+
+[node name="NotesEdit" type="TextEdit" parent="Notes"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="gui_input" from="TitleBar" to="TitleBar" method="_onTitleBar_gui_input"]
 [connection signal="open_file" from="TitleBar" to="." method="_on_title_bar_open_file"]
 [connection signal="quit_no_save" from="TitleBar" to="TitleBar" method="_on_close_button_down"]
@@ -256,6 +279,7 @@ visible = false
 [connection signal="text_changed" from="TitleBar/HBoxContainer/EditGoal" to="." method="_on_edit_goal_text_changed"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/ClearDebug" to="TitleBar" method="_on_clear_debug_button_down"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/Backupdebug" to="." method="_make_backup"]
+[connection signal="button_down" from="TitleBar/HBoxContainer/Notes" to="Notes" method="show"]
 [connection signal="file_selected" from="TitleBar/OpenFile" to="." method="_on_open_file_file_selected"]
 [connection signal="file_selected" from="TitleBar/SaveFile" to="." method="_on_save_file_file_selected"]
 [connection signal="popup_hide" from="TitleBar/SaveNamePopup" to="TitleBar/SaveFile" method="show"]
@@ -269,3 +293,5 @@ visible = false
 [connection signal="button_down" from="SplitContainer/ChapterScroll/ChapterSection/AddChapterBottom" to="." method="_on_add_chapter_bottom_button_down"]
 [connection signal="connection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="disconnection_request" from="SplitContainer/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
+[connection signal="close_requested" from="Notes" to="Notes" method="hide"]
+[connection signal="text_changed" from="Notes/NotesEdit" to="." method="_on_notes_edit_text_changed"]

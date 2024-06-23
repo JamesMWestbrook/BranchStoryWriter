@@ -99,3 +99,17 @@ func _on_layout_item_selected(index):
 func _on_export_char_with_story_toggled(toggled_on):
 	configdata.export_char_with_story = toggled_on
 	_save_config()
+
+
+func _on_size_option_item_selected(index):
+	match index:
+		0: #medium
+			for scene:Scene in get_tree().get_nodes_in_group("scenes"):
+				scene._medium()
+			for chapter:Chapter in get_tree().get_nodes_in_group("chapters"):
+				chapter._medium()
+		1: #slim
+			for scene:Scene in get_tree().get_nodes_in_group("scenes"):
+				scene._slim()
+			for chapter:Chapter in get_tree().get_nodes_in_group("chapters"):
+				chapter._medium()

@@ -5,7 +5,7 @@
 
 [node name="Chapter" type="BoxContainer"]
 offset_right = 469.0
-offset_bottom = 148.0
+offset_bottom = 86.0
 size_flags_horizontal = 3
 vertical = true
 script = ExtResource("1_715lu")
@@ -41,14 +41,14 @@ popup/item_2/id = 2
 popup/item_3/text = "Delete Chapter"
 popup/item_3/id = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="WordCount" type="Label" parent="HBoxContainer"]
+[node name="WordCount" type="Label" parent="HBoxContainer3"]
 layout_mode = 2
 text = " Words"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
 
 [node name="Scenes" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 23.85)
@@ -64,6 +64,7 @@ layout_mode = 2
 
 [node name="AddStart" type="Button" parent="Scenes/Panel/BoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 text = "+"
 
 [node name="SceneContainer" type="BoxContainer" parent="Scenes/Panel/BoxContainer"]
