@@ -255,8 +255,10 @@ unique_name_in_owner = true
 visible = false
 
 [node name="Notes" type="Window" parent="."]
+title = "Notes"
 position = Vector2i(0, 36)
 size = Vector2i(550, 485)
+visible = false
 
 [node name="NotesEdit" type="TextEdit" parent="Notes"]
 unique_name_in_owner = true

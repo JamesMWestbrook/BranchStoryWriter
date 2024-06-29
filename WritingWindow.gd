@@ -116,4 +116,5 @@ func _import(dialog:SingleDialog):
 		_create_dialog(sibling,false, true,data)
 		index += 1
 	await get_tree().process_frame
+	await get_tree().process_frame
 	_update_scene_data()
