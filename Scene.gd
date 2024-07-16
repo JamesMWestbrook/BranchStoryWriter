@@ -86,7 +86,18 @@ func _export_scene():
 		full_scene += "\n"
 	full_scene += "------------------\n"
 	return full_scene
-
+func _export_scene_html():
+	var full_scene:String = "<h2>&emsp;" + title_edit.text + "</h2>\n"
+	for d in scene:
+		full_scene += "<p>" + d.speaker + "</p>\n"
+		if d.comment:
+			full_scene += "<i>"
+		full_scene += "<p>" + d.dialog+ "</p>"
+		if d.comment:
+			full_scene += "</i>"
+		full_scene += "\n"
+	full_scene += "\n"
+	return full_scene
 func _on_file_dialog_file_selected(path):
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	var string = _export_scene()

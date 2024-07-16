@@ -300,7 +300,13 @@ static func _characters_to_text():
 	text += "\n"
 	return text
 	
-	
+static func _characters_to_text_html():
+	var text = "<h1>Characters<br></h1>\n"
+	for i in Main.characters:
+		text +=  "<h2>"+ i.name + "<br></h2>\n"
+		text += "<p>" + i.desc + "<br></p>\n"
+	text += "<br>\n"
+	return text
 func _update_stats():
 	var chars:Array[String]
 	var scenes_total:Array[int]

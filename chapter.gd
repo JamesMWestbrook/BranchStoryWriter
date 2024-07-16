@@ -80,7 +80,11 @@ func _export_chapter():
 	export += "\n"
 	return export
 	
-	
+func _export_chapter_html():
+	var export:String = "<h1>" + TitleEdit.text + "</h1><br>\n"
+	for scene:Scene in SceneContainer.get_children():
+		export += scene._export_scene_html()
+	return export
 func _on_file_dialog_file_selected(path):
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	var string = _export_chapter()

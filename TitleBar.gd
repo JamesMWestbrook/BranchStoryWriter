@@ -10,6 +10,7 @@ signal save_and_quit
 signal quit_no_save
 signal open_file
 @onready var ExportDialog = $ExportFileDialog
+@onready var ExportHtmlDialog = $ExportHTMLFileDialog
 func _process(_delta):
 	#if following:
 		#DisplayServer.window_set_position(
@@ -62,6 +63,15 @@ func _file_option_chosen(id:int):
 			ExportDialog.current_dir = Globals.export_folder
 			ExportDialog.current_file = file_name
 			ExportDialog.show()
+		7:#export html
+			if Globals.export_folder.is_empty():
+				Globals.set_export_path()
+			var file_name:String = Globals.file_name.get_file()
+			file_name = file_name.replace(".tres","")
+			ExportHtmlDialog.current_dir = Globals.export_folder
+			ExportHtmlDialog.current_file = file_name
+			ExportHtmlDialog.show()
+			
 			
 func clear():
 	Globals.clear()
@@ -79,7 +89,19 @@ func _export_project():
 		export += chapter._export_chapter()
 	
 	return export
-
+func _export_html():
+	var file_name = Settings.configdata.last_save_path.get_file()
+	file_name = file_name.replace(".tres","")
+	var export:String = "<!DOCTYPE html><body>"
+	
+	#export each chapter
+	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
+		export += chapter._export_chapter_html()
+	#export characters 
+	if Settings.configdata.export_char_with_story:
+		export += Main._characters_to_text_html()
+	export += "</body></html>"
+	return export
 func _on_export_file_dialog_file_selected(path):
 	Globals.export_folder = path.get_base_dir()
 	var export:String = _export_project()
@@ -88,6 +110,14 @@ func _on_export_file_dialog_file_selected(path):
 	OS.shell_open(path.get_base_dir())
 	Globals.new_export_path(path)
 
-
+func _on_export_file_html_selected(path):
+	Globals.export_folder = path.get_base_dir()
+	var export:String = _export_html()
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(export)
+	OS.shell_open(path.get_base_dir())
+	Globals.new_export_path(path)
+	
+	
 func _on_clear_debug_button_down():
 	Globals.export_folder = ""
