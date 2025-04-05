@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdfukwkxekwms"]
 
-[ext_resource type="Script" path="res://SettingsWindow.gd" id="1_8m15r"]
+[ext_resource type="Script" uid="uid://fk202y6nivhj" path="res://SettingsWindow.gd" id="1_8m15r"]
 [ext_resource type="Theme" uid="uid://bjpbhduw5qu7o" path="res://Themes/DarkTheme.tres" id="2_app53"]
 [ext_resource type="Theme" uid="uid://djrjmwch4gevi" path="res://Themes/LightTheme.tres" id="3_sgiso"]
 [ext_resource type="PackedScene" uid="uid://bupxx1k5y20dw" path="res://conversions.tscn" id="4_mmogd"]
@@ -36,8 +36,8 @@ text = "Size"
 
 [node name="SizeOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Medium"
 popup/item_0/id = 0
 popup/item_1/text = "Slim"
@@ -52,8 +52,8 @@ text = "Theme"
 
 [node name="ThemeOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Dark Theme"
 popup/item_0/id = 0
 popup/item_1/text = "Light Theme"
@@ -68,8 +68,8 @@ text = "ExportFormat"
 
 [node name="ExportOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "Godot"
 popup/item_0/id = 0
 popup/item_1/text = "RPG Maker MZ"
@@ -122,8 +122,8 @@ layout_mode = 2
 [node name="Layout" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 unique_name_in_owner = true
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Horizontal"
 popup/item_0/id = 0
 popup/item_1/text = "Vertical"

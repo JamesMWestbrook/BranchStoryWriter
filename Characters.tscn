@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://0abfv2n2a0ma"]
 
-[ext_resource type="Script" path="res://Characters.gd" id="1_6scwl"]
+[ext_resource type="Script" uid="uid://dkkyndwpr84cm" path="res://Characters.gd" id="1_6scwl"]
 [ext_resource type="PackedScene" uid="uid://b3is2c3ad72tg" path="res://character_line.tscn" id="2_johcl"]
 
 [node name="Window" type="Window" node_paths=PackedStringArray("CharacterList")]

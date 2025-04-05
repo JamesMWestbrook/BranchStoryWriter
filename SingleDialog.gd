@@ -20,6 +20,8 @@ var comment:bool = false
 @onready var dialog_button = $HBoxContainer2/DialogCopy
 @onready var speaker_button = $HBoxContainer/SpeakerCopy
 
+@onready var suggestions_label: Label = $HBoxContainer4/SuggestionsLabel
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -127,4 +129,12 @@ func _on_delete_button_down():
 	deleted.emit()
 	queue_free()
 	
-
+func _show_suggestion(suggestion_list:Array):
+	if comment:
+		return
+	suggestions_label.text = ""
+	for suggestion in suggestion_list:
+		if suggestion.correct:
+			continue
+		suggestions_label.text += ("Could not recognize the word " + suggestion.word + ". Possible alternatives are: " + str(suggestion.suggestion))
+	

@@ -45,7 +45,7 @@ func _create_dialog(node, first=false, loading = false, data = {}):
 	dialog.deleted.connect(_on_dialog_delete)
 	await get_tree().process_frame
 	await get_tree().process_frame
-	Scroll.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
+	#Scroll.ensure_control_visible(dialog.get_node("HBoxContainer2/DialogCopy"))
 	dialog.get_node("HBoxContainer/LineEdit").grab_focus()
 	dialog.import.connect(_import.bind(dialog))
 	if loading:
@@ -64,7 +64,7 @@ func _set_title(new_title):
 		TYPE.WINDOW:
 			$"../..".title = new_title
 		TYPE.PANEL:
-			$VBoxContainer/Title.text = new_title
+			$VBoxContainer/HBoxContainer/Title.text = new_title
 			
 			
 func _set_word_count(new_count):
@@ -118,3 +118,14 @@ func _import(dialog:SingleDialog):
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_update_scene_data()
+
+
+func _on_spell_check_button_down() -> void:
+	for dialog:SingleDialog in VBox.get_children():
+		var suggestions_list:Array = Globals.spell_check(dialog.dialog_edit.text)
+		dialog._show_suggestion(suggestions_list)
+
+
+
+	
+	

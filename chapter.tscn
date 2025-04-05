@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxpkcqo7palr1"]
 
-[ext_resource type="Script" path="res://chapter.gd" id="1_715lu"]
-[ext_resource type="Script" path="res://ScrollMatch.gd" id="1_dtbjd"]
+[ext_resource type="Script" uid="uid://c450u2bkopf0a" path="res://chapter.gd" id="1_715lu"]
+[ext_resource type="Script" uid="uid://dp8bdhkqyngba" path="res://ScrollMatch.gd" id="1_dtbjd"]
 
 [node name="Chapter" type="BoxContainer"]
 offset_right = 469.0

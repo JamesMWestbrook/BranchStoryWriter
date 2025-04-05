@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhcbreqqqh448"]
 
-[ext_resource type="Script" path="res://SceneGraphNode.gd" id="1_6jnj5"]
+[ext_resource type="Script" uid="uid://criya8fipagsl" path="res://SceneGraphNode.gd" id="1_6jnj5"]
 
 [node name="GraphNode" type="GraphNode"]
 offset_right = 219.0

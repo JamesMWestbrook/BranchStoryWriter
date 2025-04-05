@@ -9,7 +9,6 @@ signal set_layout(new_layout:String)
 
 var configdata:ConfigData = ConfigData.new()
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()

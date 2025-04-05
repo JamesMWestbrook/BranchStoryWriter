@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cjaf30ohu3nqq"]
 
-[ext_resource type="Script" path="res://graph_edit.gd" id="1_nsxrj"]
-[ext_resource type="Script" path="res://TitleBar.gd" id="3_2wqex"]
+[ext_resource type="Script" uid="uid://cjtdqmwwd4hec" path="res://graph_edit.gd" id="1_nsxrj"]
+[ext_resource type="Script" uid="uid://cieqyqgpg12a7" path="res://TitleBar.gd" id="3_2wqex"]
 [ext_resource type="PackedScene" uid="uid://0abfv2n2a0ma" path="res://Characters.tscn" id="4_7xxva"]
 [ext_resource type="PackedScene" uid="uid://b3is2c3ad72tg" path="res://character_line.tscn" id="5_8shvh"]
 [ext_resource type="PackedScene" uid="uid://f8r18060uj8l" path="res://WritingPanel.tscn" id="5_vcs5m"]
@@ -75,6 +75,10 @@ text = "Characters
 visible = false
 CharLine = ExtResource("5_8shvh")
 
+[node name="SpellCheckButton" type="Button" parent="TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "SpellCheck"
+
 [node name="WordCount" type="Label" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -126,7 +130,6 @@ filters = PackedStringArray("*.tres")
 [node name="SaveFile" type="FileDialog" parent="TitleBar"]
 initial_position = 1
 size = Vector2i(500, 500)
-ok_button_text = "Save"
 access = 2
 filters = PackedStringArray("*.tres")
 
@@ -258,6 +261,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
+type = 0
 
 [node name="WritingWindow" parent="." instance=ExtResource("6_eimfy")]
 unique_name_in_owner = true
@@ -287,6 +291,7 @@ grow_vertical = 2
 [connection signal="button_down" from="TitleBar/HBoxContainer/SettingsButton" to="TitleBar" method="_on_settings_button_down"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/AddScene" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/Characters" to="TitleBar/HBoxContainer/Characters/Window" method="show"]
+[connection signal="button_down" from="TitleBar/HBoxContainer/SpellCheckButton" to="." method="_on_spell_check_button_button_down"]
 [connection signal="text_changed" from="TitleBar/HBoxContainer/EditGoal" to="." method="_on_edit_goal_text_changed"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/ClearDebug" to="TitleBar" method="_on_clear_debug_button_down"]
 [connection signal="button_down" from="TitleBar/HBoxContainer/Backupdebug" to="." method="_make_backup"]

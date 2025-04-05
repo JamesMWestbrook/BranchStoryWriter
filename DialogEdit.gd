@@ -18,4 +18,3 @@ func _input(event):
 				get_viewport().set_input_as_handled()
 func _on_text_set():
 	pass # Replace with function body.
-

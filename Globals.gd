@@ -11,6 +11,7 @@ static var backups:Array[String]
 static func new_export_path(path:String):
 	Globals.export_folder = path.get_base_dir()
 
+static var spell_checker = SpellChecker.new()
 
 static func set_export_path():
 	Globals.export_folder = set_my_documents()
@@ -41,3 +42,21 @@ static func clear():
 	file_name = ""
 	Globals.main.clear()
 	backups.clear()
+
+
+static func spell_check(sentence:String):
+		var comma_removed:String = sentence
+		var symbols = [",",".","!","?"]
+		for i in symbols:
+			comma_removed = comma_removed.replace(i,"")
+		
+		var sentence_array:Array = comma_removed.split(" ")
+		sentence_array.erase("")
+		
+		var suggestions:Array
+		for word in sentence_array:
+			if spell_checker.spell(word):
+				suggestions.append({"correct":true, "word": word,"suggestion":""})
+			else:
+				suggestions.append({"correct":false, "word" : word, "suggestion": spell_checker.suggest(word)})
+		return suggestions

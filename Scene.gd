@@ -85,6 +85,7 @@ func _export_scene():
 			full_scene += "*******"
 		full_scene += "\n"
 	full_scene += "------------------\n"
+	
 	return full_scene
 func _export_scene_html():
 	var full_scene:String = "<h2>&emsp;" + title_edit.text + "</h2>\n"
@@ -97,6 +98,7 @@ func _export_scene_html():
 			full_scene += "</i>"
 		full_scene += "\n"
 	full_scene += "\n"
+	full_scene = check_conversions(full_scene)
 	return full_scene
 func _on_file_dialog_file_selected(path):
 	var file = FileAccess.open(path,FileAccess.WRITE)
@@ -125,3 +127,9 @@ func _slim():
 func _medium():
 	$BoxContainer/TextEdit.show()
 	$BoxContainer.size.y = $BoxContainer/Row1Container.size.y + $BoxContainer/TextEdit.size.y
+func check_conversions(scene:String) -> String:
+	for conv:ConversionLine in Conversion.main.conversion_parent.get_children():
+		if scene.contains(conv.From.text):
+			scene = scene.replacen(conv.From.text, conv.To.text)
+	
+	return scene

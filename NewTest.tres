@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://bl4sbu4mbcytf"]
 
-[ext_resource type="Script" path="res://SaveData.gd" id="1_rdkes"]
+[ext_resource type="Script" uid="uid://crjocnck8istt" path="res://SaveData.gd" id="1_rdkes"]
 
 [resource]
 script = ExtResource("1_rdkes")
-node_connections = Array[Dictionary]([])
-all_nodes = Array[Dictionary]([])
-characters = Array[String]([])
+file_name = ""
+export_folder = ""
+chapters = Array[Dictionary]([])
+characters = Array[Dictionary]([])
+GoalHistory = {}
+CurrentDailyGoal = 0
+conversions = {}
+backups = Array[String]([])
+notes = ""

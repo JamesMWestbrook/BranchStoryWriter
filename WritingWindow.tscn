@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cewlefdinvu0c"]
 
 [ext_resource type="PackedScene" uid="uid://bbod0wg6xf4wa" path="res://SingleDialog.tscn" id="1_522wy"]
-[ext_resource type="Script" path="res://WritingWindow.gd" id="1_tgfnc"]
+[ext_resource type="Script" uid="uid://dhru8fsct7jpt" path="res://WritingWindow.gd" id="1_tgfnc"]
 [ext_resource type="PackedScene" uid="uid://bfxdy5x1tuca5" path="res://WritingChildren.tscn" id="3_f5irm"]
 
 [node name="Window" type="Window"]

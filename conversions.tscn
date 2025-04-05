@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bupxx1k5y20dw"]
 
-[ext_resource type="Script" path="res://conversions.gd" id="1_30tlx"]
+[ext_resource type="Script" uid="uid://df7b7n253conh" path="res://conversions.gd" id="1_30tlx"]
 
 [node name="Conversions" type="Window"]
 initial_position = 4

@@ -74,6 +74,9 @@ func _ready():
 		history[date] = (Goal(CurrentDailyGoal,_update_word_count(),false,date))
 	else:
 		pass
+	var success = Globals.spell_checker.load_dictionary("res://addons/hunspell/dictionaries/en_US.aff", 
+										   "res://addons/hunspell/dictionaries/en_US.dic")
+
 
 		
 func _process(delta):
@@ -315,3 +318,37 @@ func _update_stats():
 
 func _on_notes_edit_text_changed():
 	notes = %NotesEdit.text
+
+
+func _on_spell_check_button_button_down() -> void:
+	# Create a SpellChecker instance
+	var spell_checker = SpellChecker.new()
+
+# Load a dictionary
+	var success = spell_checker.load_dictionary("res://addons/hunspell/dictionaries/en_US.aff", 
+										   "res://addons/hunspell/dictionaries/en_US.dic")
+	
+	for c:Chapter in ChapterContainer.get_children():
+		var chapter_clean:bool = true
+		for s:Scene in c.SceneContainer.get_children():
+			var scene_clean:bool = true
+			for dialogs in s.scene:
+				for d:String in dialogs.dialog:
+					var comma_removed = d.replace(",","")
+					var array:Array = comma_removed.split(" ")
+					for word in array:
+						if spell_checker.spell(word):
+							print("Correct")
+						else:
+							print("Mispelling")
+							scene_clean = false
+			if scene_clean:
+				s.title_edit.self_modulate = Color.DARK_GREEN
+			else:
+				chapter_clean = false
+				s.title_edit.self_modulate = Color.RED
+		if chapter_clean:
+			c.TitleEdit.self_modulate = Color.DARK_GREEN
+		else:
+			c.TitleEdit.self_modulate = Color.RED
+					

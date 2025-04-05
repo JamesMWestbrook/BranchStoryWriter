@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://f8r18060uj8l"]
 
-[ext_resource type="Script" path="res://WritingWindow.gd" id="1_yrtje"]
+[ext_resource type="Script" uid="uid://dhru8fsct7jpt" path="res://WritingWindow.gd" id="1_yrtje"]
 [ext_resource type="PackedScene" uid="uid://bbod0wg6xf4wa" path="res://SingleDialog.tscn" id="2_x320a"]
 [ext_resource type="PackedScene" uid="uid://bfxdy5x1tuca5" path="res://WritingChildren.tscn" id="3_5teo2"]
 
 [node name="Window" type="Control"]
-visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
 anchor_right = 0.519
@@ -28,10 +27,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Title Here"
+
+[node name="SpellCheck" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "SpellCheck"
 
 [node name="ScrollContainer" parent="VBoxContainer" instance=ExtResource("3_5teo2")]
 layout_mode = 2
@@ -40,3 +47,5 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Word Count:"
+
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/SpellCheck" to="." method="_on_spell_check_button_down"]

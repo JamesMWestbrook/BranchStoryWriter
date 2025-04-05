@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://co3uisjc08oy5"]
 
-[ext_resource type="Script" path="res://Scene.gd" id="1_sbm3w"]
+[ext_resource type="Script" uid="uid://smdi31lyl1cr" path="res://Scene.gd" id="1_sbm3w"]
 
 [node name="Scene" type="PanelContainer" groups=["scenes"]]
 custom_minimum_size = Vector2(450, 0)
@@ -35,7 +35,7 @@ item_count = 2
 popup/item_0/text = "Export"
 popup/item_0/id = 1
 popup/item_1/text = "Delete"
-popup/item_1/id = 0
+popup/item_1/id = 1
 
 [node name="WordCount" type="Label" parent="BoxContainer/Row1Container"]
 custom_minimum_size = Vector2(141, 0)

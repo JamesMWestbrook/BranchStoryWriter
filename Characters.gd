@@ -47,7 +47,3 @@ func _fix_index(index_removed):
 
 
 	
-
-
-
-
