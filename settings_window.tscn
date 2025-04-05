@@ -139,6 +139,30 @@ layout_mode = 2
 text = "Include characters when exporting
 script"
 
+[node name="DictionaryButton" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Custom Dictionary"
+
+[node name="Window" type="Window" parent="ScrollContainer/VBoxContainer/DictionaryButton"]
+initial_position = 4
+size = Vector2i(260, 280)
+visible = false
+
+[node name="WordContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/DictionaryButton/Window"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer"]
+layout_mode = 2
+
+[node name="NewWordLineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer/HBoxContainer"]
+custom_minimum_size = Vector2(162.8, 0)
+layout_mode = 2
+
+[node name="AddWordButton" type="Button" parent="ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add Word"
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer6/SizeOption" to="." method="_on_size_option_item_selected"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/ThemeOption" to="." method="_on_theme_option_item_selected"]
@@ -151,3 +175,6 @@ script"
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer5/Layout" to="." method="_on_layout_item_selected"]
 [connection signal="button_down" from="ScrollContainer/VBoxContainer/Conversion Options" to="Conversions" method="show"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/ExportCharWithStory" to="." method="_on_export_char_with_story_toggled"]
+[connection signal="button_down" from="ScrollContainer/VBoxContainer/DictionaryButton" to="ScrollContainer/VBoxContainer/DictionaryButton/Window" method="show"]
+[connection signal="close_requested" from="ScrollContainer/VBoxContainer/DictionaryButton/Window" to="ScrollContainer/VBoxContainer/DictionaryButton/Window" method="hide"]
+[connection signal="button_down" from="ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer/HBoxContainer/AddWordButton" to="." method="_on_add_word_button_button_down"]

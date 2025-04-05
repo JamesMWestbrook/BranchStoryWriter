@@ -47,6 +47,8 @@ func _ready():
 	Globals.Loading = true
 	save_time_left = 666
 	Settings.update_theme.connect(_update_theme) 
+	var success = Globals.spell_checker.load_dictionary("res://addons/hunspell/dictionaries/en_US.aff", 
+										   "res://addons/hunspell/dictionaries/en_US.dic")
 	await get_tree().create_timer(0.01).timeout
 	if Settings.configdata.autoOpen and Settings.configdata.last_save_path != "":
 		_on_load_button_down()
@@ -74,8 +76,7 @@ func _ready():
 		history[date] = (Goal(CurrentDailyGoal,_update_word_count(),false,date))
 	else:
 		pass
-	var success = Globals.spell_checker.load_dictionary("res://addons/hunspell/dictionaries/en_US.aff", 
-										   "res://addons/hunspell/dictionaries/en_US.dic")
+	
 
 
 		

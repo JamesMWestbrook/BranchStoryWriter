@@ -9,6 +9,9 @@ signal set_layout(new_layout:String)
 
 var configdata:ConfigData = ConfigData.new()
 
+const ADDED_WORD_SCENE = preload("res://added_word.tscn")
+@onready var new_word_line_edit: LineEdit = $ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer/HBoxContainer/NewWordLineEdit
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
@@ -25,6 +28,17 @@ func _ready():
 	%AutoOpen.button_pressed = configdata.autoOpen
 	%PopoutCheckBox.button_pressed = configdata.popout
 	%ExportCharWithStory.button_pressed = configdata.export_char_with_story
+	
+	await get_tree().process_frame
+	_load_words()
+	
+	
+	
+func _load_words():
+	for word in configdata.custom_words:
+		_spawn_word(word,true)
+		
+		
 func _load_defaults():
 	pass
 func _on_theme_option_item_selected(index):
@@ -112,3 +126,23 @@ func _on_size_option_item_selected(index):
 				scene._slim()
 			for chapter:Chapter in get_tree().get_nodes_in_group("chapters"):
 				chapter._medium()
+func _remove_word(word:String):
+	configdata.custom_words.erase(word)
+	Globals.spell_checker.remove_word(word)
+
+func _spawn_word(word:String,loading:bool=false):
+	if configdata.custom_words.has(word) and !loading:
+		return
+	Globals.spell_checker.add_word(word)
+	var new_word = ADDED_WORD_SCENE.instantiate()
+	new_word.update_words.connect(_remove_word)
+	$ScrollContainer/VBoxContainer/DictionaryButton/Window/WordContainer.add_child(new_word)
+	new_word.word_label.text = word
+	
+	if !loading:
+		configdata.custom_words.append(word)
+
+
+func _on_add_word_button_button_down() -> void:
+	_spawn_word(new_word_line_edit.text)
+	new_word_line_edit.text = ""

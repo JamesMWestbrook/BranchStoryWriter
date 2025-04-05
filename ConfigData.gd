@@ -20,6 +20,9 @@ const config_path:String = "user://Config.tres"
 @export var popout:bool
 @export var layout:String = "Horizontal"
 
+@export var custom_words:Array
+
+
 func _save():
 	ResourceSaver.save(self,config_path)
 	

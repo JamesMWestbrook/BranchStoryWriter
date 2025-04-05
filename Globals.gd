@@ -8,10 +8,12 @@ static var file_name:String
 static var backup_folder:String
 static var export_folder:String
 static var backups:Array[String]
+static var spell_checker = SpellChecker.new()
+
+
 static func new_export_path(path:String):
 	Globals.export_folder = path.get_base_dir()
 
-static var spell_checker = SpellChecker.new()
 
 static func set_export_path():
 	Globals.export_folder = set_my_documents()
@@ -46,7 +48,7 @@ static func clear():
 
 static func spell_check(sentence:String):
 		var comma_removed:String = sentence
-		var symbols = [",",".","!","?","\"",":"]
+		var symbols = [",",".","!","?","\"",":","[i]","[/i]","[b]","[/b]"]
 		for i in symbols:
 			comma_removed = comma_removed.replace(i,"")
 		
