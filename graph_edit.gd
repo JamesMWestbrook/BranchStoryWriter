@@ -332,16 +332,12 @@ func _on_spell_check_button_button_down() -> void:
 		var chapter_clean:bool = true
 		for s:Scene in c.SceneContainer.get_children():
 			var scene_clean:bool = true
-			for dialogs in s.scene:
-				for d:String in dialogs.dialog:
-					var comma_removed = d.replace(",","")
-					var array:Array = comma_removed.split(" ")
-					for word in array:
-						if spell_checker.spell(word):
-							print("Correct")
-						else:
-							print("Mispelling")
-							scene_clean = false
+			for dialog in s.scene:
+				if dialog.comment:
+					continue
+				var suggestions:Array = Globals.spell_check(dialog.dialog)
+				if !suggestions.is_empty():
+					scene_clean = false
 			if scene_clean:
 				s.title_edit.self_modulate = Color.DARK_GREEN
 			else:

@@ -136,5 +136,5 @@ func _show_suggestion(suggestion_list:Array):
 	for suggestion in suggestion_list:
 		if suggestion.correct:
 			continue
-		suggestions_label.text += ("Could not recognize the word " + suggestion.word + ". Possible alternatives are: " + str(suggestion.suggestion))
+		suggestions_label.text += ("Could not recognize the word \"" + suggestion.word + "\". Possible alternatives are: " + str(suggestion.suggestion))
 	

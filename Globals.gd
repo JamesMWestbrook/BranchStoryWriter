@@ -46,7 +46,7 @@ static func clear():
 
 static func spell_check(sentence:String):
 		var comma_removed:String = sentence
-		var symbols = [",",".","!","?"]
+		var symbols = [",",".","!","?","\"",":"]
 		for i in symbols:
 			comma_removed = comma_removed.replace(i,"")
 		
@@ -56,7 +56,8 @@ static func spell_check(sentence:String):
 		var suggestions:Array
 		for word in sentence_array:
 			if spell_checker.spell(word):
-				suggestions.append({"correct":true, "word": word,"suggestion":""})
+				pass
+				#suggestions.append({"correct":true, "word": word,"suggestion":""})
 			else:
 				suggestions.append({"correct":false, "word" : word, "suggestion": spell_checker.suggest(word)})
 		return suggestions
