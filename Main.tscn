@@ -40,7 +40,7 @@ grow_vertical = 2
 [node name="MenuButton" type="MenuButton" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
 text = "File"
-item_count = 8
+item_count = 9
 popup/item_0/text = "Save"
 popup/item_0/id = 0
 popup/item_1/text = "New"
@@ -57,6 +57,8 @@ popup/item_6/text = "Quit Without Saving"
 popup/item_6/id = 3
 popup/item_7/text = "Export as HTML"
 popup/item_7/id = 7
+popup/item_8/text = "Export as JSON"
+popup/item_8/id = 8
 
 [node name="SettingsButton" type="Button" parent="TitleBar/HBoxContainer"]
 layout_mode = 2
@@ -197,13 +199,13 @@ size = Vector2i(784, 624)
 access = 2
 filters = PackedStringArray("*.html")
 
-[node name="ExportCSVFileDialog" type="FileDialog" parent="TitleBar"]
+[node name="ExportJSONFileDialog" type="FileDialog" parent="TitleBar"]
 auto_translate_mode = 1
 title = "Export the Project"
 initial_position = 4
 size = Vector2i(784, 624)
 access = 2
-filters = PackedStringArray("*.html")
+filters = PackedStringArray("*.json")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -310,7 +312,7 @@ grow_vertical = 2
 [connection signal="button_down" from="TitleBar/SaveNamePopup/OK" to="TitleBar/SaveNamePopup" method="hide"]
 [connection signal="file_selected" from="TitleBar/ExportFileDialog" to="TitleBar" method="_on_export_file_dialog_file_selected"]
 [connection signal="file_selected" from="TitleBar/ExportHTMLFileDialog" to="TitleBar" method="_on_export_file_html_selected"]
-[connection signal="file_selected" from="TitleBar/ExportCSVFileDialog" to="TitleBar" method="_on_export_csv_file_dialog_file_selected"]
+[connection signal="file_selected" from="TitleBar/ExportJSONFileDialog" to="TitleBar" method="_on_export_json_file_dialog_file_selected"]
 [connection signal="button_down" from="HBoxContainer/Save" to="." method="_on_save_button_down"]
 [connection signal="button_down" from="HBoxContainer/Load" to="." method="_on_load_button_down"]
 [connection signal="button_down" from="HBoxContainer/SelectAll" to="." method="_on_select_all_button_down"]

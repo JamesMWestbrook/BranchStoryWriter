@@ -11,7 +11,7 @@ signal quit_no_save
 signal open_file
 @onready var ExportDialog = $ExportFileDialog
 @onready var ExportHtmlDialog = $ExportHTMLFileDialog
-@onready var export_csv_file_dialog: FileDialog = $ExportCSVFileDialog
+@onready var export_json_file_dialog: FileDialog = $ExportJSONFileDialog
 
 func _process(_delta):
 	#if following:
@@ -73,14 +73,14 @@ func _file_option_chosen(id:int):
 			ExportHtmlDialog.current_dir = Globals.export_folder
 			ExportHtmlDialog.current_file = file_name
 			ExportHtmlDialog.show()
-		8: #export csv
+		8: #export json
 			if Globals.export_folder.is_empty():
 				Globals.set_export_path()
 			var file_name:String = Globals.file_name.get_file()
 			file_name = file_name.replace(".tres","")
-			export_csv_file_dialog.current_dir = Globals.export_folder
-			export_csv_file_dialog.current_file = file_name
-			export_csv_file_dialog.show()
+			export_json_file_dialog.current_dir = Globals.export_folder
+			export_json_file_dialog.current_file = file_name
+			export_json_file_dialog.show()
 			
 			
 func clear():
@@ -120,7 +120,7 @@ func _on_export_file_dialog_file_selected(path):
 	OS.shell_open(path.get_base_dir())
 	Globals.new_export_path(path)
 
-func _on_export_file_html_selected(path):
+func _on_export_file_html_selected(path:String):
 	Globals.export_folder = path.get_base_dir()
 	var export:String = _export_html()
 	var file = FileAccess.open(path,FileAccess.WRITE)
@@ -131,3 +131,24 @@ func _on_export_file_html_selected(path):
 	
 func _on_clear_debug_button_down():
 	Globals.export_folder = ""
+
+func _on_export_json_file_dialog_file_selected(path:String):
+	Globals.export_folder = path.get_base_dir()
+	var export:String = _export_json()
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(export)
+	OS.shell_open(path.get_base_dir())
+	Globals.new_export_path(path)
+
+func _export_json() -> String:
+	var file_name = Settings.configdata.last_save_path.get_file()
+	file_name = file_name.replace(".tres","")
+	var export:String = "{\n"
+	
+	#export each chapter
+	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
+		export += chapter._export_chapter_json()
+	#Will not export characters as JSON will just have dialog
+	export = export.trim_suffix(",\n\n")
+	export += "\n}"
+	return export

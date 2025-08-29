@@ -133,3 +133,20 @@ func check_conversions(scene:String) -> String:
 			scene = scene.replacen(conv.From.text, conv.To.text)
 	
 	return scene
+
+
+func _export_scene_json() -> String:
+	var full_scene:String
+	var index:int
+	for d in scene:
+		if d.comment:
+			continue
+		var left_side:String = "\"" + title_edit.text + "_" + str(index) + "\""
+		left_side = left_side.replacen(" ", "_")
+		full_scene += left_side
+		full_scene += " : \"" + d.dialog + "\","
+		full_scene += "\n"
+		index += 1
+	full_scene += "\n"
+	full_scene = check_conversions(full_scene)
+	return full_scene
