@@ -35,7 +35,7 @@ item_count = 2
 popup/item_0/text = "Export"
 popup/item_0/id = 1
 popup/item_1/text = "Delete"
-popup/item_1/id = 1
+popup/item_1/id = 0
 
 [node name="WordCount" type="Label" parent="BoxContainer/Row1Container"]
 custom_minimum_size = Vector2(141, 0)

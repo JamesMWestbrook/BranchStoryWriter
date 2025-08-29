@@ -11,6 +11,8 @@ signal quit_no_save
 signal open_file
 @onready var ExportDialog = $ExportFileDialog
 @onready var ExportHtmlDialog = $ExportHTMLFileDialog
+@onready var export_csv_file_dialog: FileDialog = $ExportCSVFileDialog
+
 func _process(_delta):
 	#if following:
 		#DisplayServer.window_set_position(
@@ -71,6 +73,14 @@ func _file_option_chosen(id:int):
 			ExportHtmlDialog.current_dir = Globals.export_folder
 			ExportHtmlDialog.current_file = file_name
 			ExportHtmlDialog.show()
+		8: #export csv
+			if Globals.export_folder.is_empty():
+				Globals.set_export_path()
+			var file_name:String = Globals.file_name.get_file()
+			file_name = file_name.replace(".tres","")
+			export_csv_file_dialog.current_dir = Globals.export_folder
+			export_csv_file_dialog.current_file = file_name
+			export_csv_file_dialog.show()
 			
 			
 func clear():
