@@ -87,10 +87,10 @@ func _export_chapter_html() -> String:
 	return export
 	
 	
-func _export_chapter_json() -> String:
+func _export_chapter_json(index:int) -> String:
 	var export:String = "\n"
 	for scene:Scene in SceneContainer.get_children():
-		export += scene._export_scene_json()
+		export += scene._export_scene_json(index)
 	return export
 	
 	

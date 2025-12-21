@@ -6,7 +6,7 @@ var scene: Array[Dictionary]:
 		pass
 
 var writing_in_this_scene:bool
-@onready var title_edit = $BoxContainer/Row1Container/TitleEdit
+@onready var title_edit:LineEdit = $BoxContainer/Row1Container/TitleEdit
 @onready var scene_desc_edit:TextEdit = $BoxContainer/TextEdit
 @onready var WordCount:Label = $BoxContainer/Row1Container/WordCount
 @onready var AddSceneRight:Button = $BoxContainer/Row1Container/AddSceneRight
@@ -135,13 +135,13 @@ func check_conversions(scene:String) -> String:
 	return scene
 
 
-func _export_scene_json() -> String:
+func _export_scene_json(chapter_index:int) -> String:
 	var full_scene:String
 	var index:int
 	for d in scene:
 		if d.comment:
 			continue
-		var left_side:String = "\"" + title_edit.text + "_" + str(index) + "\""
+		var left_side:String = "\"" + title_edit.text.replacen(" ", "_") + "_" + str(index) + "\""
 		left_side = left_side.replacen(" ", "_")
 		full_scene += left_side
 		full_scene += " : \"" + d.dialog + "\","

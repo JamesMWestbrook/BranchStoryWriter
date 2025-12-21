@@ -145,9 +145,11 @@ func _export_json() -> String:
 	file_name = file_name.replace(".tres","")
 	var export:String = "{\n"
 	
+	var index:int
 	#export each chapter
 	for chapter:Chapter in $"../SplitContainer/ChapterScroll/ChapterSection/ChapterContainer".get_children():
-		export += chapter._export_chapter_json()
+		export += chapter._export_chapter_json(index)
+		index += 1
 	#Will not export characters as JSON will just have dialog
 	export = export.trim_suffix(",\n\n")
 	export += "\n}"
